@@ -1,6 +1,10 @@
 ﻿app.controller('AppCtrl', function ($scope, $ionicModal, $ionicPopover, $timeout) {
     // Form data for the login modal
-    $scope.loginData = {};
+    //$scope.loginData = {};
+    $scope.menus = [
+        {id: 1, descricao:"Projetos", href: "#/app/projetos"},
+        {id: 2, descricao:"Configurações", href: "#/app/config"}
+    ];
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
@@ -12,16 +16,16 @@
     var fab = document.getElementById('fab');
     fab.addEventListener('click', function () {
         //location.href = 'https://twitter.com/satish_vr2011';
-        window.open('https://twitter.com/satish_vr2011', '_blank');
+        //window.open('https://twitter.com/satish_vr2011', '_blank');
     });
 
     // .fromTemplate() method
     var template = '<ion-popover-view>' +
                     '   <ion-header-bar>' +
-                    '       <h1 class="title">My Popover Title</h1>' +
+                    '       <h1 class="title">Opções</h1>' +
                     '   </ion-header-bar>' +
                     '   <ion-content class="padding">' +
-                    '       My Popover Contents' +
+                    '       Sincronizar' +
                     '   </ion-content>' +
                     '</ion-popover-view>';
 
@@ -31,7 +35,6 @@
     $scope.closePopover = function () {
         $scope.popover.hide();
     };
-    //Cleanup the popover when we're done with it!
     $scope.$on('$destroy', function () {
         $scope.popover.remove();
     });

@@ -1,8 +1,4 @@
 // Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 var app = angular.module('starter', ['ionic', 'ionic-material']);
 
 app.run(function ($ionicPlatform) {
@@ -21,7 +17,7 @@ app.run(function ($ionicPlatform) {
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-
+    
     .state('app', {
         url: '/app',
         abstract: true,
@@ -35,6 +31,26 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             'menuContent': {
                 templateUrl: 'templates/projetos.html',
                 controller: 'ProjetosCtrl'
+            }
+        }
+    })
+
+    .state('app.projeto', {
+        url: '/projetos/:projetoId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/projeto.html',
+            controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.config', {
+        url: '/config',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/config.html',
+                controller: 'ConfigCtrl'
             }
         }
     })
