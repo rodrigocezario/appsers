@@ -1,11 +1,19 @@
-﻿
-<ion-view view-title="Projetos">
+﻿<ion-view view-title="SERS">
     <ion-content>
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title">Lista de Projetos</strong>
         </div>
         <div class="im-wrapper">
-            
+            <div class="list">
+                <a class="item " ng-repeat="projeto in projetos" href="/#/app/projetos/{{projeto.id_}}">
+                    <h2>{{projeto.nome}}</h2>
+                    <p>{{projeto.descricao}}</p>
+                </a>
+            </div>
         </div>
     </ion-content>
+
+    <button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
+        <i class="icon ion-plus"></i>
+    </button>
 </ion-view>

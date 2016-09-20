@@ -1,10 +1,9 @@
 // Ionic Starter App
-var app = angular.module('starter', ['ionic', 'ionic-material']);
+var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova']);
 
-app.run(function ($ionicPlatform) {
+var db = null;
+app.run(function ($ionicPlatform, $cordovaSQLite) {
     $ionicPlatform.ready(function () {
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
 
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -12,6 +11,16 @@ app.run(function ($ionicPlatform) {
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
+
+        //iniciando banco de dados local
+        if (window.cordova) {
+            db = $cordovaSQLite.openDB({ name: "db_sers.db"});
+        }else{
+            db = window.openDatabase("db_sers.db", '1.0', 'db_sers', 2 * 1024 * 1024); // browser
+        }
+        //$cordovaSQLite.deleteDB("db_sers.db");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projetos (id_ INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
+
     });
 })
 
