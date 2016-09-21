@@ -3,30 +3,30 @@
 		<div class="bar bar-subheader bar-stable static text-center">
 	        <strong class="title">Editar Projeto</strong>
 	    </div>
-	    <div class="im-wrapper">
+	    <div class="im-wrapper" ng-repeat="p in projeto">
 	    	<!-- Forms -->
 	        <h4 class="border-top"><i class="icon ion-edit"></i> Dados Cadastrais</h4>
 	        <div class="list">
 	            <label class="item item-input item-floating-label">
 	                <span class="input-label">Nome do Projeto</span>
-	                <input type="text" placeholder="Nome do Projeto" ng-required="true">
+	                <input type="text" placeholder="Nome do Projeto" ng-model="p.nome" ng-required="true">
 	            </label>
 	            <label class="item item-input item-floating-label">
 	                <span class="input-label">Descrição do Projeto</span>
-	                <textarea rows="7" placeholder="Descrição do Projeto" ng-required="true"></textarea>
+	                <textarea rows="7" placeholder="Descrição do Projeto" ng-model="p.descricao" ng-required="true"></textarea>
 	            </label>
 	            <label class="item item-input item-floating-label">
 	                <span class="input-label">Empresa</span>
-	                <input type="text" placeholder="Empresa" ng-required="true">
+	                <input type="text" placeholder="Empresa" ng-model="p.empresa" ng-required="true">
 	            </label>
 	            <label class="item item-input item-floating-label">
 	                <span class="input-label">Responsável</span>
-	                <input type="text" placeholder="Responsável" ng-required="true">
+	                <input type="text" placeholder="Responsável" ng-model="p.responsavel" ng-required="true">
 	            </label>
 	            <br/>
 	            <div class="item item-checkbox">
 	                <label class="checkbox">
-	                    <input type="checkbox">
+	                    <input type="checkbox" ng-model="p.compartilhar">
 	                </label>
 	                Compartilhar Projeto
 	                <span class="item-text-wrap">

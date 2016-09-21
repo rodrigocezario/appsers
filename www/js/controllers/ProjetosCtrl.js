@@ -1,4 +1,4 @@
-﻿app.controller('ProjetosCtrl', function ($scope, $stateParams, ionicMaterialInk, projetosAPILocal) {
+﻿app.controller('ProjetosCtrl', function ($scope, ionicMaterialInk, projetosAPILocal) {
     //ionic.material.ink.displayEffect();
     ionicMaterialInk.displayEffect();
     // Toggle Code Wrapper
@@ -41,14 +41,14 @@
         dt_criacao: "",
         dt_finalizado: ""
     });*/
-    //console.log(projetosAPILocal.getById(2);
     //$scope.projetos = projetosAPILocal.getById(1);
     $scope.projetos = projetosAPILocal.get();
 });
 
-app.controller('ProjetoCtrl', function($scope, $stateParams) {
-
-    /*btnIncluir.addEventListener('click', function () {
-        location.href = '/#/app/projetos/add';
-    });*/
+app.controller('ProjetoCtrl', function($scope, $stateParams, projetosAPILocal) {
+    
+    if(Number($stateParams.projetoId)){
+        var projeto = projetosAPILocal.getById($stateParams.projetoId);
+        $scope.projeto = projeto;
+    }
 });

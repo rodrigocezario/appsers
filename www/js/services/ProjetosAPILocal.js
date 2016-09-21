@@ -21,15 +21,14 @@ angular.module("appsers").factory("projetosAPILocal", function ($cordovaSQLite) 
 		$cordovaSQLite.execute(db, "SELECT * FROM projetos WHERE id_ = ?", [id]).then(
 			function(res) {
 				if (res.rows.length > 0) {
-					for (var i = 0; i < res.rows.length; i++) {
-						retorno.push(res.rows.item(i));
-					}
+					retorno.push(res.rows.item(0));
 				}else{
 					console.log('No records found');
 				}
 			}
 		);
 		return retorno;
+		
 	};
 
 	var _set = function(projeto) {
