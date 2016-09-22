@@ -1,8 +1,7 @@
 // Ionic Starter App
 var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova']);
-
 var db = null;
-app.run(function ($ionicPlatform, $cordovaSQLite) {
+app.run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
 
         if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -16,11 +15,15 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
         if (window.cordova) {
             db = $cordovaSQLite.openDB({ name: "db_sers.db"});
         }else{
-            db = window.openDatabase("db_sers.db", '1.0', 'db_sers', 2 * 1024 * 1024); // browser
+            db = window.openDatabase("db_sers.db", '1.0', 'db_sers', 2 * 1024 * 1024);
         }
-        //$cordovaSQLite.deleteDB("db_sers.db");
-        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projetos (id_ INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
-
+        db.transaction(function (tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS projetos (id_ INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
+        }, function(error) {
+            console.log('Transaction ERROR: ' + error.message);
+        }, function() {
+            console.log('Populated database OK');
+        });
     });
 })
 
@@ -47,9 +50,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     .state('app.projeto', {
         url: '/projetos/:projetoId',
         views: {
-          'menuContent': {
-            templateUrl: 'templates/projeto.html',
-            controller: 'ProjetoCtrl'
+            'menuContent': {
+                templateUrl: 'templates/projeto.html',
+                controller: 'ProjetosCtrl'
           }
         }
     })
