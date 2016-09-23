@@ -47,12 +47,92 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         }
     })
 
-    .state('app.projeto', {
+    .state('app.projeto-add', {
+        url: '/projetos/cadastro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-cadastro.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-menu', {
         url: '/projetos/:projetoId',
         views: {
             'menuContent': {
-                templateUrl: 'templates/projeto.html',
-                controller: 'ProjetosCtrl'
+                templateUrl: 'templates/projeto-menu.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-cadastro', {
+        url: '/projetos/:projetoId/cadastro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-cadastro.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-interessados', {
+        url: '/projetos/:projetoId/interessados',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-interessados.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-secoes', {
+        url: '/projetos/:projetoId/secoes',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-secoes.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-requsuario', {
+        url: '/projetos/:projetoId/requsuario',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-requsuario.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-reqsistema', {
+        url: '/projetos/:projetoId/reqsistema',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-reqsistema.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-rastreabilidade', {
+        url: '/projetos/:projetoId/rastreabilidade',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-rastreabilidade.html',
+                controller: 'ProjetoCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-participantes', {
+        url: '/projetos/:projetoId/participantes',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-participantes.html',
+                controller: 'ProjetoCtrl'
           }
         }
     })
@@ -66,6 +146,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         }
     })
+
     ;
 
     // if none of the above states are matched, use this as the fallback

@@ -6,24 +6,6 @@
        $scope.blinds();
     });
 
-    //métodos para manter projeto
-    if(Number($stateParams.projetoId)){
-        Promise.resolve( projetosAPILocal.getById($stateParams.projetoId) ).then(
-            function(res) {
-                $scope.projeto = res;
-            }
-        );
-    }
-
-    $scope.salvarProjeto = function (projeto) {
-        if(Number($stateParams.projetoId)){
-            projetosAPILocal.edit(projeto);
-        }else{
-            projeto.dt_criacao = new Date();
-            projetosAPILocal.insert(projeto);
-        }
-    };
-
     //metodos para efeito visual
     var resetEffect = function() {
         var inClass = document.querySelectorAll('.in');
@@ -53,14 +35,9 @@
         }, 100);
     };
 
-    $scope.blinds();
-
-    //metodos da listagem de projetos
-    if(!$stateParams.projetoId){
-        var btnIncluir = document.getElementById('btn-incluir');
-        btnIncluir.addEventListener('click', function () {
-            location.href = '/#/app/projetos/add';
-        });
-    }
+    var btnIncluir = document.getElementById('btn-incluir');
+    btnIncluir.addEventListener('click', function () {
+        location.href = '/#/app/projetos/cadastro';
+    });
     
 });
