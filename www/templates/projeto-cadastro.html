@@ -9,24 +9,24 @@
 		        <div class="list">
 		            <label class="item item-input item-floating-label">
 		                <span class="input-label">Nome do Projeto</span>
-		                <input type="text" placeholder="Nome do Projeto" ng-model="projeto.nome" ng-required="true">
+		                <input type="text" placeholder="Nome do Projeto" ng-model="projeto.nome" value="">
 		            </label>
 		            <label class="item item-input item-floating-label">
 		                <span class="input-label">Descrição do Projeto</span>
-		                <textarea rows="7" placeholder="Descrição do Projeto" ng-model="projeto.descricao" ng-required="true"></textarea>
+		                <textarea rows="7" placeholder="Descrição do Projeto" ng-model="projeto.descricao" value=""></textarea>
 		            </label>
 		            <label class="item item-input item-floating-label">
 		                <span class="input-label">Empresa</span>
-		                <input type="text" placeholder="Empresa" ng-model="projeto.empresa" ng-required="true">
+		                <input type="text" placeholder="Empresa" ng-model="projeto.empresa">
 		            </label>
 		            <label class="item item-input item-floating-label">
 		                <span class="input-label">Responsável</span>
-		                <input type="text" placeholder="Responsável" ng-model="projeto.responsavel" ng-required="true">
+		                <input type="text" placeholder="Responsável" ng-model="projeto.responsavel">
 		            </label>
 		            <br/>
 		            <div class="item item-checkbox">
 		                <label class="checkbox">
-		                    <input type="checkbox" ng-model="projeto.compartilhado">
+		                    <input type="checkbox" ng-model="projeto.compartilhado" ng-true-value="1">
 		                </label>
 		                Compartilhar Projeto
 		                <span class="item-text-wrap">

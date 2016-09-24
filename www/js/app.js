@@ -18,7 +18,10 @@ app.run(function ($ionicPlatform) {
             db = window.openDatabase("db_sers.db", '1.0', 'db_sers', 2 * 1024 * 1024);
         }
         db.transaction(function (tx) {
+            //tx.executeSql("DROP TABLE projetos");
             tx.executeSql("CREATE TABLE IF NOT EXISTS projetos (id_ INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
+            //tx.executeSql("DROP TABLE projetos_secoes");
+            tx.executeSql("CREATE TABLE IF NOT EXISTS projetos_secoes (id_ INTEGER PRIMARY KEY, id_projeto INTEGER, proposito TEXT, escopo TEXT, def_acron_abrev TEXT, referencias TEXT, organizacao TEXT, perspectiva TEXT, funcionalidades TEXT, caracteristicas_utilizador TEXT, restricoes TEXT, assuncoes_dependencias TEXT)");
         }, function(error) {
             console.log('Transaction ERROR: ' + error.message);
         }, function() {

@@ -1,17 +1,18 @@
 ﻿<ion-view view-title="SERS">
     <ion-content>
         <div class="bar bar-subheader bar-stable static text-center">
-            <strong class="title">Lista de Projetos</strong>
+            <strong class="title">Projetos</strong>
         </div>
-        <div class="im-wrapper">
-
-        </div>
-        <ion-list>
-            <ion-item ng-repeat="projeto in projetos" href="#/app/projetos/{{projeto.id_}}">
+        <ion-item ng-repeat="projeto in projetos" href="#/app/projetos/{{projeto.id_}}">
+            <div class="item-icon-left">
+                <i class="icon ion-ios-briefcase"></i>
                 <h2>{{projeto.nome}}</h2>
                 <p>{{projeto.descricao}}</p>
-            </ion-item>
-        </ion-list>
+            </div>
+            <div class="item-icon-right">
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </ion-item>
     </ion-content>
 
     <button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
