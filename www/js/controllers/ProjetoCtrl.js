@@ -1,4 +1,4 @@
-app.controller('ProjetoCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetosAPILocal, projetoSecoesAPILocal) {
+app.controller('ProjetoCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, secoesAPILocal) {
     
     setInitProjeto();
     setInitSecoes();
@@ -6,13 +6,13 @@ app.controller('ProjetoCtrl', function ($scope, $stateParams, ionicMaterialMotio
 	//métodos para manter projeto
     if(Number($stateParams.projetoId)){
         
-        Promise.resolve( projetosAPILocal.getById($stateParams.projetoId) ).then(
+        Promise.resolve( projetoAPILocal.getById($stateParams.projetoId) ).then(
             function(res) {
                 angular.merge($scope.projeto, res);
             }
         );
         
-        Promise.resolve( projetoSecoesAPILocal.getByIdProjeto($stateParams.projetoId) ).then(
+        Promise.resolve( secoesAPILocal.getByIdProjeto($stateParams.projetoId) ).then(
             function(res) {
                 angular.merge($scope.secoes, res);
             }
@@ -20,20 +20,20 @@ app.controller('ProjetoCtrl', function ($scope, $stateParams, ionicMaterialMotio
 
         $scope.salvarSecoes = function (secoes) {
             secoes.id_projeto = $stateParams.projetoId;
-            if(Number(secoes.id_)){
-                projetoSecoesAPILocal.edit(secoes);
+            if(Number(secoes.id)){
+                secoesAPILocal.edit(secoes);
             }else{
-                projetoSecoesAPILocal.insert(secoes);
+                secoesAPILocal.insert(secoes);
             }
         };
     }
 
     $scope.salvarProjeto = function (projeto) {
         if(Number($stateParams.projetoId)){
-            projetosAPILocal.edit(projeto);
+            projetoAPILocal.edit(projeto);
         }else{
             projeto.dt_criacao = new Date();
-            projetosAPILocal.insert(projeto);
+            projetoAPILocal.insert(projeto);
         }
     };
 

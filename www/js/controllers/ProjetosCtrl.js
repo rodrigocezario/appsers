@@ -1,8 +1,8 @@
-﻿app.controller('ProjetosCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetosAPILocal) {
+﻿app.controller('ProjetosCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal) {
 
     //atualiza exibição da lista ao voltar do cadastro
     $scope.$on('$ionicView.enter', function() {
-       $scope.projetos = projetosAPILocal.get();
+       $scope.projetos = projetoAPILocal.get();
        $scope.blinds();
     });
 
@@ -39,5 +39,6 @@
     btnIncluir.addEventListener('click', function () {
         location.href = '/#/app/projetos/cadastro';
     });
+    
     
 });

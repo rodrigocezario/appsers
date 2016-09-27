@@ -1,8 +1,8 @@
-angular.module("appsers").factory("projetoSecoesAPILocal", function ($cordovaSQLite) {
+angular.module("appsers").factory("secoesAPILocal", function ($cordovaSQLite) {
 	 
 	var _get = function() {
 		var retorno = [];
-		$cordovaSQLite.execute(db, "SELECT * FROM projetos_secoes").then(
+		$cordovaSQLite.execute(db, "SELECT * FROM secoes").then(
 			function(res) {
 				if (res.rows.length > 0) {
 					for (var i = 0; i < res.rows.length; i++) {
@@ -17,7 +17,7 @@ angular.module("appsers").factory("projetoSecoesAPILocal", function ($cordovaSQL
 	};
 	
 	var _getById = function(id) {
-		return $cordovaSQLite.execute(db, "SELECT * FROM projetos_secoes WHERE id_ = ?", [id]).then(
+		return $cordovaSQLite.execute(db, "SELECT * FROM secoes WHERE id = ?", [id]).then(
 			function(res) {
 				if (res.rows.length > 0) {
 					return res.rows.item(0);
@@ -29,7 +29,7 @@ angular.module("appsers").factory("projetoSecoesAPILocal", function ($cordovaSQL
 	};
 
 	var _getByIdProjeto = function(id) {
-		return $cordovaSQLite.execute(db, "SELECT * FROM projetos_secoes WHERE id_projeto = ? LIMIT 1", [id]).then(
+		return $cordovaSQLite.execute(db, "SELECT * FROM secoes WHERE id_projeto = ? LIMIT 1", [id]).then(
 			function(res) {
 				if (res.rows.length > 0) {
 					return res.rows.item(0);
@@ -41,7 +41,7 @@ angular.module("appsers").factory("projetoSecoesAPILocal", function ($cordovaSQL
 	};
 
 	var _insert = function(secao) {
-		var query = "INSERT INTO projetos_secoes (id_projeto, proposito, escopo, def_acron_abrev, referencias, organizacao, perspectiva, funcionalidades, caracteristicas_utilizador, restricoes, assuncoes_dependencias) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		var query = "INSERT INTO secoes (id_projeto, proposito, escopo, def_acron_abrev, referencias, organizacao, perspectiva, funcionalidades, caracteristicas_utilizador, restricoes, assuncoes_dependencias) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		var values = [secao.id_projeto, secao.proposito, secao.escopo, secao.def_acron_abrev, secao.referencias, secao.organizacao, secao.perspectiva, secao.funcionalidades, secao.caracteristicas_utilizador, secao.restricoes, secao.assuncoes_dependencias];
 
 		$cordovaSQLite.execute(db, query, values).then(
@@ -55,12 +55,12 @@ angular.module("appsers").factory("projetoSecoesAPILocal", function ($cordovaSQL
 	};
 
 	var _edit = function(secao) {
-		var query = "UPDATE projetos_secoes SET id_projeto = ?, proposito = ?, escopo = ?, def_acron_abrev = ?, referencias = ?, organizacao = ?, perspectiva = ?, funcionalidades = ?, caracteristicas_utilizador = ?, restricoes = ?, assuncoes_dependencias = ? WHERE id_ = ?";
-		var values = [secao.id_projeto, secao.proposito, secao.escopo, secao.def_acron_abrev, secao.referencias, secao.organizacao, secao.perspectiva, secao.funcionalidades, secao.caracteristicas_utilizador, secao.restricoes, secao.assuncoes_dependencias, secao.id_];
+		var query = "UPDATE secoes SET id_projeto = ?, proposito = ?, escopo = ?, def_acron_abrev = ?, referencias = ?, organizacao = ?, perspectiva = ?, funcionalidades = ?, caracteristicas_utilizador = ?, restricoes = ?, assuncoes_dependencias = ? WHERE id = ?";
+		var values = [secao.id_projeto, secao.proposito, secao.escopo, secao.def_acron_abrev, secao.referencias, secao.organizacao, secao.perspectiva, secao.funcionalidades, secao.caracteristicas_utilizador, secao.restricoes, secao.assuncoes_dependencias, secao.id];
 
 		$cordovaSQLite.execute(db, query, values).then(
 			function(res) {
-				console.log('UPDATE ID: '+secao.id_);
+				console.log('UPDATE ID: '+secao.id);
 			},
 			function(err) {
 				console.log('ERROR: '+err);

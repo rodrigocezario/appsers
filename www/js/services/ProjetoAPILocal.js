@@ -1,8 +1,8 @@
-angular.module("appsers").factory("projetosAPILocal", function ($cordovaSQLite) {
+angular.module("appsers").factory("projetoAPILocal", function ($cordovaSQLite) {
 	 
 	var _get = function() {
 		var retorno = [];
-		$cordovaSQLite.execute(db, "SELECT * FROM projetos").then(
+		$cordovaSQLite.execute(db, "SELECT * FROM projeto").then(
 			function(res) {
 				if (res.rows.length > 0) {
 					for (var i = 0; i < res.rows.length; i++) {
@@ -17,7 +17,7 @@ angular.module("appsers").factory("projetosAPILocal", function ($cordovaSQLite) 
 	};
 	
 	var _getById = function(id) {
-		return $cordovaSQLite.execute(db, "SELECT * FROM projetos WHERE id_ = ?", [id]).then(
+		return $cordovaSQLite.execute(db, "SELECT * FROM projeto WHERE id = ?", [id]).then(
 			function(res) {
 				if (res.rows.length > 0) {
 					return res.rows.item(0);
@@ -29,7 +29,7 @@ angular.module("appsers").factory("projetosAPILocal", function ($cordovaSQLite) 
 	};
 
 	var _insert = function(projeto) {
-		var query = "INSERT INTO projetos (nome, descricao, empresa, responsavel, compartilhado, dt_criacao, dt_finalizado) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		var query = "INSERT INTO projeto (nome, descricao, empresa, responsavel, compartilhado, dt_criacao, dt_finalizado) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		var values = [ projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado];
 
 		$cordovaSQLite.execute(db, query, values).then(
@@ -43,12 +43,12 @@ angular.module("appsers").factory("projetosAPILocal", function ($cordovaSQLite) 
 	};
 
 	var _edit = function(projeto) {
-		var query = "UPDATE projetos SET nome = ?, descricao = ?, empresa = ?, responsavel = ?, compartilhado = ?, dt_criacao = ?, dt_finalizado = ? WHERE id_ = ?";
-		var values = [ projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado, projeto.id_];
+		var query = "UPDATE projeto SET nome = ?, descricao = ?, empresa = ?, responsavel = ?, compartilhado = ?, dt_criacao = ?, dt_finalizado = ? WHERE id = ?";
+		var values = [ projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado, projeto.id];
 
 		$cordovaSQLite.execute(db, query, values).then(
 			function(res) {
-				console.log('UPDATE ID: '+projeto.id_);
+				console.log('UPDATE ID: '+projeto.id);
 			},
 			function(err) {
 				console.log('ERROR: '+err);

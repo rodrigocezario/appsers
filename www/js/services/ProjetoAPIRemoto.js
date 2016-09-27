@@ -1,4 +1,4 @@
-angular.module("appsers").factory("projetosAPI", function ($http, config) {
+angular.module("appsers").factory("projetoAPIRemoto", function ($http, config) {
 	var _getProjetos = function () {
 		return $http.get(config.baseUrl + "/projetos");
 	};

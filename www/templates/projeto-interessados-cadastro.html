@@ -1,0 +1,38 @@
+<ion-view view-title="SERS">
+  <ion-content>
+		<div class="bar bar-subheader bar-stable static text-center">
+	        <strong class="title"><i class="icon ion-ios-paper"></i> Dados do Interessado</strong>
+	    </div>
+	    <div class="im-wrapper">
+	    	<!-- Forms -->
+	    	<form name="interessadoForm">
+		        <div class="list">
+		            <label class="item item-input item-floating-label">
+		                <span class="input-label">Nome</span>
+		                <input type="text" placeholder="Nome" ng-model="interessado.nome" value="">
+		            </label>
+		            <label class="item item-input item-floating-label">
+		                <span class="input-label">Papel</span>
+		                <textarea rows="7" placeholder="Papel" ng-model="interessado.papel" value=""></textarea>
+		            </label>
+		            <label class="item item-input item-floating-label">
+		                <span class="input-label">Função</span>
+		                <input type="text" placeholder="Função" ng-model="interessado.funcao">
+		            </label>
+		            <label class="item item-input item-floating-label">
+		                <span class="input-label">Email</span>
+		                <input type="text" placeholder="Email" ng-model="interessado.email">
+		            </label>
+		            <label class="item item-input item-floating-label">
+		                <span class="input-label">Telefone</span>
+		                <input type="text" placeholder="Telefone" ng-model="interessado.telefone">
+		            </label>
+		            <br/>
+		            <button class="button button-block button-balanced ink" ng-click="salvarInteressado(interessado)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+		                Enviar
+		            </button>
+		        </div>
+	        </form>
+    	</div>
+  </ion-content>
+</ion-view>

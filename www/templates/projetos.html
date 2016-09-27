@@ -3,7 +3,7 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title">Projetos</strong>
         </div>
-        <ion-item ng-repeat="projeto in projetos" href="#/app/projetos/{{projeto.id_}}">
+        <ion-item ng-repeat="projeto in projetos" href="#/app/projetos/{{projeto.id}}">
             <div class="item-icon-left">
                 <i class="icon ion-ios-briefcase"></i>
                 <h2>{{projeto.nome}}</h2>
@@ -14,8 +14,4 @@
             </div>
         </ion-item>
     </ion-content>
-
-    <button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
-        <i class="icon ion-plus"></i>
-    </button>
 </ion-view>
