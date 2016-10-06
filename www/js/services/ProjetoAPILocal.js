@@ -1,5 +1,5 @@
-angular.module("appsers").factory("projetoAPILocal", function ($cordovaSQLite) {
-	 
+app.factory("projetoAPILocal", function ($cordovaSQLite) {
+
 	var _get = function() {
 		var retorno = [];
 		$cordovaSQLite.execute(db, "SELECT * FROM projeto").then(

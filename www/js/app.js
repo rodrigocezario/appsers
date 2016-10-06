@@ -1,7 +1,9 @@
+var db = null;
+
 // Ionic Starter App
 var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova']);
-var db = null;
-app.run(function ($ionicPlatform) {
+
+app.run(function ($ionicPlatform, $cordovaSQLite) {
     $ionicPlatform.ready(function () {
 
         if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -10,25 +12,19 @@ app.run(function ($ionicPlatform) {
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-
-        //iniciando banco de dados local
-        if (window.cordova) {
-            db = $cordovaSQLite.openDB({ name: "db_sers.db"});
-        }else{
-            db = window.openDatabase("db_sers.db", '1.0', 'db_sers', 2 * 1024 * 1024);
-        }
-        db.transaction(function (tx) {
-            //tx.executeSql("DROP TABLE projeto");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
-            //tx.executeSql("DROP TABLE secoes");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS secoes (id INTEGER PRIMARY KEY, id_projeto INTEGER, proposito TEXT, escopo TEXT, def_acron_abrev TEXT, referencias TEXT, organizacao TEXT, perspectiva TEXT, funcionalidades TEXT, caracteristicas_utilizador TEXT, restricoes TEXT, assuncoes_dependencias TEXT)");
-            //tx.executeSql("DROP TABLE interessados");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS interessados (id INTEGER PRIMARY KEY, id_projeto INTEGER, nome TEXT, papel TEXT, funcao TEXT, email TEXT, telefone TEXT)");
-        }, function(error) {
-            console.log('Transaction ERROR: ' + error.message);
-        }, function() {
-            console.log('Populated database OK');
-        });
+        //if (window.cordova){
+            db = $cordovaSQLite.openDB({ name: "db_sers.db", location:'default' });
+        //}else{
+        //    db = window.openDatabase("db_sers.db", '1.0', 'db_sers', -1);
+        //}
+        //$cordovaSQLite.execute(db, "DROP TABLE projeto");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
+        //$cordovaSQLite.execute(db, "DROP TABLE secoes");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS secoes (id INTEGER PRIMARY KEY, id_projeto INTEGER, proposito TEXT, escopo TEXT, def_acron_abrev TEXT, referencias TEXT, organizacao TEXT, perspectiva TEXT, funcionalidades TEXT, caracteristicas_utilizador TEXT, restricoes TEXT, assuncoes_dependencias TEXT)");
+        //$cordovaSQLite.execute(db, "DROP TABLE interessados");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS interessados (id INTEGER PRIMARY KEY, id_projeto INTEGER, nome TEXT, papel TEXT, funcao TEXT, email TEXT, telefone TEXT)");
+        //$cordovaSQLite.execute(db, "DROP TABLE requisito_usuario");
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, id_interessado INTEGER, descricao TEXT)");
     });
 })
 
@@ -47,7 +43,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: 'templates/projetos.html',
-                controller: 'ProjetosCtrl'
+                controller: 'ProjetoListCtrl'
             }
         }
     })
@@ -67,7 +63,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: 'templates/projeto-menu.html',
-                controller: 'ProjetoCtrl'
+                controller: 'ProjetoMenuCtrl'
           }
         }
     })
@@ -87,7 +83,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: 'templates/projeto-interessados.html',
-                controller: 'InteressadoCtrl'
+                controller: 'InteressadoListCtrl'
           }
         }
     })
@@ -117,7 +113,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: 'templates/projeto-secoes.html',
-                controller: 'ProjetoCtrl'
+                controller: 'SecoesCtrl'
           }
         }
     })
@@ -127,7 +123,27 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: 'templates/projeto-requsuario.html',
-                controller: 'ProjetoCtrl'
+                controller: 'ReqUsuarioListCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-requsuario-add', {
+        url: '/projetos/:projetoId/requsuario/cadastro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-requsuario-cadastro.html',
+                controller: 'ReqUsuarioCtrl'
+          }
+        }
+    })
+
+    .state('app.projeto-requsuario-cadastro', {
+        url: '/projetos/:projetoId/requsuario/:reqUsuarioId/cadastro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/projeto-requsuario-cadastro.html',
+                controller: 'ReqUsuarioCtrl'
           }
         }
     })

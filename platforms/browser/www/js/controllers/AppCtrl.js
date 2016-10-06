@@ -1,4 +1,4 @@
-﻿app.controller('AppCtrl', function ($scope, $ionicModal, $ionicPopover, $timeout) {
+﻿app.controller('AppCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopover, $timeout) {
     // Form data for the login modal
     //$scope.loginData = {};
     $scope.menus = [
@@ -12,4 +12,10 @@
             this.classList.toggle('active');
         });
     };
+    
+    /*var btnIncluir = document.getElementById('btn-incluir');
+    btnIncluir.addEventListener('click', function () {
+        location.href = '/#/app/projetos/cadastro';
+    });*/
+
 });
