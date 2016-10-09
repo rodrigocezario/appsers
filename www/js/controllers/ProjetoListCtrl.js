@@ -1,14 +1,7 @@
 ﻿app.controller('ProjetoListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal) {
-    
 
-    //atualiza exibição da lista ao voltar do cadastro
-    $scope.$on('$ionicView.enter', function() {
-       $scope.projetos = projetoAPILocal.get();
-       $scope.blinds();
-    });
-    
     //metodos para efeito visual
-    var resetEffect = function() {
+    var resetEffect = function () {
         var inClass = document.querySelectorAll('.in');
         for (var i = 0; i < inClass.length; i++) {
             inClass[i].classList.remove('in');
@@ -28,18 +21,20 @@
         }
     };
 
-    $scope.blinds = function() {
+    $scope.blinds = function () {
         resetEffect();
         document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
-        setTimeout(function() {
+        setTimeout(function () {
             ionicMaterialMotion.blinds();
         }, 100);
     };
     $scope.blinds();
-    /*var btnIncluir = document.getElementById('btn-incluir');
-    btnIncluir.addEventListener('click', function () {
-        location.href = '/#/app/projetos/cadastro';
-    });*/
-    
-    
+
+    //atualiza exibição da lista ao voltar do cadastro
+    $scope.$on('$ionicView.enter', function () {
+        $scope.projetos = projetoAPILocal.get();
+        $scope.blinds();
+    });
+
+
 });

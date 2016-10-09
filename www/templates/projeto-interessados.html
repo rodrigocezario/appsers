@@ -1,21 +1,21 @@
 <ion-view view-title="SERS">
-	<ion-content class="has-footer">
-		<div class="bar bar-subheader bar-stable static text-center">
-	        <strong class="title"><i class="icon ion-person-stalker"></i> Interessados</strong>
-	    </div>
-	    <ion-item ng-repeat="interessado in interessados" href="#/app/projetos/{{interessado.id_projeto}}/interessados/{{interessado.id}}/cadastro">
-		    <p>{{interessado.nome}}</p>
-		    <div class="item-icon-right">
-		        <i class="icon ion-ios-arrow-right"></i>
-		    </div>
-		</ion-item>
-	</ion-content>
+    <ion-content class="has-footer">
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title"><i class="icon ion-person-stalker"></i> Interessados</strong>
+        </div>
+        <ion-item ng-repeat="interessado in interessados" href="#/app/projetos/{{interessado.id_projeto}}/interessados/{{interessado.id}}/cadastro">
+            <p>{{interessado.nome}}</p>
+            <div class="item-icon-right">
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </ion-item>
+    </ion-content>
     <a ng-href="#/app/projetos/{{projeto.id}}/interessados/cadastro">
-    	<button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
-        	<i class="icon ion-plus"></i>
-    	</button>
+        <button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
+            <i class="icon ion-plus"></i>
+        </button>
     </a>
-	<ion-footer-bar class="bar-stable">
-		<h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
-	</ion-footer-bar>
+    <ion-footer-bar class="bar-stable">
+        <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
+    </ion-footer-bar>
 </ion-view>

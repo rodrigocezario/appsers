@@ -1,22 +1,22 @@
 <ion-view view-title="SERS">
-	<ion-content class="has-footer">
-		<div class="bar bar-subheader bar-stable static text-center">
-	        <strong class="title"><i class="icon ion-ios-body"></i> Requisitos de Usuário</strong>
-	    </div>
-	    <ion-item ng-repeat="requisito in requisitos" href="#/app/projetos/{{requisito.id_projeto}}/requsuario/{{requisito.id}}/cadastro">
-	    	<h2>RU-{{requisito.id}}</h2>
-		    <p>{{requisito.descricao}}</p>
-		    <div class="item-icon-right">
-		        <i class="icon ion-ios-arrow-right"></i>
-		    </div>
-		</ion-item>
-	</ion-content>
+    <ion-content class="has-footer">
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title"><i class="icon ion-ios-body"></i> Requisitos de Usuário</strong>
+        </div>
+        <ion-item ng-repeat="requisito in requisitos" href="#/app/projetos/{{requisito.id_projeto}}/requsuario/{{requisito.id}}/cadastro">
+            <h2>RU-{{requisito.id}}</h2>
+            <p>{{requisito.descricao}}</p>
+            <div class="item-icon-right">
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </ion-item>
+    </ion-content>
     <a ng-href="#/app/projetos/{{projeto.id}}/requsuario/cadastro">
-    	<button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
-        	<i class="icon ion-plus"></i>
-    	</button>
+        <button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
+            <i class="icon ion-plus"></i>
+        </button>
     </a>
-	<ion-footer-bar class="bar-stable">
-		<h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
-	</ion-footer-bar>
+    <ion-footer-bar class="bar-stable">
+        <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
+    </ion-footer-bar>
 </ion-view>

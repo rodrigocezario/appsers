@@ -2,33 +2,34 @@ app.controller('InteressadoCtrl', function ($scope, $stateParams, ionicMaterialM
 
     setInitInteressado();
 
-    if(Number($stateParams.interessadoId)){
-        Promise.resolve( interessadosAPILocal.getById($stateParams.interessadoId) ).then(
-            function(res) {
-                angular.merge($scope.interessado, res);
-            }
+    if (Number($stateParams.interessadoId)) {
+        Promise.resolve(interessadosAPILocal.getById($stateParams.interessadoId)).then(
+                function (res) {
+                    angular.merge($scope.interessado, res);
+                }
         );
     }
 
-    if(Number($stateParams.projetoId)){
-        Promise.resolve( projetoAPILocal.getById($stateParams.projetoId) ).then(
-            function(res) {
-                $scope.projeto = res;
-            }
+    if (Number($stateParams.projetoId)) {
+        Promise.resolve(projetoAPILocal.getById($stateParams.projetoId)).then(
+                function (res) {
+                    $scope.projeto = res;
+                }
         )
     }
 
     $scope.salvarInteressado = function (interessado) {
         interessado.id_projeto = $stateParams.projetoId;
-        if(Number($stateParams.interessadoId)){
+        if (Number($stateParams.interessadoId)) {
             interessadosAPILocal.edit(interessado);
-        }else{
+        } else {
             interessadosAPILocal.insert(interessado);
         }
     };
-    
-    function setInitInteressado(){
-        $scope.interessado = { id_projeto:null, nome:null, papel:null, funcao:null, email:null, telefone:null};
-    };
+
+    function setInitInteressado() {
+        $scope.interessado = {id_projeto: null, nome: null, papel: null, funcao: null, email: null, telefone: null};
+    }
+    ;
 
 });

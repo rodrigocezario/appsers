@@ -1,3 +1,3 @@
 angular.module("appsers").constant("config", {
-	baseUrl: "http://localhost"
+    baseUrl: "http://localhost"
 });

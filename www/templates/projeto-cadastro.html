@@ -1,43 +1,43 @@
 <ion-view view-title="SERS">
-  <ion-content>
-		<div class="bar bar-subheader bar-stable static text-center">
-	        <strong class="title"><i class="icon ion-ios-paper"></i> Dados Cadastrais</strong>
-	    </div>
-	    <div class="im-wrapper">
-	    	<!-- Forms -->
-	    	<form name="projetoForm">
-		        <div class="list">
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Nome do Projeto</span>
-		                <input type="text" placeholder="Nome do Projeto" ng-model="projeto.nome" value="">
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Descrição do Projeto</span>
-		                <textarea rows="7" placeholder="Descrição do Projeto" ng-model="projeto.descricao" value=""></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Empresa</span>
-		                <input type="text" placeholder="Empresa" ng-model="projeto.empresa">
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Responsável</span>
-		                <input type="text" placeholder="Responsável" ng-model="projeto.responsavel">
-		            </label>
-		            <br/>
-		            <div class="item item-checkbox">
-		                <label class="checkbox">
-		                    <input type="checkbox" ng-model="projeto.compartilhado" ng-true-value="1">
-		                </label>
-		                Compartilhar Projeto
-		                <span class="item-text-wrap">
-		                	<h5>Libera acesso para que todos os usuários possam reutilizar suas especificações</h5>
-		                </span>
-		            </div>
-		            <button class="button button-block button-balanced ink" ng-click="salvarProjeto(projeto)" data-ink-color="#9DEAFF" data-ink-opacity="1">
-		                Enviar
-		            </button>
-		        </div>
-	        </form>
-    	</div>
-  </ion-content>
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title"><i class="icon ion-ios-paper"></i> Dados Cadastrais</strong>
+        </div>
+        <div class="im-wrapper">
+            <!-- Forms -->
+            <form name="projetoForm">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Nome do Projeto</span>
+                        <input type="text" placeholder="Nome do Projeto" ng-model="projeto.nome" value="">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Descrição do Projeto</span>
+                        <textarea rows="7" placeholder="Descrição do Projeto" ng-model="projeto.descricao" value=""></textarea>
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Empresa</span>
+                        <input type="text" placeholder="Empresa" ng-model="projeto.empresa">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Responsável</span>
+                        <input type="text" placeholder="Responsável" ng-model="projeto.responsavel">
+                    </label>
+                    <br/>
+                    <div class="item item-checkbox">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="projeto.compartilhado" ng-true-value="1">
+                        </label>
+                        Compartilhar Projeto
+                        <span class="item-text-wrap">
+                            <h5>Libera acesso para que todos os usuários possam reutilizar suas especificações</h5>
+                        </span>
+                    </div>
+                    <button class="button button-block button-balanced ink" ng-click="salvarProjeto(projeto)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
 </ion-view>

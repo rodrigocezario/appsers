@@ -1,29 +1,32 @@
 <ion-view view-title="SERS">
-  <ion-content>
-		<div class="bar bar-subheader bar-stable static text-center">
-	        <strong class="title"><i class="icon ion-ios-paper"></i> Dados do Requisito de Usuário</strong>
-	    </div>
-	    <div class="im-wrapper">
-	    	<!-- Forms -->
-	    	<form name="reqUsuarioForm">
-		        <div class="list">
-		            <label class="item item-input item-select">
-		                <span class="input-label">Interessado</span>
-		                <select ng-model="requisito.id_interessado">
-		                	<option value="" ng-if="!requisito.id_interessado" ng-selected="!requisito.id_interessado"></option>
-						    <option ng-repeat="item in interessados" value="{{item.id}}" ng-selected="requisito.id_interessado == {{item.id}}">{{item.nome}}</option>
-		                </select>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Descrição</span>
-		                <textarea rows="7" placeholder="Descrição" ng-model="requisito.descricao" value=""></textarea>
-		            </label>
-		            <br/>
-		            <button class="button button-block button-balanced ink" ng-click="salvarReqUsuario(requisito)" data-ink-color="#9DEAFF" data-ink-opacity="1">
-		                Enviar
-		            </button>
-		        </div>
-	        </form>
-    	</div>
-  </ion-content>
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title"><i class="icon ion-ios-paper"></i> Dados do Requisito de Usuário</strong>
+        </div>
+        <div class="im-wrapper">
+            <!-- Forms -->
+            <form name="reqUsuarioForm">
+                <div class="list">
+                    <!--<label class="item item-input item-select">
+                        <span class="input-label">Interessado</span>
+                        <select ng-model="requisito.id_interessado">
+                            <option ng-repeat="item in interessados" value="{{item.id}}" ng-selected="requisito.id_interessado == {{item.id}}">{{item.nome}}</option>
+                        </select>
+                    </label>-->
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Descrição</span>
+                        <textarea rows="7" placeholder="Descrição" ng-model="requisito.descricao" value=""></textarea>
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Interessados</span>
+                        <ion-checkbox ng-repeat="interessado in interessados"> <p>{{interessado.nome}}</p></ion-checkbox>
+                    </label>
+                    <br/>
+                    <button class="button button-block button-balanced ink" ng-click="salvarReqUsuario(requisito)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
 </ion-view>

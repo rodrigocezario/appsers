@@ -1,20 +1,20 @@
 app.controller('InteressadoListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, interessadosAPILocal) {
 
-    if(Number($stateParams.projetoId)){
-        Promise.resolve( projetoAPILocal.getById($stateParams.projetoId) ).then(
-            function(res) {
-                $scope.projeto = res;
-            }
-        )        
+    if (Number($stateParams.projetoId)) {
+        Promise.resolve(projetoAPILocal.getById($stateParams.projetoId)).then(
+                function (res) {
+                    $scope.projeto = res;
+                }
+        )
         //atualiza exibição da lista ao voltar do cadastro
-        $scope.$on('$ionicView.enter', function() {
+        $scope.$on('$ionicView.enter', function () {
             $scope.interessados = interessadosAPILocal.getByIdProjeto($stateParams.projetoId);
             $scope.blinds();
         });
     }
 
     //metodos para efeito visual
-    var resetEffect = function() {
+    var resetEffect = function () {
         var inClass = document.querySelectorAll('.in');
         for (var i = 0; i < inClass.length; i++) {
             inClass[i].classList.remove('in');
@@ -34,10 +34,10 @@ app.controller('InteressadoListCtrl', function ($scope, $stateParams, ionicMater
         }
     };
 
-    $scope.blinds = function() {
+    $scope.blinds = function () {
         resetEffect();
         document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
-        setTimeout(function() {
+        setTimeout(function () {
             ionicMaterialMotion.blinds();
         }, 100);
     };

@@ -1,61 +1,62 @@
 <ion-view view-title="SERS">
-	<ion-content class="has-footer">
-		<div class="bar bar-subheader bar-stable static text-center">
-	        <strong class="title"><i class="icon ion-android-document"></i> Seções do Documeto ERS</strong>
-	    </div>
-	    <div class="im-wrapper">
-	    	<!-- Forms -->
-	    	<form name="projetoSecoesForm">
-		        <div class="list">
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Propósito</span>
-		                <textarea rows="7" placeholder="Propósito" ng-model="secoes.proposito"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Escopo</span>
-		                <textarea rows="7" placeholder="Escopo" ng-model="secoes.escopo"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Definições, acrônimos e abreviaturas</span>
-		                <textarea rows="7" placeholder="Definições, acrônimos e abreviaturas" ng-model="secoes.def_acron_abrev"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Referências</span>
-		                <textarea rows="7" placeholder="Referências" ng-model="secoes.referencias"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Organização</span>
-		                <textarea rows="7" placeholder="Organização" ng-model="secoes.organizacao" ></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Perspectiva do produto</span>
-		                <textarea rows="7" placeholder="Perspectiva do produto" ng-model="secoes.perspectiva"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Funcionalidades</span>
-		                <textarea rows="7" placeholder="Funcionalidades" ng-model="secoes.funcionalidades"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Característica do utilizador</span>
-		                <textarea rows="7" placeholder="Característica do utilizador" ng-model="secoes.caracteristicas_utilizador"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Restrições</span>
-		                <textarea rows="7" placeholder="Restrições" ng-model="secoes.restricoes"></textarea>
-		            </label>
-		            <label class="item item-input item-floating-label">
-		                <span class="input-label">Assunções e dependências</span>
-		                <textarea rows="7" placeholder="Assunções e dependências" ng-model="secoes.assuncoes_dependencias"></textarea>
-		            </label>
-		            <br/>
-		            <button class="button button-block button-balanced ink" ng-click="salvarSecoes(secoes)" data-ink-color="#9DEAFF" data-ink-opacity="1">
-		                Enviar
-		            </button>
-		        </div>
-	        </form>
-    	</div>
-	</ion-content>
-	<ion-footer-bar class="bar-stable">
-		<h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
-	</ion-footer-bar>
+    <ion-content class="has-footer">
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title"><i class="icon ion-android-document"></i> Seções do Documeto ERS</strong>
+        </div>
+        <div class="im-wrapper">
+            <!-- Forms -->
+            <form name="projetoSecoesForm">
+                <div class="list">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Propósito</span>
+                        <textarea rows="7" placeholder="Este campo deve definir a finalidade do documento." ng-model="secoes.proposito"></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Escopo</span>
+                        <textarea rows="7" placeholder="Neste campo deve-se definir o produto que será desenvolvido descrito em alto nível. Devem ser relacionados os objetivos e benefícios a serem alcançados." ng-model="secoes.escopo"></textarea>
+                    </label>
+
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Definições, acrônimos e abreviaturas</span>
+                        <textarea rows="7" placeholder="Lista de todos os termos necessários para interpretar o documento." ng-model="secoes.def_acron_abrev"></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Referências</span>
+                        <textarea rows="7" placeholder="Referência dos termos externos citados no DER." ng-model="secoes.referencias"></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Organização</span>
+                        <textarea rows="7" placeholder="Corresponde a uma descrição da organização de todo o conteúdo restante do DER." ng-model="secoes.organizacao" ></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Perspectiva do produto</span>
+                        <textarea rows="7" placeholder="Deve ser especificado uma perspectiva do produto a ser desenvolvido. Deve-se também descrever como o software irá operar dentro de várias circunstâncias." ng-model="secoes.perspectiva"></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Funcionalidades</span>
+                        <textarea rows="7" placeholder="Descrever as principais funções promovidas pelo produto." ng-model="secoes.funcionalidades"></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Característica do utilizador</span>
+                        <textarea rows="7" placeholder="Deve-se descrever aqui as principais características dos usuários. Ex: experiência, nível educacional e etc." ng-model="secoes.caracteristicas_utilizador"></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Restrições</span>
+                        <textarea rows="7" placeholder="Informar as restrições relacionadas ao projeto." ng-model="secoes.restricoes"></textarea>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Assunções e dependências</span>
+                        <textarea rows="7" placeholder="Informar itens externos relacionados ao projeto bem como suas dependências." ng-model="secoes.assuncoes_dependencias"></textarea>
+                    </label>
+                    <br/>
+                    <button class="button button-block button-balanced ink" ng-click="salvarSecoes(secoes)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-stable">
+        <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
+    </ion-footer-bar>
 </ion-view>
