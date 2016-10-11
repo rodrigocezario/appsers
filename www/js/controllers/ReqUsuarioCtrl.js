@@ -1,4 +1,4 @@
-app.controller('ReqUsuarioCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, reqUsuarioAPILocal, interessadosAPILocal) {
+app.controller('ReqUsuarioCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, reqUsuarioAPILocal) {
 
     setInitReqUsuario();
 
@@ -16,11 +16,12 @@ app.controller('ReqUsuarioCtrl', function ($scope, $stateParams, ionicMaterialMo
                     $scope.projeto = res;
                 }
         );
-        $scope.interessados = interessadosAPILocal.getByIdProjeto($stateParams.projetoId);
+        $scope.interessados = reqUsuarioAPILocal.getInteressados($stateParams.projetoId, $stateParams.reqUsuarioId);
     }
-
-    $scope.salvarReqUsuario = function (requisito) {
+    
+    $scope.salvarReqUsuario = function (requisito, interessados) {
         requisito.id_projeto = $stateParams.projetoId;
+        requisito.interessados = interessados;
         if (Number($stateParams.reqUsuarioId)) {
             reqUsuarioAPILocal.edit(requisito);
         } else {
@@ -29,7 +30,7 @@ app.controller('ReqUsuarioCtrl', function ($scope, $stateParams, ionicMaterialMo
     };
 
     function setInitReqUsuario() {
-        $scope.requisito = {id_projeto: null, id_interessado: null, descricao: null};
+        $scope.requisito = {id: null, id_projeto: null, interessados: null, descricao: null};
     }
     ;
 

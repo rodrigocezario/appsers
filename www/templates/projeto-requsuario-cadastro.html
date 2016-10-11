@@ -7,22 +7,17 @@
             <!-- Forms -->
             <form name="reqUsuarioForm">
                 <div class="list">
-                    <!--<label class="item item-input item-select">
-                        <span class="input-label">Interessado</span>
-                        <select ng-model="requisito.id_interessado">
-                            <option ng-repeat="item in interessados" value="{{item.id}}" ng-selected="requisito.id_interessado == {{item.id}}">{{item.nome}}</option>
-                        </select>
-                    </label>-->
-                    <label class="item item-input item-floating-label">
+                    <label class="item item-input item-stacked-label">
                         <span class="input-label">Descrição</span>
                         <textarea rows="7" placeholder="Descrição" ng-model="requisito.descricao" value=""></textarea>
                     </label>
-                    <label class="item item-input item-floating-label">
+                    <br/>
+                    <label class="item item-input item-stacked-label">
                         <span class="input-label">Interessados</span>
-                        <ion-checkbox ng-repeat="interessado in interessados"> <p>{{interessado.nome}}</p></ion-checkbox>
+                        <ion-checkbox ng-repeat="interessado in interessados" ng-checked="interessado.is_check == true" ng-model="interessado.is_check">{{interessado.nome}}</ion-checkbox>
                     </label>
                     <br/>
-                    <button class="button button-block button-balanced ink" ng-click="salvarReqUsuario(requisito)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    <button class="button button-block button-balanced ink" ng-click="salvarReqUsuario(requisito, interessados)" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Enviar
                     </button>
                 </div>

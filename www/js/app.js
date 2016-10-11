@@ -25,7 +25,9 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             //$cordovaSQLite.execute(db, "DROP TABLE interessados");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS interessados (id INTEGER PRIMARY KEY, id_projeto INTEGER, nome TEXT, papel TEXT, funcao TEXT, email TEXT, telefone TEXT)");
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_usuario");
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, id_interessado INTEGER, descricao TEXT)");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, id_usuario INTEGER, descricao TEXT)");
+            //$cordovaSQLite.execute(db, "DROP TABLE req_usu_interessado");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS req_usu_interessado (id INTEGER PRIMARY KEY, id_requisito_usuario INTEGER, id_interessado INTEGER)");
         }
     });
 })
