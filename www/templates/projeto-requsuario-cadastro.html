@@ -14,7 +14,7 @@
                     <br/>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Interessados</span>
-                        <ion-checkbox ng-repeat="interessado in interessados" ng-checked="interessado.is_check == true" ng-model="interessado.is_check">{{interessado.nome}}</ion-checkbox>
+                        <ion-checkbox ng-repeat="item in interessados" ng-checked="item.is_check == true" ng-model="requisito.interessados[item.id]">{{item.nome}}</ion-checkbox>
                     </label>
                     <br/>
                     <button class="button button-block button-balanced ink" ng-click="salvarReqUsuario(requisito, interessados)" data-ink-color="#9DEAFF" data-ink-opacity="1">

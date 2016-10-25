@@ -13,10 +13,11 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             StatusBar.styleDefault();
         }
         if (!ionic.Platform.is("browser")) {
-            db = $cordovaSQLite.openDB("db_sers.db");//{ name: "db_sers.db", location:'default' });
+            db = $cordovaSQLite.openDB({ name: "db_sers.db", location:'default' }); //{ name: "db_sers.db", location:'default' });
         } else {
             db = window.openDatabase("db_sers.db", '1.0', 'db_sers', -1);
         }
+        
         if (db) {
             //$cordovaSQLite.execute(db, "DROP TABLE projeto");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");

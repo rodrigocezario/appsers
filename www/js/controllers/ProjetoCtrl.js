@@ -1,39 +1,42 @@
-app.controller('ProjetoCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, secoesAPILocal) {
+app.controller('ProjetoCtrl', function ($scope, $stateParams, projetoAPILocal, secoesAPILocal) {
 
     setInitProjeto();
     setInitSecoes();
 
     //métodos para manter projeto
     if (Number($stateParams.projetoId)) {
+        projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
+            angular.merge($scope.projeto, res);
+        });
 
-        Promise.resolve(projetoAPILocal.getById($stateParams.projetoId)).then(
-                function (res) {
-                    angular.merge($scope.projeto, res);
-                }
-        );
-
-        Promise.resolve(secoesAPILocal.getByIdProjeto($stateParams.projetoId)).then(
-                function (res) {
-                    angular.merge($scope.secoes, res);
-                }
-        );
+        secoesAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
+            angular.merge($scope.secoes, res);
+        });
 
         $scope.salvarSecoes = function (secoes) {
             secoes.id_projeto = $stateParams.projetoId;
             if (Number(secoes.id)) {
-                secoesAPILocal.edit(secoes);
+                secoesAPILocal.edit(secoes).then(function () {
+                    alert("Registro salvo com sucesso");
+                });
             } else {
-                secoesAPILocal.insert(secoes);
+                secoesAPILocal.insert(secoes).then(function () {
+                    alert("Registro salvo com sucesso");
+                });
             }
-        };
+        }
     }
 
     $scope.salvarProjeto = function (projeto) {
         if (Number($stateParams.projetoId)) {
-            projetoAPILocal.edit(projeto);
+            projetoAPILocal.edit(projeto).then(function () {
+                alert("Registro salvo com sucesso");
+            });
         } else {
             projeto.dt_criacao = new Date();
-            projetoAPILocal.insert(projeto);
+            projetoAPILocal.insert(projeto).then(function () {
+                alert("Registro salvo com sucesso");
+            });
         }
     };
 
@@ -51,11 +54,9 @@ app.controller('ProjetoCtrl', function ($scope, $stateParams, ionicMaterialMotio
     function setInitProjeto() {
         $scope.projeto = {nome: null, descricao: null, empresa: null, responsavel: null, compartilhado: 0, dt_criacao: null, dt_finalizado: null};
     }
-    ;
 
     function setInitSecoes() {
         $scope.secoes = {id_projeto: null, proposito: null, escopo: null, def_acron_abrev: null, referencias: null, organizacao: null, perspectiva: null, funcionalidades: null, caracteristicas_utilizador: null, restricoes: null, assuncoes_dependencias: null};
     }
-    ;
 
 });

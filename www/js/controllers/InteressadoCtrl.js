@@ -3,27 +3,27 @@ app.controller('InteressadoCtrl', function ($scope, $stateParams, ionicMaterialM
     setInitInteressado();
 
     if (Number($stateParams.interessadoId)) {
-        Promise.resolve(interessadosAPILocal.getById($stateParams.interessadoId)).then(
-                function (res) {
-                    angular.merge($scope.interessado, res);
-                }
-        );
+        interessadosAPILocal.getById($stateParams.interessadoId).then(function (res) {
+            angular.merge($scope.interessado, res);
+        });
     }
 
     if (Number($stateParams.projetoId)) {
-        Promise.resolve(projetoAPILocal.getById($stateParams.projetoId)).then(
-                function (res) {
-                    $scope.projeto = res;
-                }
-        )
+        projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
+            $scope.projeto = res;
+        });
     }
 
     $scope.salvarInteressado = function (interessado) {
         interessado.id_projeto = $stateParams.projetoId;
         if (Number($stateParams.interessadoId)) {
-            interessadosAPILocal.edit(interessado);
+            interessadosAPILocal.edit(interessado).then(function(){
+                alert("Registro salvo com sucesso");
+            });
         } else {
-            interessadosAPILocal.insert(interessado);
+            interessadosAPILocal.insert(interessado).then(function(){
+                alert("Registro salvo com sucesso");
+            });
         }
     };
 

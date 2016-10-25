@@ -19,7 +19,7 @@
                 ionList[i].className = ionList[i].className.replace(/(?:^|\s)animate-\S*(?:$|\s)/, '');
             }
         }
-    };
+    }
 
     $scope.blinds = function () {
         resetEffect();
@@ -27,12 +27,15 @@
         setTimeout(function () {
             ionicMaterialMotion.blinds();
         }, 100);
-    };
+    }
+    
     $scope.blinds();
 
     //atualiza exibição da lista ao voltar do cadastro
     $scope.$on('$ionicView.enter', function () {
-        $scope.projetos = projetoAPILocal.get();
+        projetoAPILocal.get().then(function(res){
+            $scope.projetos = res;
+        });
         $scope.blinds();
     });
 

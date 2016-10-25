@@ -1,14 +1,13 @@
 angular.module("appsers").factory("projetoAPIRemoto", function ($http, config) {
-    var _getProjetos = function () {
+    var self = this;
+    
+    self.getProjetos = function () {
         return $http.get(config.baseUrl + "/projetos");
-    };
+    }
 
-    var _setProjeto = function (projeto) {
+    self.setProjeto = function (projeto) {
         return $http.post(config.baseUrl + "/projetos", projeto);
-    };
+    }
 
-    return {
-        getProjetos: _getProjetos,
-        setProjeto: _setProjeto
-    };
+    return self;
 });

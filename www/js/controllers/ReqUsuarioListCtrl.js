@@ -1,15 +1,15 @@
 app.controller('ReqUsuarioListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, reqUsuarioAPILocal) {
 
     if (Number($stateParams.projetoId)) {
-        Promise.resolve(projetoAPILocal.getById($stateParams.projetoId)).then(
-                function (res) {
-                    $scope.projeto = res;
-                }
-        )
+        projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
+            $scope.projeto = res;
+        });
         //atualiza exibição da lista ao voltar do cadastro
         $scope.$on('$ionicView.enter', function () {
-            $scope.requisitos = reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId);
-            $scope.blinds();
+            reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
+                $scope.requisitos = res;
+                $scope.blinds;
+            });
         });
     }
 

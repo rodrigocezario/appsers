@@ -1,16 +1,18 @@
 app.controller('InteressadoListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, interessadosAPILocal) {
 
     if (Number($stateParams.projetoId)) {
-        Promise.resolve(projetoAPILocal.getById($stateParams.projetoId)).then(
-                function (res) {
-                    $scope.projeto = res;
-                }
-        )
+        projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
+            $scope.projeto = res;
+        });
+        
         //atualiza exibição da lista ao voltar do cadastro
         $scope.$on('$ionicView.enter', function () {
-            $scope.interessados = interessadosAPILocal.getByIdProjeto($stateParams.projetoId);
-            $scope.blinds();
+            interessadosAPILocal.getByIdProjeto($stateParams.projetoId).then(function(res){
+                $scope.interessados = res;
+                $scope.blinds;
+            });
         });
+        
     }
 
     //metodos para efeito visual
