@@ -27,7 +27,9 @@ app.factory("dbAPILocal", function ($cordovaSQLite, $q, $ionicPlatform) {
     
     self.getById = function(result) {
         var output = null;
-        output = angular.copy(result.rows.item(0));
+        if(result.rows.length > 0){
+            output = angular.copy(result.rows.item(0));
+        }
         return output;
     }
     

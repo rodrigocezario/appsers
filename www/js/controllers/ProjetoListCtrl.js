@@ -1,4 +1,4 @@
-﻿app.controller('ProjetoListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal) {
+app.controller('ProjetoListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal) {
 
     //metodos para efeito visual
     var resetEffect = function () {

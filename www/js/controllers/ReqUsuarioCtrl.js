@@ -20,26 +20,22 @@ app.controller('ReqUsuarioCtrl', function ($scope, $stateParams, ionicMaterialMo
     $scope.salvarReqUsuario = function (requisito) {
         requisito.id_projeto = $stateParams.projetoId;
         requisito.id = $stateParams.reqUsuarioId;
-        //Ajustar rotina de interessados, não esta salvando os interessados do requisito corretamente
-        var interessadosCheck = [];
         
-        angular.forEach(requisito.interessados, function (valor, id) {
-            if(valor == true){
-                interessadosCheck.push(id);
+        var interessadosCheck = [];
+        angular.forEach($scope.interessados, function (item) {
+            if(item.is_check == true){
+                interessadosCheck.push(item.id);
             }
         });
-        requisito.interessados = interessadosCheck;
         
+        requisito.interessados = interessadosCheck;
+
         if (Number($stateParams.reqUsuarioId)) {
-            reqUsuarioAPILocal.edit(requisito).then(function () {
-                reqUsuarioAPILocal.inserirInteressados(requisito);
-                alert("Registro salvo com sucesso");
-            });
+            reqUsuarioAPILocal.edit(requisito);
+            alert("Registro salvo com sucesso");
         } else {
-            reqUsuarioAPILocal.insert(requisito).then(function () {
-                reqUsuarioAPILocal.inserirInteressados(requisito);
-                alert("Registro salvo com sucesso");
-            });
+            reqUsuarioAPILocal.insert(requisito);
+            alert("Registro salvo com sucesso");
         }
     };
 
