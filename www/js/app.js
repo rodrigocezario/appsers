@@ -1,5 +1,4 @@
 var db = null;
-
 // Ionic Starter App
 var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova']);
 
@@ -17,18 +16,21 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
         } else {
             db = window.openDatabase("db_sers.db", '1.0', 'db_sers', -1);
         }
-
         if (db) {
+            //$cordovaSQLite.execute(db, "DROP TABLE usuario");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS usuario (id INTEGER PRIMARY KEY, nome TEXT, email TEXT, senha TEXT, tipo INTEGER)");
             //$cordovaSQLite.execute(db, "DROP TABLE projeto");
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT, id_usuario INTEGER)");
             //$cordovaSQLite.execute(db, "DROP TABLE secoes");
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS secoes (id INTEGER PRIMARY KEY, id_projeto INTEGER, proposito TEXT, escopo TEXT, def_acron_abrev TEXT, referencias TEXT, organizacao TEXT, perspectiva TEXT, funcionalidades TEXT, caracteristicas_utilizador TEXT, restricoes TEXT, assuncoes_dependencias TEXT)");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS secoes (id INTEGER PRIMARY KEY, id_projeto INTEGER, proposito TEXT, escopo TEXT, def_acron_abrev TEXT, referencias TEXT, organizacao TEXT, perspectiva TEXT, funcionalidades TEXT, caracteristicas_utilizador TEXT, restricoes TEXT, assuncoes_dependencias TEXT, id_usuario INTEGER)");
             //$cordovaSQLite.execute(db, "DROP TABLE interessados");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS interessados (id INTEGER PRIMARY KEY, id_projeto INTEGER, nome TEXT, papel TEXT, funcao TEXT, email TEXT, telefone TEXT)");
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_usuario");
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, id_usuario INTEGER, descricao TEXT)");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, id_usuario INTEGER, descricao TEXT, id_usuario INTEGER)");
             //$cordovaSQLite.execute(db, "DROP TABLE req_usu_interessado");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS req_usu_interessado (id INTEGER PRIMARY KEY, id_requisito_usuario INTEGER, id_interessado INTEGER)");
+            
+            
         }
     });
 })
@@ -158,7 +160,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema.html',
-                        controller: 'ProjetoCtrl'
+                        controller: 'ReqSistemaListCtrl'
                     }
                 }
             })

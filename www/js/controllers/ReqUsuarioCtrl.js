@@ -1,4 +1,4 @@
-app.controller('ReqUsuarioCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, reqUsuarioAPILocal) {
+app.controller('ReqUsuarioCtrl', function ($scope, $state, $stateParams, projetoAPILocal, reqUsuarioAPILocal) {
 
     setInitReqUsuario();
 
@@ -32,10 +32,10 @@ app.controller('ReqUsuarioCtrl', function ($scope, $stateParams, ionicMaterialMo
 
         if (Number($stateParams.reqUsuarioId)) {
             reqUsuarioAPILocal.edit(requisito);
-            alert("Registro salvo com sucesso");
+            $state.go("app.projeto-requsuario",{'projetoId': $stateParams.projetoId});
         } else {
             reqUsuarioAPILocal.insert(requisito);
-            alert("Registro salvo com sucesso");
+            $state.go("app.projeto-requsuario",{'projetoId': $stateParams.projetoId});
         }
     };
 

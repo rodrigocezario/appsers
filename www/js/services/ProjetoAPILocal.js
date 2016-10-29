@@ -14,6 +14,12 @@ app.factory("projetoAPILocal", function (dbAPILocal) {
         });
     }
     
+    self.getLastInsertId = function(){
+        return dbAPILocal.query("SELECT last_insert_rowid() AS id FROM projeto LIMIT 1").then(function(result){
+            return dbAPILocal.getById(result);
+        });
+    }
+    
     self.insert = function(projeto) {
         var parameters = [projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado];
         return dbAPILocal.query("INSERT INTO projeto (nome, descricao, empresa, responsavel, compartilhado, dt_criacao, dt_finalizado) VALUES (?, ?, ?, ?, ?, ?, ?)", parameters);

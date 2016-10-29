@@ -1,4 +1,4 @@
-app.controller('SecoesCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, secoesAPILocal) {
+app.controller('SecoesCtrl', function ($scope, $state, $stateParams, projetoAPILocal, secoesAPILocal) {
 
     setInitSecoes();
 
@@ -18,11 +18,11 @@ app.controller('SecoesCtrl', function ($scope, $stateParams, ionicMaterialMotion
         secoes.id_projeto = $stateParams.projetoId;
         if (Number(secoes.id)) {
             secoesAPILocal.edit(secoes).then(function(){
-                alert("Registro salvo com sucesso");
+                $state.go("app.projeto-menu",{'projetoId': $stateParams.projetoId});
             });
         } else {
             secoesAPILocal.insert(secoes).then(function(){
-                alert("Registro salvo com sucesso");
+                $state.go("app.projeto-menu",{'projetoId': $stateParams.projetoId});
             });
         }
     }
