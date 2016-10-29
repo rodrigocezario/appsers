@@ -1,4 +1,4 @@
-app.controller('InteressadoCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, interessadosAPILocal) {
+app.controller('InteressadoCtrl', function ($scope, $state, $stateParams, projetoAPILocal, interessadosAPILocal) {
 
     setInitInteressado();
 
@@ -18,11 +18,11 @@ app.controller('InteressadoCtrl', function ($scope, $stateParams, ionicMaterialM
         interessado.id_projeto = $stateParams.projetoId;
         if (Number($stateParams.interessadoId)) {
             interessadosAPILocal.edit(interessado).then(function(){
-                alert("Registro salvo com sucesso");
+                $state.go("app.projeto-interessados",{'projetoId': $stateParams.projetoId});
             });
         } else {
             interessadosAPILocal.insert(interessado).then(function(){
-                alert("Registro salvo com sucesso");
+                $state.go("app.projeto-interessados",{'projetoId': $stateParams.projetoId});
             });
         }
     };
@@ -30,6 +30,5 @@ app.controller('InteressadoCtrl', function ($scope, $stateParams, ionicMaterialM
     function setInitInteressado() {
         $scope.interessado = {id_projeto: null, nome: null, papel: null, funcao: null, email: null, telefone: null};
     }
-    ;
 
 });
