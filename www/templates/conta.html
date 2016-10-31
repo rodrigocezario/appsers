@@ -1,0 +1,37 @@
+<ion-view view-title="SERS">
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Dados da Conta</strong>
+        </div>
+        <div class="im-wrapper">
+            <form name="loginForm">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Nome</span>
+                        <input type="text" placeholder="Nome" ng-model="conta.nome" value="">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Email</span>
+                        <input type="text" placeholder="Email" ng-model="conta.email" value="">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Senha</span>
+                        <input type="password" placeholder="Senha" ng-model="conta.senha" value="">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Confirmar Senha</span>
+                        <input type="password" placeholder="Confirmar Senha" ng-model="conta.confirmarSenha" value="">
+                    </label>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <button class="button button-block button-balanced" ng-click="salvar(conta)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

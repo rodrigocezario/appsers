@@ -1,6 +1,6 @@
 var db = null;
 // Ionic Starter App
-var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova']);
+var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova', 'angular-md5']);
 
 app.run(function ($ionicPlatform, $cordovaSQLite) {
     $ionicPlatform.ready(function () {
@@ -26,11 +26,9 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             //$cordovaSQLite.execute(db, "DROP TABLE interessados");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS interessados (id INTEGER PRIMARY KEY, id_projeto INTEGER, nome TEXT, papel TEXT, funcao TEXT, email TEXT, telefone TEXT)");
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_usuario");
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, id_usuario INTEGER, descricao TEXT, id_usuario INTEGER)");
+            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, id_usuario INTEGER, descricao TEXT)");
             //$cordovaSQLite.execute(db, "DROP TABLE req_usu_interessado");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS req_usu_interessado (id INTEGER PRIMARY KEY, id_requisito_usuario INTEGER, id_interessado INTEGER)");
-            
-            
         }
     });
 })
@@ -44,7 +42,30 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 templateUrl: 'templates/menu.html',
                 controller: 'AppCtrl'
             })
-
+            
+            .state('app.conta', {
+                url: '/conta',
+                params: {
+                    email: null,
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/conta.html',
+                        controller: 'ContaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.login', {
+                url: '/login',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/login.html',
+                        controller: 'LoginCtrl'
+                    }
+                }
+            })
+            
             .state('app.projetos', {
                 url: '/projetos',
                 views: {
@@ -196,7 +217,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             })
 
             ;
-    // if none of the above states are matched, use this as the fallback
     $ionicConfigProvider.navBar.alignTitle('center');
     $urlRouterProvider.otherwise('/app/projetos');
 });

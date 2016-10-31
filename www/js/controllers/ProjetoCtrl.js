@@ -1,4 +1,4 @@
-app.controller('ProjetoCtrl', function ($scope, $state, $stateParams, projetoAPILocal, secoesAPILocal) {
+app.controller('ProjetoCtrl', function ($scope, $state, $stateParams, projetoAPILocal) {
 
     setInitProjeto();
 

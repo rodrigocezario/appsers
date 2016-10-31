@@ -1,5 +1,5 @@
-app.controller('ProjetoListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal) {
-
+app.controller('ProjetoListCtrl', function ($scope, $location, ionicMaterialMotion, projetoAPILocal, usuarioAPILocal) {
+    
     //metodos para efeito visual
     var resetEffect = function () {
         var inClass = document.querySelectorAll('.in');

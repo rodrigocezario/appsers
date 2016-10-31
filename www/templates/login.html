@@ -1,0 +1,32 @@
+<ion-view view-title="SERS">
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Login</strong>
+        </div>
+        <div class="im-wrapper">
+            <form name="loginForm">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Email</span>
+                        <input type="text" placeholder="Email" ng-model="login.email" value="">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Senha</span>
+                        <input type="password" placeholder="Senha" ng-model="login.senha" value="">
+                    </label>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <button class="button button-block button-dark" ng-click="criarConta(login)">Criar uma conta</button>
+                        </div>
+                        <div class="col">
+                            <button class="button button-block button-balanced" ng-click="entrar(login)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>
