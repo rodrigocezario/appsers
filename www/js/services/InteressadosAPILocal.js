@@ -30,6 +30,12 @@ app.factory("interessadosAPILocal", function (dbAPILocal) {
         var parameters = [interessado.id_projeto, interessado.nome, interessado.papel, interessado.funcao, interessado.email, interessado.telefone, interessado.id];
         return dbAPILocal.query("UPDATE interessados SET id_projeto = ?, nome = ?, papel = ?, funcao = ?, email = ?, telefone = ? WHERE id = ?", parameters);
     }
+    
+    self.delete = function(id) {
+        var parameters = [id];
+        return dbAPILocal.query("DELETE FROM interessados WHERE id = ?", parameters);
+    }
+    
     return self;
     
 });

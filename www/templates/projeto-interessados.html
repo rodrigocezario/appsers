@@ -3,8 +3,8 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title"><i class="icon ion-person-stalker"></i> Interessados</strong>
         </div>
-        <ion-item ng-repeat="interessado in interessados" href="#/app/projetos/{{interessado.id_projeto}}/interessados/{{interessado.id}}/cadastro">
-            <p>{{interessado.nome}}</p>
+        <ion-item ng-repeat="item in interessados" on-tap="editar(item)" on-hold="excluir(item)">
+            <p>{{item.nome}}</p>
             <div class="item-icon-right">
                 <i class="icon ion-ios-arrow-right"></i>
             </div>

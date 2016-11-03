@@ -1,17 +1,13 @@
 app.controller('ProjetoMenuCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal) {
     //atualiza exibição da lista ao voltar do cadastro
     $scope.$on('$ionicView.enter', function () {
-        $scope.projetos = projetoAPILocal.get();
         $scope.blinds();
     });
-
+    
     if (Number($stateParams.projetoId)) {
-
-        Promise.resolve(projetoAPILocal.getById($stateParams.projetoId)).then(
-                function (res) {
-                    $scope.projeto = res;
-                }
-        );
+        projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
+            $scope.projeto = res;
+        });
     }
 
     $scope.menus = [

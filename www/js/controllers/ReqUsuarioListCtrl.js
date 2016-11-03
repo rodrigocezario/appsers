@@ -1,19 +1,36 @@
-app.controller('ReqUsuarioListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, reqUsuarioAPILocal) {
+app.controller('ReqUsuarioListCtrl', function ($scope, $state, $stateParams, ionicMaterialMotion, utilAPI, projetoAPILocal, reqUsuarioAPILocal) {
 
-    if (Number($stateParams.projetoId)) {
-        projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
-            $scope.projeto = res;
-        });
-        //atualiza exibição da lista ao voltar do cadastro
-        $scope.$on('$ionicView.enter', function () {
-            reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
-                $scope.requisitos = res;
-                $scope.blinds;
+    $scope.$on('$ionicView.enter', function () {
+        if (Number($stateParams.projetoId)) {
+            projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
+                $scope.projeto = res;
             });
+        }
+        atualizaLista();
+    });
+
+    $scope.excluir = function (item) {
+        utilAPI.confirmarExclusao().then(function (res) {
+            if (res) {
+                reqUsuarioAPILocal.delete(item.id).then(function () {
+                    //utilAPI.avisoTemp("Registro excluído com sucesso");
+                    atualizaLista();
+                });
+            }
+        });
+    };
+
+    $scope.editar = function (item) {
+        $state.go("app.projeto-requsuario-cadastro", {'projetoId': item.id_projeto,'reqUsuarioId': item.id});
+    };
+
+    function atualizaLista() {
+        reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
+            $scope.requisitos = res;
+            $scope.blinds();
         });
     }
 
-    //metodos para efeito visual
     var resetEffect = function () {
         var inClass = document.querySelectorAll('.in');
         for (var i = 0; i < inClass.length; i++) {

@@ -45,7 +45,12 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
             inserirInteressados(requisitoUsuario);
         });
     }
-
+    
+    self.delete = function(id) {
+        var parameters = [id];
+        return dbAPILocal.query("DELETE FROM requisito_usuario WHERE id = ?", parameters);
+    }
+    
     function inserirInteressados(requisitoUsuario) {
         dbAPILocal.query("DELETE FROM req_usu_interessado WHERE id_requisito_usuario = '" + requisitoUsuario.id + "' ").then(function () {
             angular.forEach(requisitoUsuario.interessados, function (idInteressado) {

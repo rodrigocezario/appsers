@@ -1,4 +1,4 @@
-app.controller('ProjetoCtrl', function ($scope, $state, $stateParams, projetoAPILocal) {
+app.controller('ProjetoCtrl', function ($scope, $state, $stateParams, $ionicHistory, projetoAPILocal) {
 
     setInitProjeto();
 
@@ -7,18 +7,22 @@ app.controller('ProjetoCtrl', function ($scope, $state, $stateParams, projetoAPI
         projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
             angular.merge($scope.projeto, res);
         });
+        
     }
 
     $scope.salvarProjeto = function (projeto) {
         if (Number($stateParams.projetoId)) {
             projetoAPILocal.edit(projeto).then(function () {
-                $state.go("app.projeto-menu",{'projetoId': $stateParams.projetoId});
+                $state.go("app.projeto-menu", {'projetoId': $stateParams.projetoId});
             });
         } else {
             projeto.dt_criacao = new Date();
             projetoAPILocal.insert(projeto).then(function () {
-                projetoAPILocal.getLastInsertId().then(function(res){
-                    $state.go("app.projeto-menu",{'projetoId': res.id});
+                projetoAPILocal.getLastInsertId().then(function (res) {
+                    $state.go("app.projetos").then(function () {
+                        setInitProjeto();
+                        $state.go("app.projeto-menu", {'projetoId': res.id});
+                    });
                 });
             });
         }
@@ -36,7 +40,7 @@ app.controller('ProjetoCtrl', function ($scope, $state, $stateParams, projetoAPI
 
     //metodos para inicializar formularios
     function setInitProjeto() {
-        $scope.projeto = {nome: null, descricao: null, empresa: null, responsavel: null, compartilhado: 0, dt_criacao: null, dt_finalizado: null};
+        $scope.projeto = {nome: null, descricao: null, empresa: null, responsavel: null, compartilhado: 1, dt_criacao: null, dt_finalizado: null};
     }
 
 });

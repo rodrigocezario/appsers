@@ -3,11 +3,11 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title">Projetos</strong>
         </div>
-        <ion-item ng-repeat="projeto in projetos" href="#/app/projetos/{{projeto.id}}">
+        <ion-item ng-repeat="item in projetos" on-tap="editar(item)" on-hold="excluir(item)">
             <div class="item-icon-left">
                 <i class="icon ion-ios-briefcase"></i>
-                <h2>{{projeto.nome}}</h2>
-                <p>{{projeto.descricao}}</p>
+                <h2>{{item.nome}}</h2>
+                <p>{{item.descricao}}</p>
             </div>
             <div class="item-icon-right">
                 <i class="icon ion-ios-arrow-right"></i>

@@ -1,6 +1,31 @@
-app.controller('ProjetoListCtrl', function ($scope, $location, ionicMaterialMotion, projetoAPILocal, usuarioAPILocal) {
+app.controller('ProjetoListCtrl', function ($scope, $state, ionicMaterialMotion, utilAPI, projetoAPILocal) {
     
-    //metodos para efeito visual
+    $scope.$on('$ionicView.enter', function () {
+        atualizaLista();
+    });
+    
+    $scope.excluir = function (item) {
+        utilAPI.confirmarExclusao().then(function (res) {
+            if (res) {
+                projetoAPILocal.delete(item.id).then(function () {
+                    //utilAPI.avisoTemp("Registro excluído com sucesso");
+                    atualizaLista();
+                });
+            }
+        });
+    };
+
+    $scope.editar = function (item) {
+        $state.go("app.projeto-menu", {'projetoId': item.id});
+    };
+    
+    function atualizaLista() {
+        projetoAPILocal.get().then(function(res){
+            $scope.projetos = res;
+        });
+        $scope.blinds();
+    }
+    
     var resetEffect = function () {
         var inClass = document.querySelectorAll('.in');
         for (var i = 0; i < inClass.length; i++) {
@@ -28,16 +53,4 @@ app.controller('ProjetoListCtrl', function ($scope, $location, ionicMaterialMoti
             ionicMaterialMotion.blinds();
         }, 100);
     }
-    
-    $scope.blinds();
-
-    //atualiza exibição da lista ao voltar do cadastro
-    $scope.$on('$ionicView.enter', function () {
-        projetoAPILocal.get().then(function(res){
-            $scope.projetos = res;
-        });
-        $scope.blinds();
-    });
-
-
 });

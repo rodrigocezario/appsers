@@ -30,5 +30,10 @@ app.factory("projetoAPILocal", function (dbAPILocal) {
         return dbAPILocal.query("UPDATE projeto SET nome = ?, descricao = ?, empresa = ?, responsavel = ?, compartilhado = ?, dt_criacao = ?, dt_finalizado = ? WHERE id = ?", parameters);
     }
     
+    self.delete = function(id) {
+        var parameters = [id];
+        return dbAPILocal.query("DELETE FROM projeto WHERE id = ?", parameters);
+    }
+    
     return self;
 });

@@ -1,18 +1,34 @@
-app.controller('InteressadoListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, interessadosAPILocal) {
+app.controller('InteressadoListCtrl', function ($scope, $state, $stateParams, ionicMaterialMotion, utilAPI, projetoAPILocal, interessadosAPILocal) {
 
-    if (Number($stateParams.projetoId)) {
-        projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
-            $scope.projeto = res;
-        });
-        
-        //atualiza exibição da lista ao voltar do cadastro
-        $scope.$on('$ionicView.enter', function () {
-            interessadosAPILocal.getByIdProjeto($stateParams.projetoId).then(function(res){
-                $scope.interessados = res;
-                $scope.blinds;
+    $scope.$on('$ionicView.enter', function () {
+        if (Number($stateParams.projetoId)) {
+            projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
+                $scope.projeto = res;
             });
+        }
+        atualizaLista();
+    });
+
+    $scope.excluir = function (item) {
+        utilAPI.confirmarExclusao().then(function (res) {
+            if (res) {
+                interessadosAPILocal.delete(item.id).then(function () {
+                    //utilAPI.avisoTemp("Registro excluído com sucesso");
+                    atualizaLista();
+                });
+            }
         });
-        
+    };
+
+    $scope.editar = function (item) {
+        $state.go("app.projeto-interessados-cadastro", {'projetoId': item.id_projeto, 'interessadoId': item.id});
+    };
+
+    function atualizaLista() {
+        interessadosAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
+            $scope.interessados = res;
+            $scope.blinds;
+        });
     }
 
     //metodos para efeito visual
@@ -43,6 +59,4 @@ app.controller('InteressadoListCtrl', function ($scope, $stateParams, ionicMater
             ionicMaterialMotion.blinds();
         }, 100);
     };
-
-
 });
