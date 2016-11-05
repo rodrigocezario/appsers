@@ -3,15 +3,18 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title">Projetos</strong>
         </div>
-        <ion-item ng-repeat="item in projetos" on-tap="editar(item)" on-hold="excluir(item)">
+        <ion-item ng-repeat="item in projetos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
             <div class="item-icon-left">
                 <i class="icon ion-ios-briefcase"></i>
-                <h2>{{item.nome}}</h2>
-                <p>{{item.descricao}}</p>
+                <div class="item-margin-right">
+                    <h2>{{item.nome}}</h2>
+                    <p>{{item.descricao}}</p>
+                </div>
             </div>
             <div class="item-icon-right">
                 <i class="icon ion-ios-arrow-right"></i>
             </div>
+            
         </ion-item>
     </ion-content>
     <a ng-href="#/app/projetos/cadastro">

@@ -35,5 +35,12 @@ app.factory("projetoAPILocal", function (dbAPILocal) {
         return dbAPILocal.query("DELETE FROM projeto WHERE id = ?", parameters);
     }
     
+    self.deleteChilds = function(id) {
+        var parameters = [id];
+        dbAPILocal.query("DELETE FROM secoes WHERE id_projeto = ?", parameters).then();
+        dbAPILocal.query("DELETE FROM interessados WHERE id_projeto = ?", parameters).then();
+        dbAPILocal.query("DELETE FROM requisito_usuario WHERE id_projeto = ?", parameters).then();
+        dbAPILocal.query("DELETE FROM req_usu_interessado WHERE NOT EXISTS(SELECT ru.id FROM requisito_usuario ru WHERE ru.id = id_requisito_usuario) OR NOT EXISTS(SELECT i.id FROM interessados i WHERE i.id = id_interessado)").then();
+    }
     return self;
 });

@@ -3,9 +3,11 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title"><i class="icon ion-ios-body"></i> Requisitos de Usuário</strong>
         </div>
-        <ion-item ng-repeat="item in requisitos" on-tap="editar(item)" on-hold="excluir(item)">
-            <h2>RU{{('000'+item.id_requisito).substr(-3,3)}}</h2>
-            <p>{{item.descricao}}</p>
+        <ion-item ng-repeat="item in requisitos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
+            <div class="item-margin-right">
+                <h2>RU{{('000' + item.id_requisito).substr(-3, 3)}}</h2>
+                <p>{{item.descricao}}</p>
+            </div>
             <div class="item-icon-right">
                 <i class="icon ion-ios-arrow-right"></i>
             </div>

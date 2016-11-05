@@ -51,6 +51,10 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
         return dbAPILocal.query("DELETE FROM requisito_usuario WHERE id = ?", parameters);
     }
     
+    self.deleteChilds = function() {
+        dbAPILocal.query("DELETE FROM req_usu_interessado WHERE NOT EXISTS(SELECT ru.id FROM requisito_usuario ru WHERE ru.id = id_requisito_usuario) OR NOT EXISTS(SELECT i.id FROM interessados i WHERE i.id = id_interessado)").then();
+    }
+    
     function inserirInteressados(requisitoUsuario) {
         dbAPILocal.query("DELETE FROM req_usu_interessado WHERE id_requisito_usuario = '" + requisitoUsuario.id + "' ").then(function () {
             angular.forEach(requisitoUsuario.interessados, function (idInteressado) {

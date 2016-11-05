@@ -3,8 +3,11 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title"><i class="icon ion-person-stalker"></i> Interessados</strong>
         </div>
-        <ion-item ng-repeat="item in interessados" on-tap="editar(item)" on-hold="excluir(item)">
-            <p>{{item.nome}}</p>
+        <ion-item ng-repeat="item in interessados" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
+            <div class="item-margin-right">
+                <h2>{{item.nome}}</h2>
+                <p>{{item.papel}}</p>
+            </div>
             <div class="item-icon-right">
                 <i class="icon ion-ios-arrow-right"></i>
             </div>

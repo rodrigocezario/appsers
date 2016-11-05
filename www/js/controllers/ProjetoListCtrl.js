@@ -8,6 +8,7 @@ app.controller('ProjetoListCtrl', function ($scope, $state, ionicMaterialMotion,
         utilAPI.confirmarExclusao().then(function (res) {
             if (res) {
                 projetoAPILocal.delete(item.id).then(function () {
+                    projetoAPILocal.deleteChilds(item.id);
                     //utilAPI.avisoTemp("Registro excluído com sucesso");
                     atualizaLista();
                 });

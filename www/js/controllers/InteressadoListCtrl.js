@@ -13,6 +13,7 @@ app.controller('InteressadoListCtrl', function ($scope, $state, $stateParams, io
         utilAPI.confirmarExclusao().then(function (res) {
             if (res) {
                 interessadosAPILocal.delete(item.id).then(function () {
+                    interessadosAPILocal.deleteChilds();
                     //utilAPI.avisoTemp("Registro excluído com sucesso");
                     atualizaLista();
                 });

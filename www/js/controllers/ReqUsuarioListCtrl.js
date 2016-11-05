@@ -13,6 +13,7 @@ app.controller('ReqUsuarioListCtrl', function ($scope, $state, $stateParams, ion
         utilAPI.confirmarExclusao().then(function (res) {
             if (res) {
                 reqUsuarioAPILocal.delete(item.id).then(function () {
+                    reqUsuarioAPILocal.deleteChilds();
                     //utilAPI.avisoTemp("Registro excluído com sucesso");
                     atualizaLista();
                 });

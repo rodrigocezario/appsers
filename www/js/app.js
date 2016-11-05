@@ -16,7 +16,7 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             db = window.openDatabase("db_sers.db", '1.0', 'db_sers', -1);
         }
         if (db) {
-            //$cordovaSQLite.execute(db, "PRAGMA foreign_keys = OFF");
+            //$cordovaSQLite.execute(db, "PRAGMA foreign_keys = OFF"); //problema ao usar sqlite3, portanto sem suporte a foreign key. Os metodos de exclusao foram feitos manualmente.
             $cordovaSQLite.execute(db, "PRAGMA foreign_keys = ON");
             //$cordovaSQLite.execute(db, "DROP TABLE projeto");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT, id_usuario INTEGER)");
