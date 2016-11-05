@@ -1,3 +1,3 @@
-app.controller('ParticipanteCtrl', function ($scope, $state, $stateParams) {
+app.controller('ParticipanteCtrl', function () {
     
 });
