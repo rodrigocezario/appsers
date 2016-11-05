@@ -37,7 +37,7 @@ app.factory("interessadosAPILocal", function (dbAPILocal) {
     }
     
     self.deleteChilds = function () {
-        dbAPILocal.query("DELETE FROM req_usu_interessado WHERE NOT EXISTS(SELECT ru.id FROM requisito_usuario ru WHERE ru.id = id_requisito_usuario) OR NOT EXISTS(SELECT i.id FROM interessados i WHERE i.id = id_interessado)").then();
+        dbAPILocal.query("DELETE FROM requisito_usuario_interessados WHERE NOT EXISTS(SELECT ru.id FROM requisito_usuario ru WHERE ru.id = id_requisito_usuario) OR NOT EXISTS(SELECT i.id FROM interessados i WHERE i.id = id_interessado)").then();
     }
     return self;
 
