@@ -21,13 +21,13 @@ app.factory("projetoAPILocal", function (dbAPILocal) {
     }
     
     self.insert = function(projeto) {
-        var parameters = [projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado];
-        return dbAPILocal.query("INSERT INTO projeto (nome, descricao, empresa, responsavel, compartilhado, dt_criacao, dt_finalizado) VALUES (?, ?, ?, ?, ?, ?, ?)", parameters);
+        var parameters = [projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado, app.usuarioLogin.id];
+        return dbAPILocal.query("INSERT INTO projeto (nome, descricao, empresa, responsavel, compartilhado, dt_criacao, dt_finalizado, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", parameters);
     }
     
     self.edit = function(projeto) {
-        var parameters = [projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado, projeto.id];
-        return dbAPILocal.query("UPDATE projeto SET nome = ?, descricao = ?, empresa = ?, responsavel = ?, compartilhado = ?, dt_criacao = ?, dt_finalizado = ? WHERE id = ?", parameters);
+        var parameters = [projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado, projeto.id_usuario, projeto.id];
+        return dbAPILocal.query("UPDATE projeto SET nome = ?, descricao = ?, empresa = ?, responsavel = ?, compartilhado = ?, dt_criacao = ?, dt_finalizado = ?, id_usuario = ? WHERE id = ?", parameters);
     }
     
     self.delete = function(id) {

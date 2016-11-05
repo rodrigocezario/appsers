@@ -22,13 +22,13 @@ app.factory("interessadosAPILocal", function (dbAPILocal) {
     }
 
     self.insert = function (interessado) {
-        var parameters = [interessado.id_projeto, interessado.nome, interessado.papel, interessado.funcao, interessado.email, interessado.telefone];
-        return dbAPILocal.query("INSERT INTO interessados (id_projeto, nome, papel, funcao, email, telefone) VALUES (?, ?, ?, ?, ?, ?)", parameters);
+        var parameters = [interessado.id_projeto, interessado.nome, interessado.papel, interessado.funcao, interessado.email, interessado.telefone, app.usuarioLogin.id];
+        return dbAPILocal.query("INSERT INTO interessados (id_projeto, nome, papel, funcao, email, telefone, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)", parameters);
     }
 
     self.edit = function (interessado) {
-        var parameters = [interessado.id_projeto, interessado.nome, interessado.papel, interessado.funcao, interessado.email, interessado.telefone, interessado.id];
-        return dbAPILocal.query("UPDATE interessados SET id_projeto = ?, nome = ?, papel = ?, funcao = ?, email = ?, telefone = ? WHERE id = ?", parameters);
+        var parameters = [interessado.id_projeto, interessado.nome, interessado.papel, interessado.funcao, interessado.email, interessado.telefone, interessado.id_usuario, interessado.id];
+        return dbAPILocal.query("UPDATE interessados SET id_projeto = ?, nome = ?, papel = ?, funcao = ?, email = ?, telefone = ?, id_usuario = ? WHERE id = ?", parameters);
     }
 
     self.delete = function (id) {

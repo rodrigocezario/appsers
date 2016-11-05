@@ -29,8 +29,8 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
     };
 
     self.insert = function (requisitoUsuario) {
-        var parameters = [requisitoUsuario.id_projeto, requisitoUsuario.descricao];
-        dbAPILocal.query("INSERT INTO requisito_usuario (id_projeto, descricao) VALUES (?, ?) ", parameters).then(function () {
+        var parameters = [requisitoUsuario.id_projeto, requisitoUsuario.descricao, app.usuarioLogin.id];
+        dbAPILocal.query("INSERT INTO requisito_usuario (id_projeto, descricao, id_usuario) VALUES (?, ?, ?) ", parameters).then(function () {
             dbAPILocal.query("SELECT last_insert_rowid() AS rowid FROM requisito_usuario LIMIT 1").then(function (result) {
                 requisitoUsuario.id = dbAPILocal.getById(result).rowid;
                 inserirInteressados(requisitoUsuario);
@@ -40,8 +40,8 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
     }
 
     self.edit = function (requisitoUsuario) {
-        var parameters = [requisitoUsuario.id_projeto, requisitoUsuario.descricao, requisitoUsuario.id];
-        dbAPILocal.query("UPDATE requisito_usuario SET id_projeto = ?, descricao = ? WHERE id = ?", parameters).then(function(){
+        var parameters = [requisitoUsuario.id_projeto, requisitoUsuario.descricao, requisitoUsuario.id_usuario, requisitoUsuario.id];
+        dbAPILocal.query("UPDATE requisito_usuario SET id_projeto = ?, descricao = ?, id_usuario = ? WHERE id = ?", parameters).then(function(){
             inserirInteressados(requisitoUsuario);
         });
     }
@@ -58,8 +58,8 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
     function inserirInteressados(requisitoUsuario) {
         dbAPILocal.query("DELETE FROM req_usu_interessado WHERE id_requisito_usuario = '" + requisitoUsuario.id + "' ").then(function () {
             angular.forEach(requisitoUsuario.interessados, function (idInteressado) {
-                var parameters = [requisitoUsuario.id, idInteressado];
-                dbAPILocal.query("INSERT INTO req_usu_interessado (id_requisito_usuario, id_interessado) VALUES (?, ?) ", parameters).then(function(){});
+                var parameters = [requisitoUsuario.id, idInteressado, app.usuarioLogin.id];
+                dbAPILocal.query("INSERT INTO req_usu_interessado (id_requisito_usuario, id_interessado, id_usuario) VALUES (?, ?, ?) ", parameters).then(function(){});
             });
         });
     }

@@ -22,13 +22,13 @@ app.factory("secoesAPILocal", function (dbAPILocal) {
     }
     
     self.insert = function(secao) {
-        var parameters = [secao.id_projeto, secao.proposito, secao.escopo, secao.def_acron_abrev, secao.referencias, secao.organizacao, secao.perspectiva, secao.funcionalidades, secao.caracteristicas_utilizador, secao.restricoes, secao.assuncoes_dependencias];
-        return dbAPILocal.query("INSERT INTO secoes (id_projeto, proposito, escopo, def_acron_abrev, referencias, organizacao, perspectiva, funcionalidades, caracteristicas_utilizador, restricoes, assuncoes_dependencias) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", parameters);
+        var parameters = [secao.id_projeto, secao.proposito, secao.escopo, secao.def_acron_abrev, secao.referencias, secao.organizacao, secao.perspectiva, secao.funcionalidades, secao.caracteristicas_utilizador, secao.restricoes, secao.assuncoes_dependencias, app.usuarioLogin.id];
+        return dbAPILocal.query("INSERT INTO secoes (id_projeto, proposito, escopo, def_acron_abrev, referencias, organizacao, perspectiva, funcionalidades, caracteristicas_utilizador, restricoes, assuncoes_dependencias, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", parameters);
     }
     
     self.edit = function(secao) {
-        var parameters = [secao.id_projeto, secao.proposito, secao.escopo, secao.def_acron_abrev, secao.referencias, secao.organizacao, secao.perspectiva, secao.funcionalidades, secao.caracteristicas_utilizador, secao.restricoes, secao.assuncoes_dependencias, secao.id];
-        return dbAPILocal.query("UPDATE secoes SET id_projeto = ?, proposito = ?, escopo = ?, def_acron_abrev = ?, referencias = ?, organizacao = ?, perspectiva = ?, funcionalidades = ?, caracteristicas_utilizador = ?, restricoes = ?, assuncoes_dependencias = ? WHERE id = ?", parameters);
+        var parameters = [secao.id_projeto, secao.proposito, secao.escopo, secao.def_acron_abrev, secao.referencias, secao.organizacao, secao.perspectiva, secao.funcionalidades, secao.caracteristicas_utilizador, secao.restricoes, secao.assuncoes_dependencias, secao.id_usuario, secao.id];
+        return dbAPILocal.query("UPDATE secoes SET id_projeto = ?, proposito = ?, escopo = ?, def_acron_abrev = ?, referencias = ?, organizacao = ?, perspectiva = ?, funcionalidades = ?, caracteristicas_utilizador = ?, restricoes = ?, assuncoes_dependencias = ?, id_usuario = ? WHERE id = ?", parameters);
     }
     
     return self;
