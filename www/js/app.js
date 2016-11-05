@@ -19,7 +19,13 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
         if (db) {
             //$cordovaSQLite.execute(db, "DROP TABLE usuario");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS usuario (id INTEGER PRIMARY KEY, nome TEXT, email TEXT, senha TEXT, tipo INTEGER, id_usuario INTEGER)");
+            /*$cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Juvencio','juv@gmail.com')");
+            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Lindomar','lindomar@gmail.com')");
             
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,2)");
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,3)");
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,1)");
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,2)");*/
             //$cordovaSQLite.execute(db, "DROP TABLE projeto");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT, id_usuario INTEGER)");
             //$cordovaSQLite.execute(db, "DROP TABLE participantes");
@@ -210,11 +216,21 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-participantes.html',
-                        controller: 'ProjetoCtrl'
+                        controller: 'ParticipanteListCtrl'
                     }
                 }
             })
-
+            
+            .state('app.projeto-participantes-add', {
+                url: '/projetos/:projetoId/participantes/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-participantes-cadastro.html',
+                        controller: 'InteressadoCtrl'
+                    }
+                }
+            })
+            
             .state('app.config', {
                 url: '/config',
                 views: {
