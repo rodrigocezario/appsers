@@ -19,13 +19,6 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
         if (db) {
             //$cordovaSQLite.execute(db, "DROP TABLE usuario");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS usuario (id INTEGER PRIMARY KEY, nome TEXT, email TEXT, senha TEXT, tipo INTEGER, id_usuario INTEGER)");
-            /*$cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Juvencio','juv@gmail.com')");
-            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Lindomar','lindomar@gmail.com')");
-            
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,2)");
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,3)");
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,1)");
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,2)");*/
             //$cordovaSQLite.execute(db, "DROP TABLE projeto");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT, id_usuario INTEGER)");
             //$cordovaSQLite.execute(db, "DROP TABLE participantes");
@@ -44,6 +37,40 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_sistema_projeto");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_sistema_projeto (id INTEGER PRIMARY KEY, id_requisito_sistema INTEGER, id_requisito_usuario INTEGER, reuso INTEGER, id_projeto INTEGER, id_vinculo INTEGER, importancia INTEGER, urgencia INTEGER, observacao TEXT)");
+            
+            /*var sql;
+            sql = "INSERT INTO requisito_sistema (tipo, resumo, descricao, id_usuario) VALUES(1,'Cadastrar planos','Deve haver uma função para cadastrar planos. Um cadastro de plano deve conter as seguintes informações:',1)";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, importancia, urgencia, observacao) VALUES(1,1,0,1,1,1,'')";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema (tipo, resumo, descricao, id_usuario) VALUES(2,'Acesso a exclusão de planos','Um Funcionário não deverá ser capaz de excluir um produto se o mesmo não tiver autorização.',1)";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, importancia, urgencia, observacao) VALUES(2,1,0,1,1,2,'')";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema (tipo, resumo, descricao, id_usuario) VALUES(1,'Contas a receber','O sistema deve armazenar as seguintes informações sobre contas a receber:',1)";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, importancia, urgencia, observacao) VALUES(3,1,0,1,2,1,'')";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema (tipo, resumo, descricao, id_usuario) VALUES(1,'Contas a Pagar','O sistema deve armazenar as seguintes informações sobre contas a pagar:',1)";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, importancia, urgencia, observacao) VALUES(4,2,0,1,3,2,'')";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema (tipo, resumo, descricao, id_usuario) VALUES(2,'Especificação de banco de dados','O sistema deve armazenar os dados em um banco de dados utilizando um produto de software de banco de dados relacional Postgresql na versão 9.5.',1)";
+            //$cordovaSQLite.execute(db, sql);
+            sql = "INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, importancia, urgencia, observacao) VALUES(5,2,0,1,2,3,'')";
+            //$cordovaSQLite.execute(db, sql);
+            
+            //$cordovaSQLite.execute(db, "UPDATE requisito_sistema_projeto SET reuso = 1 WHERE id = 3");
+            
+            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Juvencio','juv@gmail.com')");
+            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Lindomar','lindomar@gmail.com')");
+            
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,2)");
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,3)");
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,1)");
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,2)");
+            
+             */
         }
     });
 })

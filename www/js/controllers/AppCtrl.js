@@ -12,7 +12,6 @@ app.controller('AppCtrl', function ($scope, $state, $ionicHistory, usuarioAPILoc
     $scope.$on('$ionicView.enter', function () {
         if(!app.usuarioLogin){
             usuarioAPILocal.get().then(function (res) {
-                console.log("Inicializando dados do Usuário");
                 if (!res[0] && $state.current.name != 'app.conta') {
                     $ionicHistory.nextViewOptions({
                         disableBack: true

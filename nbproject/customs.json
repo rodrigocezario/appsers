@@ -1,5 +1,6 @@
 {
     "elements": {
+        "ion-nav-view": {},
         "ion-footer-bar": {},
         "ion-view": {}
     },
