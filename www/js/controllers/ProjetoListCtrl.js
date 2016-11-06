@@ -53,7 +53,6 @@ app.controller('ProjetoListCtrl', function ($scope, $state, ionicMaterialMotion,
 
     $scope.blinds = function () {
         resetEffect();
-        document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
         setTimeout(function () {
             ionicMaterialMotion.blinds();
         }, 100);

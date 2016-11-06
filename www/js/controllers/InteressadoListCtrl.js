@@ -5,8 +5,9 @@ app.controller('InteressadoListCtrl', function ($scope, $state, $stateParams, io
             projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
                 $scope.projeto = res;
             });
+            atualizaLista();
         }
-        atualizaLista();
+        
     });
 
     $scope.excluir = function (item) {
@@ -32,7 +33,7 @@ app.controller('InteressadoListCtrl', function ($scope, $state, $stateParams, io
     function atualizaLista() {
         interessadosAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
             $scope.interessados = res;
-            $scope.blinds;
+            $scope.blinds();
         });
     }
 
@@ -59,7 +60,6 @@ app.controller('InteressadoListCtrl', function ($scope, $state, $stateParams, io
 
     $scope.blinds = function () {
         resetEffect();
-        document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
         setTimeout(function () {
             ionicMaterialMotion.blinds();
         }, 100);

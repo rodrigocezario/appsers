@@ -6,46 +6,50 @@
         <ion-tabs class="tabs-top">
             <ion-tab title="Funcionais">
                 <ion-nav-view name="funcionais" class="padding-top">
-                    <div class="list card has-header stable-bg" ng-repeat="item in funcionais" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
-                        <div class="item item-divider ">
-                            <p>RF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</p>
-                        </div>
-                        <div class="item item-text-wrap" overflow-scroll="true" style="max-height: 120px; overflow-y: auto" >
-                            <p>{{item.descricao}}</p>
-                        </div>
-                        <div class="item">
-                            <div class="row no-padding">
-                                <div class="col text-left no-padding">
-                                    <a class="subdued no-padding">Importância: {{descImportancia(item.importancia)}}</a>
-                                </div>
-                                <div class="col text-right no-padding">
-                                    <a class="subdued no-padding">Urgência: {{descUrgencia(item.urgencia)}}</a>
+                    <ion-list>
+                        <div class="card has-header stable-bg" ng-repeat="item in funcionais" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
+                            <div class="item item-divider ">
+                                <p>RF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</p>
+                            </div>
+                            <div class="item item-text-wrap" overflow-scroll="true" style="max-height: 120px; overflow-y: auto" >
+                                <p>{{item.descricao}}</p>
+                            </div>
+                            <div class="item">
+                                <div class="row no-padding">
+                                    <div class="col text-left no-padding">
+                                        <a class="subdued no-padding">Importância: {{descImportancia(item.importancia)}}</a>
+                                    </div>
+                                    <div class="col text-right no-padding">
+                                        <a class="subdued no-padding">Urgência: {{descUrgencia(item.urgencia)}}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </ion-list>
                 </ion-nav-view>
             </ion-tab>
             <ion-tab title="Não funcionais">
                 <ion-nav-view name="funcionais" class="padding-top">
-                    <div class="list card has-header stable-bg" ng-repeat="item in naofuncionais" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
-                        <div class="item item-divider ">
-                            <p>RNF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</p>
-                        </div>
-                        <div class="item item-text-wrap" overflow-scroll="true" style="max-height: 120px; overflow-y: auto" >
-                            <p>{{item.descricao}}</p>
-                        </div>
-                        <div class="item">
-                            <div class="row no-padding">
-                                <div class="col text-left no-padding">
-                                    <a class="subdued no-padding">Importância: {{descImportancia(item.importancia)}}</a>
-                                </div>
-                                <div class="col text-right no-padding">
-                                    <a class="subdued no-padding">Urgência: {{descUrgencia(item.urgencia)}}</a>
+                    <ion-list>
+                        <div class="card has-header stable-bg" ng-repeat="item in naofuncionais" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
+                            <div class="item item-divider ">
+                                <p>RNF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</p>
+                            </div>
+                            <div class="item item-text-wrap" overflow-scroll="true" style="max-height: 120px; overflow-y: auto" >
+                                <p>{{item.descricao}}</p>
+                            </div>
+                            <div class="item">
+                                <div class="row no-padding">
+                                    <div class="col text-left no-padding">
+                                        <a class="subdued no-padding">Importância: {{descImportancia(item.importancia)}}</a>
+                                    </div>
+                                    <div class="col text-right no-padding">
+                                        <a class="subdued no-padding">Urgência: {{descUrgencia(item.urgencia)}}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </ion-list>
                 </ion-nav-view>
             </ion-tab>
 

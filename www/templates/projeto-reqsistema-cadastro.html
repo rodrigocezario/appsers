@@ -1,32 +1,56 @@
 <ion-view view-title="SERS">
-    <ion-content>
+    <ion-content class="has-footer">
         <div class="bar bar-subheader bar-stable static text-center">
-            <strong class="title"><i class="icon ion-ios-paper"></i> Dados do Requisito </strong>
+            <strong class="title"><i class="icon ion-ios-paper"></i> Dados do Requisito <span ng-hide="!requisito.id_requisito">RF{{('000' + requisito.id_requisito).substr(-3, 3)}}</span></strong>
         </div>
-        <div class="im-wrapper">
-            <!-- Forms -->
-            <form name="reqUsuarioForm">
-                <div class="list">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">Descrição</span>
-                        <textarea rows="7" placeholder="Descrição" ng-model="requisito.descricao" value=""></textarea>
-                    </label>
-                    <br/>
-                    <label class="item item-stacked-label">
-                        <span class="input-label" ng-hide="(interessados.length == 0)">Interessados</span>
-                    </label>
-                    <label class="item item-checkbox" ng-repeat="item in interessados">
-                        <label class="checkbox">
-                            <input type="checkbox" ng-model="item.is_check" ng-true-value="1">
-                        </label>
-                        {{item.nome}}
-                    </label>
-                    <br/>
-                    <button class="button button-block button-balanced ink" ng-click="salvarReqUsuario(requisito, interessados)" data-ink-color="#9DEAFF" data-ink-opacity="1">
-                        Salvar
-                    </button>
-                </div>
-            </form>
-        </div>
+        <ion-tabs class="tabs-top">
+            <ion-tab title="Requisito">
+                <ion-nav-view name="requisito" class="padding-top ">
+                    <div class="im-wrapper ">
+                        <!-- Forms -->
+                        <form name="reqSistemaForm" class="padding-top">
+                            <div class="list">
+                                <label class="item item-input item-floating-label">
+                                    <span class="input-label">Resumo</span>
+                                    <input type="text" placeholder="Resumo" ng-model="requisito.resumo" value="">
+                                </label>
+                                <label class="item item-input item-floating-label">
+                                    <span class="input-label">Descrição do Requisito</span>
+                                    <textarea rows="7" placeholder="Descrição do Requisito" ng-model="requisito.descricao" value=""></textarea>
+                                </label>
+                                <label class="item item-stacked-label">
+                                    <span class="input-label">Tipo do Requisito</span>
+                                </label>
+                                    <ion-list>
+                                        <ion-radio ng-model="requisito.tipo" ng-value="1">Funcional</ion-radio>
+                                        <ion-radio ng-model="requisito.tipo" ng-value="2">Não Funcional</ion-radio>
+                                    </ion-list>
+                                <br/>
+                                <button class="button button-block button-balanced ink" ng-click="salvar(requisito)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </ion-nav-view>
+            </ion-tab>
+            <ion-tab title="Padrões">
+                <ion-nav-view name="padroes" class="padding-top">
+
+                </ion-nav-view>
+            </ion-tab>
+            <ion-tab title="Sujestões">
+                <ion-nav-view name="sujestoes" class="padding-top">
+
+                </ion-nav-view>
+            </ion-tab>
+        </ion-tabs>
     </ion-content>
+    <button id="btn-incluir" ng-click="incluir()" class="button button-dark button-fab button-fab-bottom-right">
+        <i class="icon ion-plus"></i>
+    </button>
+
+    <ion-footer-bar class="bar-stable">
+        <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
+    </ion-footer-bar>
 </ion-view>

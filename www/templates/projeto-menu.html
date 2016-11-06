@@ -3,15 +3,17 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title">Opções</strong>
         </div>
-        <ion-item ng-repeat="menu in menus" href="#/app/projetos/{{projeto.id}}/{{menu.href}}">
-            <div class="item-icon-left">
-                <i class="icon {{menu.icone}}"></i>
-                <p>{{menu.descricao}}</p>
-            </div>
-            <div class="item-icon-right">
-                <i class="icon ion-ios-arrow-right"></i>
-            </div>
-        </ion-item>
+        <ion-list>
+            <ion-item ng-repeat="menu in menus" href="#/app/projetos/{{projeto.id}}/{{menu.href}}">
+                <div class="item-icon-left">
+                    <i class="icon {{menu.icone}}"></i>
+                    <p>{{menu.descricao}}</p>
+                </div>
+                <div class="item-icon-right">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+            </ion-item>
+        </ion-list>
     </ion-content>
     <ion-footer-bar class="bar-stable">
         <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>

@@ -1,4 +1,4 @@
-app.controller('ParticipanteListCtrl', function ($scope, $state, $stateParams, projetoAPILocal, participantesAPILocal, utilAPI) {
+app.controller('ParticipanteListCtrl', function ($scope, $state, $stateParams, projetoAPILocal, participantesAPILocal, utilAPI, ionicMaterialMotion) {
     $scope.$on('$ionicView.enter', function () {
         if (Number($stateParams.projetoId)) {
             projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
@@ -11,7 +11,7 @@ app.controller('ParticipanteListCtrl', function ($scope, $state, $stateParams, p
     function atualizaLista() {
         participantesAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
             $scope.participantes = res;
-            $scope.blinds;
+            $scope.blinds();
         });
     }
 
@@ -58,7 +58,6 @@ app.controller('ParticipanteListCtrl', function ($scope, $state, $stateParams, p
 
     $scope.blinds = function () {
         resetEffect();
-        document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
         setTimeout(function () {
             ionicMaterialMotion.blinds();
         }, 100);

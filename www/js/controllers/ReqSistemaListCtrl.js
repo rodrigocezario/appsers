@@ -27,8 +27,7 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
     };
 
     $scope.editar = function (item) {
-        utilAPI.avisoTemp("Em breve disponível!");
-        //$state.go("app.projeto-reqsistema-cadastro", {'projetoId': item.id_projeto,'reqUsuarioId': item.id});
+        $state.go("app.projeto-reqsistema-cadastro", {'projetoId': item.id_projeto,'reqUsuarioId': item.id});
     };
     
     $scope.incluir = function () {
@@ -69,7 +68,7 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
                 $scope.naofuncionais = res;
             });
         }
-        $scope.blinds;
+        $scope.blinds();
     }
 
     //metodos para efeito visual
@@ -84,7 +83,7 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
             done[i].classList.remove('done');
             done[i].removeAttribute('style');
         }
-        var ionList = document.getElementsByTagName('ion-list');
+        var ionList = document.getElementsByClassName('ion-list');
         for (var i = 0; i < ionList.length; i++) {
             var toRemove = ionList[i].className;
             if (/animate-/.test(toRemove)) {
@@ -95,9 +94,8 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
 
     $scope.blinds = function () {
         resetEffect();
-        document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
         setTimeout(function () {
             ionicMaterialMotion.blinds();
-        }, 100);
+        }, 60);
     };
 });
