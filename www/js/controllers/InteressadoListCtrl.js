@@ -24,7 +24,11 @@ app.controller('InteressadoListCtrl', function ($scope, $state, $stateParams, io
     $scope.editar = function (item) {
         $state.go("app.projeto-interessados-cadastro", {'projetoId': item.id_projeto, 'interessadoId': item.id});
     };
-
+    
+    $scope.incluir = function () {
+        $state.go("app.projeto-interessados-add",{'projetoId': $stateParams.projetoId});
+    };
+    
     function atualizaLista() {
         interessadosAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
             $scope.interessados = res;

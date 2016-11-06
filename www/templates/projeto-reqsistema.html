@@ -51,11 +51,9 @@
 
         </ion-tabs>
     </ion-content>
-    <a ng-href="#/app/projetos/{{projeto.id}}/reqsistema/cadastro">
-        <button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
-            <i class="icon ion-plus"></i>
-        </button>
-    </a>
+    <button id="btn-incluir" ng-click="incluir()" class="button button-dark button-fab button-fab-bottom-right">
+        <i class="icon ion-plus"></i>
+    </button>
 
     <ion-footer-bar class="bar-stable">
         <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>

@@ -1,4 +1,4 @@
-app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, ionicMaterialMotion, projetoAPILocal, reqSistemaAPILocal, utilAPI) {
+app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ionicMaterialMotion, projetoAPILocal, reqSistemaAPILocal, utilAPI) {
 
     if (Number($stateParams.projetoId)) {
         projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
@@ -28,9 +28,13 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, ionicMateri
 
     $scope.editar = function (item) {
         utilAPI.avisoTemp("Em breve disponível!");
-        //$state.go("app.projeto-requsuario-cadastro", {'projetoId': item.id_projeto,'reqUsuarioId': item.id});
+        //$state.go("app.projeto-reqsistema-cadastro", {'projetoId': item.id_projeto,'reqUsuarioId': item.id});
     };
-
+    
+    $scope.incluir = function () {
+        $state.go("app.projeto-reqsistema-add", {'projetoId': $stateParams.projetoId});
+    };
+    
     $scope.descImportancia = function (id) {
         if (id == 1) {
             return "Essencial";

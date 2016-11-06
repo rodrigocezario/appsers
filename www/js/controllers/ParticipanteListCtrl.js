@@ -29,7 +29,12 @@ app.controller('ParticipanteListCtrl', function ($scope, $state, $stateParams, p
             utilAPI.avisoTemp("Para sair deste projeto é necessário excluir todo o projeto através do menu principal", null, 3000);
         }
     };
-
+    
+    $scope.incluir = function () {
+        utilAPI.avisoTemp("Em breve disponível");
+        //$state.go("app.projeto-participantes-add",{'projetoId': $stateParams.projetoId});
+    };
+    
     //metodos para efeito visual
     var resetEffect = function () {
         var inClass = document.querySelectorAll('.in');

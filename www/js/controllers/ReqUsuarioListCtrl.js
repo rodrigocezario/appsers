@@ -24,7 +24,11 @@ app.controller('ReqUsuarioListCtrl', function ($scope, $state, $stateParams, ion
     $scope.editar = function (item) {
         $state.go("app.projeto-requsuario-cadastro", {'projetoId': item.id_projeto,'reqUsuarioId': item.id});
     };
-
+    
+    $scope.incluir = function () {
+        $state.go("app.projeto-requsuario-add",{'projetoId': $stateParams.projetoId});
+    };
+    
     function atualizaLista() {
         reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
             $scope.requisitos = res;

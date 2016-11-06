@@ -20,6 +20,10 @@ app.controller('ProjetoListCtrl', function ($scope, $state, ionicMaterialMotion,
         $state.go("app.projeto-menu", {'projetoId': item.id});
     };
     
+    $scope.incluir = function () {
+        $state.go("app.projeto-add");
+    };
+    
     function atualizaLista() {
         projetoAPILocal.get().then(function(res){
             $scope.projetos = res;

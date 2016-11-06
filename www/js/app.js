@@ -227,7 +227,27 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-
+            
+            .state('app.projeto-reqsistema-add', {
+                url: '/projetos/:projetoId/reqsistema/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-cadastro.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-cadastro', {
+                url: '/projetos/:projetoId/reqsistema',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-cadastro.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+            
             .state('app.projeto-rastreabilidade', {
                 url: '/projetos/:projetoId/rastreabilidade',
                 views: {
