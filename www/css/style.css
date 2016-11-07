@@ -224,5 +224,5 @@ ion-item .item-margin-right{
     margin-right: 30px;
 }
 ion-list ion-item{
-    border: #ddd 1px solid !important;
+    border: #ddd 1px dotted !important;
 }
