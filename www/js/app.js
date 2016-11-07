@@ -38,7 +38,7 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_sistema_projeto");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_sistema_projeto (id INTEGER PRIMARY KEY, id_requisito_sistema INTEGER, id_requisito_usuario INTEGER, reuso INTEGER, id_projeto INTEGER, id_vinculo INTEGER, importancia INTEGER, urgencia INTEGER, observacao TEXT)");
             
-            /*var sql;
+            var sql;
             sql = "INSERT INTO requisito_sistema (tipo, resumo, descricao, id_usuario) VALUES(1,'Cadastrar planos','Deve haver uma função para cadastrar planos. Um cadastro de plano deve conter as seguintes informações:',1)";
             //$cordovaSQLite.execute(db, sql);
             sql = "INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, importancia, urgencia, observacao) VALUES(1,1,0,1,1,1,'')";
@@ -62,15 +62,15 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             
             //$cordovaSQLite.execute(db, "UPDATE requisito_sistema_projeto SET reuso = 1 WHERE id = 3");
             
-            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Juvencio','juv@gmail.com')");
-            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Lindomar','lindomar@gmail.com')");
+            /*$cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Juvencio','juv@gmail.com')");
+            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Lindomar','lindomar@gmail.com')");*/
             
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,2)");
+            /*$cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,2)");
             $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,3)");
             $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,1)");
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,2)");
+            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,2)");*/
             
-             */
+             
         }
     });
 })

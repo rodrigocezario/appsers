@@ -6,7 +6,7 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
         });
         //atualiza exibição da lista ao voltar do cadastro
         $scope.$on('$ionicView.enter', function () {
-            atualizaLista();
+            $scope.atualizaLista();
         });
     }
 
@@ -20,7 +20,7 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
                     reqSistemaAPILocal.deleteFathers();
                     reqSistemaAPILocal.deleteChilds();
                 });
-                atualizaLista(item.tipo);
+                $scope.atualizaLista(item.tipo);
                 utilAPI.avisoTemp("Registro excluído com sucesso");
             }
         });
@@ -57,7 +57,7 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
             return null;
         }
     }
-    function atualizaLista(tipoRequisito = null) {
+    $scope.atualizaLista = function (tipoRequisito = null) {
         if (!tipoRequisito || tipoRequisito == 1) {
             reqSistemaAPILocal.getByIdProjeto($stateParams.projetoId, 1).then(function (res) {
                 $scope.funcionais = res;
@@ -70,7 +70,7 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
         }
         $scope.blinds();
     }
-
+    
     //metodos para efeito visual
     var resetEffect = function () {
         var inClass = document.querySelectorAll('.in');
@@ -96,6 +96,6 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
         resetEffect();
         setTimeout(function () {
             ionicMaterialMotion.blinds();
-        }, 60);
+        }, 100);
     };
 });
