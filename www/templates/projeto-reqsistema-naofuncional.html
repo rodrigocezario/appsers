@@ -4,7 +4,7 @@
             <strong class="title"><i class="icon ion-ios-monitor"></i> Requisitos de Sistema</strong>
         </div>
         <div class="button-bar">
-            <a class="button button-raised ink-dark" ng-href="/#/app/projetos/{{projeto.id}}/reqsistema/funcional">Funcional</a>
+            <a class="button button-raised ink-dark" ng-click="tabSelect()">Funcional</a>
             <a class="button button-raised ink-dark button-bar-active">Não funcional</a>
         </div>
         <div class="card" ng-repeat="item in requisitos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">

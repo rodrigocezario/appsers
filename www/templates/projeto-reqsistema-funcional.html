@@ -5,7 +5,7 @@
         </div>
         <div class="button-bar">
             <a class="button button-raised ink-dark button-bar-active">Funcional</a>
-            <a class="button button-raised ink-dark" ng-href="/#/app/projetos/{{projeto.id}}/reqsistema/naofuncional">Não funcional</a>
+            <a class="button button-raised ink-dark" ng-click="tabSelect()">Não funcional</a>
         </div>
         <div class="card" ng-repeat="item in requisitos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
             <div class="item item-divider ">
