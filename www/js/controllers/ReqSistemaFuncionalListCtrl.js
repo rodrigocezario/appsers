@@ -1,15 +1,14 @@
-app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ionicMaterialMotion, projetoAPILocal, reqSistemaAPILocal, utilAPI) {
+app.controller('ReqSistemaFuncionalListCtrl', function ($scope, $stateParams, $state, $ionicTabsDelegate, ionicMaterialMotion, projetoAPILocal, reqSistemaAPILocal, utilAPI) {
 
     if (Number($stateParams.projetoId)) {
         projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
             $scope.projeto = res;
         });
-        //atualiza exibição da lista ao voltar do cadastro
         $scope.$on('$ionicView.enter', function () {
-            $scope.atualizaLista();
+            atualizaLista();
         });
     }
-
+    
     $scope.excluir = function (item) {
         utilAPI.confirmarExclusao().then(function (res) {
             if (res) {
@@ -20,20 +19,20 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
                     reqSistemaAPILocal.deleteFathers();
                     reqSistemaAPILocal.deleteChilds();
                 });
-                $scope.atualizaLista(item.tipo);
+                atualizaLista();
                 utilAPI.avisoTemp("Registro excluído com sucesso");
             }
         });
     };
 
     $scope.editar = function (item) {
-        $state.go("app.projeto-reqsistema-cadastro", {'projetoId': item.id_projeto,'reqUsuarioId': item.id});
+        $state.go("app.projeto-reqsistema-cadastro", {'projetoId': item.id_projeto, 'requisitoId': item.id});
     };
-    
+
     $scope.incluir = function () {
-        $state.go("app.projeto-reqsistema-add", {'projetoId': $stateParams.projetoId});
+        $state.go("app.projeto-reqsistema-add", {'projetoId': $stateParams.projetoId, 'tipoId': 1});
     };
-    
+
     $scope.descImportancia = function (id) {
         if (id == 1) {
             return "Essencial";
@@ -57,20 +56,14 @@ app.controller('ReqSistemaListCtrl', function ($scope, $stateParams, $state, ion
             return null;
         }
     }
-    $scope.atualizaLista = function (tipoRequisito = null) {
-        if (!tipoRequisito || tipoRequisito == 1) {
-            reqSistemaAPILocal.getByIdProjeto($stateParams.projetoId, 1).then(function (res) {
-                $scope.funcionais = res;
-            });
-        }
-        if (!tipoRequisito || tipoRequisito == 2) {
-            reqSistemaAPILocal.getByIdProjeto($stateParams.projetoId, 2).then(function (res) {
-                $scope.naofuncionais = res;
-            });
-        }
+
+    function atualizaLista() {
+        reqSistemaAPILocal.getByIdProjeto($stateParams.projetoId, 1).then(function (res) {
+            $scope.requisitos = res;
+        });
         $scope.blinds();
     }
-    
+
     $scope.blinds = function () {
         setTimeout(function () {
             ionicMaterialMotion.blinds();

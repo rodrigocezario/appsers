@@ -1,7 +1,9 @@
 {
     "elements": {
         "ion-nav-view": {},
+        "ion-tabs": {},
         "ion-footer-bar": {},
+        "ion-tab": {},
         "ion-view": {}
     },
     "attributes": {}

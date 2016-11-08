@@ -15,7 +15,7 @@ app.controller('ProjetoMenuCtrl', function ($scope, $stateParams, ionicMaterialM
         {descricao: "Interessados", href: "interessados", icone: "ion-person-stalker"},
         {descricao: "Seções do Documento ERS", href: "secoes", icone: "ion-android-document"},
         {descricao: "Requisitos de Usuário", href: "requsuario", icone: "ion-ios-body"},
-        {descricao: "Requisitos de Sistema", href: "reqsistema", icone: "ion-ios-monitor"},
+        {descricao: "Requisitos de Sistema", href: "reqsistema/funcional", icone: "ion-ios-monitor"},
         {descricao: "Rastreabilidade", href: "rastreabilidade", icone: "ion-grid"},
         {descricao: "Participantes", href: "participantes", icone: "ion-ios-people"}
     ];

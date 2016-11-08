@@ -1,0 +1,35 @@
+<ion-view view-title="SERS">
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title"><i class="icon ion-ios-monitor"></i> Requisitos de Sistema</strong>
+        </div>
+        <div class="button-bar">
+            <a class="button button-raised ink-dark" ng-href="/#/app/projetos/{{projeto.id}}/reqsistema/funcional">Funcional</a>
+            <a class="button button-raised ink-dark button-bar-active">Não funcional</a>
+        </div>
+        <div class="card" ng-repeat="item in requisitos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
+            <div class="item item-divider">
+                <p>RF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</p>
+            </div>
+            <div class="item item-text-wrap" overflow-scroll="true" style="max-height: 120px; overflow-y: auto" >
+                <p>{{item.descricao}}</p>
+            </div>
+            <div class="item">
+                <div class="row no-padding">
+                    <div class="col text-left no-padding">
+                        <a class="subdued no-padding">Importância: {{descImportancia(item.importancia)}}</a>
+                    </div>
+                    <div class="col text-right no-padding">
+                        <a class="subdued no-padding">Urgência: {{descUrgencia(item.urgencia)}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <button id="btn-incluir" ng-click="incluir()" class="button button-dark button-fab button-fab-bottom-right">
+        <i class="icon ion-plus"></i>
+    </button>
+    <ion-footer-bar class="bar-stable">
+        <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
+    </ion-footer-bar>
+</ion-view>

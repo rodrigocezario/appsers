@@ -31,13 +31,13 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario (id INTEGER PRIMARY KEY, id_projeto INTEGER, descricao TEXT, id_usuario INTEGER)");
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_usuario_interessados");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_usuario_interessados (id INTEGER PRIMARY KEY, id_requisito_usuario INTEGER, id_interessado INTEGER)");
-            
+
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_sistema");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_sistema (id INTEGER PRIMARY KEY, id_padrao INTEGER, tipo INTEGER, resumo TEXT, descricao TEXT, id_usuario INTEGER)");
-            
+
             //$cordovaSQLite.execute(db, "DROP TABLE requisito_sistema_projeto");
             $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS requisito_sistema_projeto (id INTEGER PRIMARY KEY, id_requisito_sistema INTEGER, id_requisito_usuario INTEGER, reuso INTEGER, id_projeto INTEGER, id_vinculo INTEGER, importancia INTEGER, urgencia INTEGER, observacao TEXT)");
-            
+
             var sql;
             sql = "INSERT INTO requisito_sistema (tipo, resumo, descricao, id_usuario) VALUES(1,'Cadastrar planos','Deve haver uma função para cadastrar planos. Um cadastro de plano deve conter as seguintes informações:',1)";
             //$cordovaSQLite.execute(db, sql);
@@ -59,18 +59,18 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
             //$cordovaSQLite.execute(db, sql);
             sql = "INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, importancia, urgencia, observacao) VALUES(5,2,0,1,2,3,'')";
             //$cordovaSQLite.execute(db, sql);
-            
+
             //$cordovaSQLite.execute(db, "UPDATE requisito_sistema_projeto SET reuso = 1 WHERE id = 3");
-            
+
             /*$cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Juvencio','juv@gmail.com')");
-            $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Lindomar','lindomar@gmail.com')");*/
-            
+             $cordovaSQLite.execute(db, "INSERT INTO usuario(nome, email) VALUES ('Lindomar','lindomar@gmail.com')");*/
+
             /*$cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,2)");
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,3)");
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,1)");
-            $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,2)");*/
-            
-             
+             $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (1,3)");
+             $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,1)");
+             $cordovaSQLite.execute(db, "INSERT INTO participantes(id_projeto, id_usuario) VALUES (2,2)");*/
+
+
         }
     });
 })
@@ -84,7 +84,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 templateUrl: 'templates/menu.html',
                 controller: 'AppCtrl'
             })
-            
+
             .state('app.conta', {
                 url: '/conta',
                 params: {
@@ -97,7 +97,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-            
+
             .state('app.login', {
                 url: '/login',
                 views: {
@@ -107,7 +107,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-            
+
             .state('app.projetos', {
                 url: '/projetos',
                 views: {
@@ -217,19 +217,29 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
+            
+            .state('app.projeto-reqsistema-funcional', {
+                url: '/projetos/:projetoId/reqsistema/funcional',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-funcional.html',
+                        controller: 'ReqSistemaFuncionalListCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-naofuncional', {
+                url: '/projetos/:projetoId/reqsistema/naofuncional',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-naofuncional.html',
+                        controller: 'ReqSistemaNaoFuncionalListCtrl'
+                    }
+                }
+            })
 
-            .state('app.projeto-reqsistema', {
-                url: '/projetos/:projetoId/reqsistema',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/projeto-reqsistema.html',
-                        controller: 'ReqSistemaListCtrl'
-                    }
-                }
-            })
-            
             .state('app.projeto-reqsistema-add', {
-                url: '/projetos/:projetoId/reqsistema/cadastro',
+                url: '/projetos/:projetoId/reqsistema/cadastro/:tipoId',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-cadastro.html',
@@ -237,9 +247,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-            
+
             .state('app.projeto-reqsistema-cadastro', {
-                url: '/projetos/:projetoId/reqsistema',
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/cadastro',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-cadastro.html',
@@ -247,7 +257,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-            
+
             .state('app.projeto-rastreabilidade', {
                 url: '/projetos/:projetoId/rastreabilidade',
                 views: {
@@ -267,7 +277,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-            
+
             .state('app.projeto-participantes-add', {
                 url: '/projetos/:projetoId/participantes/cadastro',
                 views: {
@@ -277,7 +287,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-            
+
             .state('app.config', {
                 url: '/config',
                 views: {

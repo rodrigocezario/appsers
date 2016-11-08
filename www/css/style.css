@@ -226,3 +226,15 @@ ion-item .item-margin-right{
 ion-list ion-item{
     border: #ddd 1px dotted !important;
 }
+
+.button-bar a{
+    text-transform: none !important;
+}
+.button-bar-active{
+    background-color: #e6e6e6 !important;
+    border-bottom: 2px #444 solid !important;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.26) !important;
+}
+.card{
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,.26) !important;
+}
