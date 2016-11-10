@@ -14,8 +14,9 @@
                 </div>
                 <div class="item item-text-wrap no-padding-top" overflow-scroll="true" style="max-height: 120px; overflow-y: auto" >
                     <p>{{item.descricao}}</p>
+                    <p class="text-right no-padding" ng-if="item.id_requisito_usuario">RU{{('000' + item.id_requisito_usuario).substr(-3, 3)}}</p>
                 </div>
-                <div class="item">
+                <div class="item no-padding-top">
                     <div class="row no-padding">
                         <div class="col text-left no-padding">
                             <a class="subdued no-padding">Importância: {{descImportancia(item.importancia)}}</a>

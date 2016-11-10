@@ -238,3 +238,6 @@ ion-list ion-item{
 .card{
     box-shadow: 0 3px 6px 0 rgba(0,0,0,.26) !important;
 }
+.item-select-40{
+    max-width: 40% !important;
+}

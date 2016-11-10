@@ -43,13 +43,12 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
     }
     
     reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function(res){
-        $scope.reqUsuarioOptions = [{id: null, name:"Não definido"}];
+        $scope.reqUsuarioOptions = [{id: null, name:"Não definido", id_requisito: null}];
         angular.forEach(res, function (item) {
-            if(!item.id || item.id != ''){
-                $scope.reqUsuarioOptions.push({id: item.id, name: "RF"+('000' + item.id_requisito).substr(-3, 3)+" - "+item.descricao});
+            if(!item.id || item.id != ""){
+                $scope.reqUsuarioOptions.push({id: item.id, name: "RU"+('000' + item.id_requisito).substr(-3, 3)+" - "+item.descricao.substr(0, 100), id_requisito: "RU"+('000' + item.id_requisito).substr(-3, 3)});
             }
         });
-        console.log($scope.reqUsuarioOptions);
     });
     
     $scope.tipoOptions = [
