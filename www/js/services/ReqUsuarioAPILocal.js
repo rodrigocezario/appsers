@@ -16,7 +16,7 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
 
     self.getByIdProjeto = function (id) {
         var parameters = [id];
-        return dbAPILocal.query("SELECT *, (SELECT COUNT(id) FROM requisito_usuario ru WHERE ru.id <= requisito_usuario.id AND ru.id_projeto = requisito_usuario.id_projeto) AS id_requisito FROM requisito_usuario WHERE id_projeto = ? ORDER BY id", parameters).then(function (result) {
+        return dbAPILocal.query("SELECT *, (SELECT COUNT(id) FROM requisito_usuario ru WHERE ru.id <= requisito_usuario.id AND ru.id_projeto = requisito_usuario.id_projeto) AS id_requisito, (SELECT GROUP_CONCAT(i.nome, ', ') FROM interessados i WHERE EXISTS(SELECT rui.id FROM requisito_usuario_interessados rui WHERE rui.id_requisito_usuario = requisito_usuario.id AND rui.id_interessado = i.id)) AS interessados FROM requisito_usuario WHERE id_projeto = ? ORDER BY id", parameters).then(function (result) {
             return dbAPILocal.getAll(result);
         });
     }

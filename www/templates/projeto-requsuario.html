@@ -3,17 +3,19 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title"><i class="icon ion-ios-body"></i> Requisitos de Usuário</strong>
         </div>
-        <ion-list>
-            <ion-item class="item" ng-repeat="item in requisitos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
-                <div class="item-margin-right">
-                    <h2>RU{{('000' + item.id_requisito).substr(-3, 3)}}</h2>
+        <div class="im-wrapper">
+            <div class="card" ng-repeat="item in requisitos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
+                <div class="item item-divider">
+                    <p>RU{{('000' + item.id_requisito).substr(-3, 3)}}</p>
+                </div>
+                <div class="item item-text-wrap no-padding-top" overflow-scroll="true" style="max-height: 120px; overflow-y: auto" >
                     <p>{{item.descricao}}</p>
                 </div>
-                <div class="item-icon-right">
-                    <i class="icon ion-ios-arrow-right"></i>
+                <div class="item item-divider no-padding-top" ng-if="item.interessados">
+                    <p>{{item.interessados}}</p>
                 </div>
-            </ion-item>
-        </ion-list>
+            </div>
+        </div>
     </ion-content>
     <button id="btn-incluir" ng-click="incluir()" class="button button-dark button-fab button-fab-bottom-right">
         <i class="icon ion-plus"></i>
