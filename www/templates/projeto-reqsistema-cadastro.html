@@ -18,13 +18,32 @@
                                     <span class="input-label">Descrição do Requisito</span>
                                     <textarea rows="7" placeholder="Descrição do Requisito" ng-model="requisito.descricao" value=""></textarea>
                                 </label>
-                                <label class="item item-stacked-label">
-                                    <span class="input-label">Tipo do Requisito</span>
+                                <label class="item item-input item-floating-label">
+                                    <span class="input-label">Observações</span>
+                                    <textarea rows="7" placeholder="Observações" ng-model="requisito.observacao" value=""></textarea>
                                 </label>
-                                    <ion-list>
-                                        <ion-radio ng-model="requisito.tipo" ng-value="1">Funcional</ion-radio>
-                                        <ion-radio ng-model="requisito.tipo" ng-value="2">Não Funcional</ion-radio>
-                                    </ion-list>
+                                <br/>
+                                <label class="item item-input item-select">
+                                    <div class="input-label ">
+                                        Tipo do Requisito
+                                    </div>
+                                    <select required="required" ng-model="requisito.tipo" ng-options="item.id as item.name for item in tipoOptions">
+                                    </select>
+                                </label>
+                                <label class="item item-input item-select">
+                                    <div class="input-label ">
+                                        Importância
+                                    </div>
+                                    <select required="required" ng-model="requisito.importancia" ng-options="item.id as item.name for item in importanciaOptions">
+                                    </select>
+                                </label>
+                                <label class="item item-input item-select">
+                                    <div class="input-label ">
+                                        Urgência
+                                    </div>
+                                    <select required="required" ng-model="requisito.urgencia" ng-options="item.id as item.name for item in urgenciaOptions">
+                                    </select>
+                                </label>
                                 <br/>
                                 <button class="button button-block button-balanced ink" ng-click="salvar(requisito)" data-ink-color="#9DEAFF" data-ink-opacity="1">
                                     Salvar
@@ -46,9 +65,6 @@
             </ion-tab>
         </ion-tabs>
     </ion-content>
-    <button id="btn-incluir" ng-click="incluir()" class="button button-dark button-fab button-fab-bottom-right">
-        <i class="icon ion-plus"></i>
-    </button>
 
     <ion-footer-bar class="bar-stable">
         <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>

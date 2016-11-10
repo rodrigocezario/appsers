@@ -71,11 +71,32 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
         });
     }
 
+    self.insert = function (requisito) {
+        var parameters = [requisito.id_padrao, requisito.tipo, requisito.resumo, requisito.descricao, app.usuarioLogin.id];
+        dbAPILocal.query("INSERT INTO requisito_sistema (id_padrao, tipo, resumo, descricao, id_usuario) VALUES (?, ?, ?, ?, ?) ", parameters).then(function () {
+            dbAPILocal.query("SELECT last_insert_rowid() AS rowid FROM requisito_sistema LIMIT 1").then(function (result) {
+                requisito.id = dbAPILocal.getById(result).rowid;
+                dbAPILocal.query("DELETE FROM requisito_sistema_projeto WHERE id_requisito_sistema = ? AND id_projeto = ?", [requisito.id, requisito.id_projeto]).then(function () {
+                    var parameters = [requisito.id, requisito.id_requisito_usuario, requisito.reuso, requisito.id_projeto, requisito.id_vinculo, requisito.importancia, requisito.urgencia, requisito.observacao];
+                    dbAPILocal.query("INSERT INTO requisito_sistema_projeto (id_requisito_sistema, id_requisito_usuario, reuso, id_projeto, id_vinculo, importancia, urgencia, observacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ", parameters).then();
+                });
+            });
+        });
+    }
+
+    self.edit = function (requisito) {
+        var parameters = [requisito.id_padrao, requisito.tipo, requisito.resumo, requisito.descricao, app.usuarioLogin.id, requisito.id];
+        dbAPILocal.query("UPDATE requisito_sistema SET id_padrao = ?, tipo = ?, resumo = ?, descricao = ?, id_usuario = ? WHERE id = ?", parameters).then(function () {
+            var parameters = [requisito.id, requisito.id_requisito_usuario, requisito.reuso, requisito.id_projeto, requisito.id_vinculo, requisito.importancia, requisito.urgencia, requisito.observacao, requisito.id_req_sistema_projeto];
+            dbAPILocal.query("UPDATE requisito_sistema_projeto SET id_requisito_sistema = ?, id_requisito_usuario = ?, reuso = ?, id_projeto = ?, id_vinculo = ?, importancia = ?, urgencia = ?, observacao = ? WHERE id = ?", parameters).then();
+        });
+    }
+
     self.delete = function (id) {
         var parameters = [id];
         return dbAPILocal.query("DELETE FROM requisito_sistema WHERE id = ?", parameters);
     }
-    
+
     self.deleteReqSisProjeto = function (idReqSisProjeto) {
         var parameters = [idReqSisProjeto];
         return dbAPILocal.query("DELETE FROM requisito_sistema_projeto WHERE id = ?", parameters);
@@ -84,7 +105,7 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
     self.deleteChilds = function () {//excluir requisitos sem uso;
         dbAPILocal.query("DELETE FROM requisito_sistema_projeto WHERE NOT EXISTS(SELECT rs.id FROM requisito_sistema rs WHERE rs.id = id_requisito_sistema)").then();
     }
-    
+
     self.deleteFathers = function () { //excluir requisito de sistema sem uso;
         dbAPILocal.query("DELETE FROM requisito_sistema WHERE NOT EXISTS(SELECT rsp.id FROM requisito_sistema_projeto rsp WHERE rsp.id_requisito_sistema = requisito_sistema.id)").then();
     }
