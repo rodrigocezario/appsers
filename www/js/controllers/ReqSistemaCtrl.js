@@ -1,4 +1,4 @@
-app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, ionicMaterialMotion, projetoAPILocal, reqSistemaAPILocal, utilAPI) {
+app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projetoAPILocal, reqSistemaAPILocal, reqUsuarioAPILocal, utilAPI) {
     
     setInitReqSistema();
     if (Number($stateParams.requisitoId)) {
@@ -20,14 +20,12 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, ionicMa
     $scope.salvar = function (requisito) {
         requisito.id_projeto = $stateParams.projetoId;
         requisito.id = $stateParams.requisitoId;
-        console.log(requisito);
         if (Number($stateParams.requisitoId)) {
-            console.log("Edit");
             reqSistemaAPILocal.edit(requisito);
         } else {
-            console.log("Insert");
             reqSistemaAPILocal.insert(requisito);
         }
+        reqSistemaAPILocal.deleteChilds();
         utilAPI.avisoTemp("Registro salvo com sucesso.", null, 1000);
         if($scope.requisito.tipo == 1){
             $state.go("app.projeto-reqsistema-funcional",{'projetoId': $stateParams.projetoId});
@@ -43,6 +41,16 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, ionicMa
             id_vinculo: null, importancia: 1, urgencia: 1, observacao: null
         };
     }
+    
+    reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function(res){
+        $scope.reqUsuarioOptions = [{id: null, name:"Não definido"}];
+        angular.forEach(res, function (item) {
+            if(!item.id || item.id != ''){
+                $scope.reqUsuarioOptions.push({id: item.id, name: "RF"+('000' + item.id_requisito).substr(-3, 3)+" - "+item.descricao});
+            }
+        });
+        console.log($scope.reqUsuarioOptions);
+    });
     
     $scope.tipoOptions = [
         {id: 1, name: "Funcional"},
