@@ -9,7 +9,7 @@ var fs = require('fs'),
   sass = require('../lib/extensions'),
   request = require('request'),
   log = require('npmlog'),
-  pkg = require('../package.json');
+  downloadOptions = require('./util/downloadoptions');
 
 /**
  * Download file, if succeeds save, if not delete
@@ -48,19 +48,10 @@ function download(url, dest, cb) {
     return response.statusCode >= 200 && response.statusCode < 300;
   };
 
-  var options = {
-    rejectUnauthorized: false,
-    proxy: getProxy(),
-    timeout: 60000,
-    headers: {
-      'User-Agent': getUserAgent(),
-    }
-  };
-
   console.log('Start downloading binary at', url);
 
   try {
-    request(url, options, function(err, response) {
+    request(url, downloadOptions(), function(err, response) {
       if (err) {
         reportError(err);
       } else if (!successful(response)) {
@@ -92,36 +83,6 @@ function download(url, dest, cb) {
   } catch (err) {
     cb(err);
   }
-}
-
-/**
- * A custom user agent use for binary downloads.
- *
- * @api private
- */
-function getUserAgent() {
-  return [
-    'node/', process.version, ' ',
-    'node-sass-installer/', pkg.version
-  ].join('');
-}
-
-/**
- * Determine local proxy settings
- *
- * @param {Object} options
- * @param {Function} cb
- * @api private
- */
-
-function getProxy() {
-  return process.env.npm_config_https_proxy ||
-         process.env.npm_config_proxy ||
-         process.env.npm_config_http_proxy ||
-         process.env.HTTPS_PROXY ||
-         process.env.https_proxy ||
-         process.env.HTTP_PROXY ||
-         process.env.http_proxy;
 }
 
 /**

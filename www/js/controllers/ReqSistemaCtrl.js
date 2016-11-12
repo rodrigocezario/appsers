@@ -1,6 +1,6 @@
 app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projetoAPILocal, reqSistemaAPILocal, reqUsuarioAPILocal, utilAPI) {
-    
-    setInitReqSistema();
+
+
     if (Number($stateParams.requisitoId)) {
         reqSistemaAPILocal.getById($stateParams.requisitoId).then(function (res) {
             angular.merge($scope.requisito, res);
@@ -8,6 +8,7 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
 
     }
     if (Number($stateParams.projetoId)) {
+        setInitReqSistema();
         projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
             $scope.projeto = res;
         });
@@ -16,23 +17,30 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
     if ($scope.requisito && Number($stateParams.tipoId)) {
         $scope.requisito.tipo = Number($stateParams.tipoId);
     }
-    
+
     $scope.salvar = function (requisito) {
         requisito.id_projeto = $stateParams.projetoId;
         requisito.id = $stateParams.requisitoId;
         if (Number($stateParams.requisitoId)) {
-            reqSistemaAPILocal.edit(requisito);
+            reqSistemaAPILocal.edit(requisito).then(function () {
+                goToList($scope.requisito.tipo);
+            });
         } else {
-            reqSistemaAPILocal.insert(requisito);
-        }
-        reqSistemaAPILocal.deleteChilds();
-        utilAPI.avisoTemp("Registro salvo com sucesso.", null, 1000);
-        if($scope.requisito.tipo == 1){
-            $state.go("app.projeto-reqsistema-funcional",{'projetoId': $stateParams.projetoId});
-        }else{
-            $state.go("app.projeto-reqsistema-naofuncional",{'projetoId': $stateParams.projetoId});
+            reqSistemaAPILocal.insert(requisito).then(function () {
+                reqSistemaAPILocal.deleteChilds();
+                utilAPI.avisoTemp("Registro salvo com sucesso.", null, 1000);
+                goToList($scope.requisito.tipo);
+            });
         }
     };
+    
+    function goToList($tipo) {
+        if ($tipo == 1) {
+            $state.go("app.projeto-reqsistema-funcional", {'projetoId': $stateParams.projetoId}).then();
+        } else {
+            $state.go("app.projeto-reqsistema-naofuncional", {'projetoId': $stateParams.projetoId}).then();
+        }
+    }
     
     function setInitReqSistema() {
         $scope.requisito = {
@@ -41,16 +49,16 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
             id_vinculo: null, importancia: 1, urgencia: 1, observacao: null
         };
     }
-    
-    reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function(res){
-        $scope.reqUsuarioOptions = [{id: null, name:"Não definido", id_requisito: null}];
+
+    reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
+        $scope.reqUsuarioOptions = [{id: null, name: "Não definido", id_requisito: null}];
         angular.forEach(res, function (item) {
-            if(!item.id || item.id != ""){
-                $scope.reqUsuarioOptions.push({id: item.id, name: "RU"+('000' + item.id_requisito).substr(-3, 3)+" - "+item.descricao.substr(0, 100), id_requisito: "RU"+('000' + item.id_requisito).substr(-3, 3)});
+            if (!item.id || item.id != "") {
+                $scope.reqUsuarioOptions.push({id: item.id, name: "RU" + ('000' + item.id_requisito).substr(-3, 3) + " - " + item.descricao.substr(0, 100), id_requisito: "RU" + ('000' + item.id_requisito).substr(-3, 3)});
             }
         });
     });
-    
+
     $scope.tipoOptions = [
         {id: 1, name: "Funcional"},
         {id: 2, name: "Não Funcional"}
