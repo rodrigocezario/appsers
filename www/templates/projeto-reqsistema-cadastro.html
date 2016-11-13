@@ -19,6 +19,10 @@
                         <span class="input-label">Descrição do Requisito</span>
                         <textarea rows="10" placeholder="Descrição do Requisito" ng-model="requisito.descricao" value=""></textarea>
                     </label>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Observações</span>
+                        <textarea rows="5" placeholder="Observações" ng-model="requisito.observacao" value=""></textarea>
+                    </label>
                     <br/>
                     <label class="item item-input item-select">
                         <div class="input-label ">
@@ -47,10 +51,6 @@
                         </div>
                         <select required="required" ng-model="requisito.urgencia" ng-options="item.id as item.name for item in urgenciaOptions">
                         </select>
-                    </label>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Observações</span>
-                        <textarea rows="7" placeholder="Observações" ng-model="requisito.observacao" value=""></textarea>
                     </label>
                     <br/>
                     <button class="button button-block button-balanced ink" ng-click="salvar(requisito)" data-ink-color="#9DEAFF" data-ink-opacity="1">
