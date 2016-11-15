@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function ($scope, $state, $ionicHistory, $ionicSideMenuDelegate, utilAPI, usuarioAPILocal) {
+app.controller('LoginCtrl', function ($scope, $state, $rootScope, $ionicHistory, $ionicSideMenuDelegate, utilAPI, usuarioAPILocal) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $ionicSideMenuDelegate.canDragContent(false);
@@ -11,9 +11,10 @@ app.controller('LoginCtrl', function ($scope, $state, $ionicHistory, $ionicSideM
     $scope.entrar = function (login) {
         if (login) {
             if (login.senha) {
-                //Implementar rotina para consultar dados do servidor. Hoje esta considerando apenas o usuário cadastrado localmente.
+                //Implementar rotina para consultar dados do servidor validando pelo token. Hoje esta considerando apenas o usuário cadastrado localmente.
                 usuarioAPILocal.get().then(function (res) {
                     if (res[0]) {
+                        $rootScope.currentUser = res[0];
                         $state.go("app.projetos");
                         $ionicHistory.nextViewOptions({
                             disableBack: true

@@ -1,8 +1,8 @@
 var db = null;
-var usuarioLogin = null;
+//var usuarioLogin = null;
 var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova', 'angular-md5']);
 
-app.run(function ($ionicPlatform, dbAPILocal) {
+app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILocal, $ionicHistory) {
     $ionicPlatform.ready(function () {
 
         if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -11,9 +11,45 @@ app.run(function ($ionicPlatform, dbAPILocal) {
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
+        
         db = dbAPILocal.openDB();
         dbAPILocal.createTables();
         dbAPILocal.populateTables();
+        
+        usuarioAPILocal.get().then(function (res) {
+            if (!res[0] && $state.current.name != 'app.conta' && $state.current.name != 'app.login') {
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go("app.login");
+            } else if (res[0]) {
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $rootScope.currentUser = res[0];
+                $state.go("app.projetos");
+            }
+        });
+        
+        $rootScope.$on('$stateChangeStart', function (event, toState) {
+            if (!$rootScope.currentUser) {
+                if (toState.name != 'app.login' && toState.name != 'app.conta') {
+                    $ionicHistory.nextViewOptions({
+                        disableBack: true
+                    });
+                    event.preventDefault();
+                    $state.go("app.login");
+                }
+            } else {
+                if (toState.name == 'app.login') {
+                    $ionicHistory.nextViewOptions({
+                        disableBack: false
+                    });
+                    event.preventDefault();
+                    $state.go("app.projetos");
+                }
+            }
+        });
     });
 })
 
@@ -241,22 +277,4 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
             ;
     $ionicConfigProvider.navBar.alignTitle('center');
-    //$urlRouterProvider.otherwise('/app/projetos');
-    $urlRouterProvider.otherwise(function ($injector) {
-        var $state = $injector.get("$state");
-        var $ionicHistory = $injector.get("$ionicHistory");
-        var usuarioAPILocal = $injector.get("usuarioAPILocal");
-        
-        usuarioAPILocal.get().then(function (res) {
-            if (!res[0] && $state.current.name != 'app.conta' && $state.current.name != 'app.login') {
-                $ionicHistory.nextViewOptions({
-                    disableBack: true
-                });
-                $state.go("app.login");
-            } else if (res[0]) {
-                //usuarioLogin = res[0];
-                $state.go("app.projetos");
-            }
-        });
-    });
 });
