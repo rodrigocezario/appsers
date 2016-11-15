@@ -1,6 +1,5 @@
 app.factory("utilAPI", function ($ionicPopup, $timeout) {
     var self = this;
-
     self.confirmarExclusao = function () {
         return $ionicPopup.confirm({
             title: "Confirmação de Exclusão",
@@ -18,9 +17,7 @@ app.factory("utilAPI", function ($ionicPopup, $timeout) {
             subTitle: subtitulo,
             buttons: [{text: 'OK', type: 'button-dark'}]
         });
-        
         popup.then();
-        
         $timeout(function () {
             popup.close();
         }, segundos);

@@ -1,6 +1,10 @@
-app.controller('LoginCtrl', function ($scope, $state, $ionicHistory, utilAPI, usuarioAPILocal) {
+app.controller('LoginCtrl', function ($scope, $state, $ionicHistory, $ionicSideMenuDelegate, utilAPI, usuarioAPILocal) {
 
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $ionicSideMenuDelegate.canDragContent(false);
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+        });
         setInitLogin();
     });
 

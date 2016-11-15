@@ -1,10 +1,12 @@
 <ion-view view-title="SERS">
-    <ion-content>
-        <div class="bar bar-subheader bar-stable static text-center">
-            <strong class="title">Login</strong>
-        </div>
+    <ion-content style="background: url('img/background-login.png') center; background-size: cover;">
         <div class="im-wrapper">
-            <form name="loginForm">
+            <div class="hero no-header flat">
+                <div class="content">
+                    <div class="app-icon"><img style="width: 210px" src="img/logo_sers_large.png"></div>
+                </div>
+            </div>
+            <form class="login" name="loginForm">
                 <div class="list">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Email</span>
@@ -14,16 +16,9 @@
                         <span class="input-label">Senha</span>
                         <input type="password" placeholder="Senha" ng-model="login.senha" value="">
                     </label>
-                    <br/>
-                    <div class="row">
-                        <div class="col">
-                            <button class="button button-block button-dark" ng-click="criarConta(login)">Criar uma conta</button>
-                        </div>
-                        <div class="col">
-                            <button class="button button-block button-balanced" ng-click="entrar(login)" data-ink-color="#9DEAFF" data-ink-opacity="1">
-                                Entrar
-                            </button>
-                        </div>
+                    <div class="padding-top">
+                        <button class="button button-block button-balanced" ng-click="entrar(login)" data-ink-color="#9DEAFF" data-ink-opacity="1">Entrar</button>
+                        <button class="button button-block button-dark" ng-click="criarConta(login)">Criar Conta</button>
                     </div>
                 </div>
             </form>
