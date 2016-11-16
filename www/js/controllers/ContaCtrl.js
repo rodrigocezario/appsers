@@ -1,4 +1,4 @@
-app.controller('ContaCtrl', function ($scope, $state, $rootScope, $stateParams, $ionicHistory, utilAPI, usuarioAPILocal, md5) {
+app.controller('ContaCtrl', function ($scope, $state, $stateParams, $ionicHistory, utilAPI, usuarioAPILocal, md5) {
     $scope.conta = [];
 
     if ($stateParams.email) {
@@ -17,7 +17,7 @@ app.controller('ContaCtrl', function ($scope, $state, $rootScope, $stateParams, 
                     usuarioAPILocal.insert(usuario);
                     usuarioAPILocal.get().then(function (res) {
                         if (res[0]) {
-                            $rootScope.currentUser = res[0];
+                            usuarioLogin = res[0];
                             utilAPI.avisoTemp("Sua conta foi criada com sucesso!")
                             $ionicHistory.nextViewOptions({
                                 disableBack: true

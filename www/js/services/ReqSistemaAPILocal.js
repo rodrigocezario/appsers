@@ -72,7 +72,7 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
     }
 
     self.insert = function (requisito) {
-        var parameters = [requisito.id_padrao, requisito.tipo, requisito.resumo, requisito.descricao, app.usuarioLogin.id];
+        var parameters = [requisito.id_padrao, requisito.tipo, requisito.resumo, requisito.descricao, usuarioLogin.id];
         return dbAPILocal.query("INSERT INTO requisito_sistema (id_padrao, tipo, resumo, descricao, id_usuario) VALUES (?, ?, ?, ?, ?) ", parameters).then(function () {
             return dbAPILocal.query("SELECT last_insert_rowid() AS rowid FROM requisito_sistema LIMIT 1").then(function (result) {
                 requisito.id = dbAPILocal.getById(result).rowid;
@@ -85,7 +85,7 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
     }
 
     self.edit = function (requisito) {
-        var parameters = [requisito.id_padrao, requisito.tipo, requisito.resumo, requisito.descricao, app.usuarioLogin.id, requisito.id];
+        var parameters = [requisito.id_padrao, requisito.tipo, requisito.resumo, requisito.descricao, usuarioLogin.id, requisito.id];
         return dbAPILocal.query("UPDATE requisito_sistema SET id_padrao = ?, tipo = ?, resumo = ?, descricao = ?, id_usuario = ? WHERE id = ?", parameters).then(function () {
             var parameters = [requisito.id, requisito.id_requisito_usuario, requisito.reuso, requisito.id_projeto, requisito.id_vinculo, requisito.importancia, requisito.urgencia, requisito.observacao, requisito.id_req_sistema_projeto];
             return dbAPILocal.query("UPDATE requisito_sistema_projeto SET id_requisito_sistema = ?, id_requisito_usuario = ?, reuso = ?, id_projeto = ?, id_vinculo = ?, importancia = ?, urgencia = ?, observacao = ? WHERE id = ?", parameters);

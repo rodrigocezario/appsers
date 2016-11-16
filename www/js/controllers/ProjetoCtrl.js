@@ -19,7 +19,7 @@ app.controller('ProjetoCtrl', function ($scope, $state, $stateParams, $ionicHist
             projeto.dt_criacao = new Date();
             projetoAPILocal.insert(projeto).then(function () {
                 projetoAPILocal.getLastInsertId().then(function (res) {
-                    projetoAPILocal.insertParticipante(res.id, app.usuarioLogin.id).then();
+                    projetoAPILocal.insertParticipante(res.id, usuarioLogin.id).then();
                     $state.go("app.projetos").then(function () {
                         setInitProjeto();
                         $state.go("app.projeto-menu", {'projetoId': res.id});

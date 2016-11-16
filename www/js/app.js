@@ -1,5 +1,5 @@
 var db = null;
-//var usuarioLogin = null;
+var usuarioLogin = null;
 var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova', 'angular-md5']);
 
 app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILocal, $ionicHistory) {
@@ -26,13 +26,14 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
                 $ionicHistory.nextViewOptions({
                     disableBack: true
                 });
-                $rootScope.currentUser = res[0];
+                usuarioLogin = res[0];
+                $rootScope.usuarioLogin = usuarioLogin;
                 $state.go("app.projetos");
             }
         });
         
         $rootScope.$on('$stateChangeStart', function (event, toState) {
-            if (!$rootScope.currentUser) {
+            if (!usuarioLogin) {
                 if (toState.name != 'app.login' && toState.name != 'app.conta') {
                     $ionicHistory.nextViewOptions({
                         disableBack: true
@@ -277,4 +278,5 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
             ;
     $ionicConfigProvider.navBar.alignTitle('center');
+    $urlRouterProvider.otherwise('/app/projetos');
 });

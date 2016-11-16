@@ -22,7 +22,7 @@ app.factory("interessadosAPILocal", function (dbAPILocal) {
     }
 
     self.insert = function (interessado) {
-        var parameters = [interessado.id_projeto, interessado.nome, interessado.papel, interessado.funcao, interessado.email, interessado.telefone, app.usuarioLogin.id];
+        var parameters = [interessado.id_projeto, interessado.nome, interessado.papel, interessado.funcao, interessado.email, interessado.telefone, usuarioLogin.id];
         return dbAPILocal.query("INSERT INTO interessados (id_projeto, nome, papel, funcao, email, telefone, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)", parameters);
     }
 

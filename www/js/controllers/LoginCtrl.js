@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function ($scope, $state, $rootScope, $ionicHistory, $ionicSideMenuDelegate, utilAPI, usuarioAPILocal) {
+app.controller('LoginCtrl', function ($scope, $state, $ionicHistory, $ionicSideMenuDelegate, utilAPI, usuarioAPILocal) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $ionicSideMenuDelegate.canDragContent(false);
@@ -14,7 +14,7 @@ app.controller('LoginCtrl', function ($scope, $state, $rootScope, $ionicHistory,
                 //Implementar rotina para consultar dados do servidor validando pelo token. Hoje esta considerando apenas o usuário cadastrado localmente.
                 usuarioAPILocal.get().then(function (res) {
                     if (res[0]) {
-                        $rootScope.currentUser = res[0];
+                        usuarioLogin = res[0];
                         $state.go("app.projetos");
                         $ionicHistory.nextViewOptions({
                             disableBack: true

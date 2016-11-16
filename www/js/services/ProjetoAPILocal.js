@@ -21,7 +21,7 @@ app.factory("projetoAPILocal", function (dbAPILocal) {
     }
     
     self.insert = function(projeto) {
-        var parameters = [projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado, app.usuarioLogin.id];
+        var parameters = [projeto.nome, projeto.descricao, projeto.empresa, projeto.responsavel, projeto.compartilhado, projeto.dt_criacao, projeto.dt_finalizado, usuarioLogin.id];
         return dbAPILocal.query("INSERT INTO projeto (nome, descricao, empresa, responsavel, compartilhado, dt_criacao, dt_finalizado, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", parameters);
     }
     

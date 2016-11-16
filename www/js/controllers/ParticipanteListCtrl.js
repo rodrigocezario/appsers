@@ -16,7 +16,7 @@ app.controller('ParticipanteListCtrl', function ($scope, $state, $stateParams, p
     }
 
     $scope.excluir = function (item) {
-        if (item.id != app.usuarioLogin.id && $scope.projeto.id_usuario != item.id) {
+        if (item.id != usuarioLogin.id && $scope.projeto.id_usuario != item.id) {
             utilAPI.confirmarExclusao().then(function (res) {
                 if (res) {
                     participantesAPILocal.deleteByIdUsuario(item.id).then(function () {

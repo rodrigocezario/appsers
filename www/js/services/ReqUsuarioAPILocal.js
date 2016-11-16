@@ -29,7 +29,7 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
     };
 
     self.insert = function (requisitoUsuario) {
-        var parameters = [requisitoUsuario.id_projeto, requisitoUsuario.descricao, app.usuarioLogin.id];
+        var parameters = [requisitoUsuario.id_projeto, requisitoUsuario.descricao, usuarioLogin.id];
         dbAPILocal.query("INSERT INTO requisito_usuario (id_projeto, descricao, id_usuario) VALUES (?, ?, ?) ", parameters).then(function () {
             dbAPILocal.query("SELECT last_insert_rowid() AS rowid FROM requisito_usuario LIMIT 1").then(function (result) {
                 requisitoUsuario.id = dbAPILocal.getById(result).rowid;
