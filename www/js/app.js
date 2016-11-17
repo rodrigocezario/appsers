@@ -27,12 +27,12 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
                     disableBack: true
                 });
                 usuarioLogin = res[0];
-                $rootScope.usuarioLogin = usuarioLogin;
                 $state.go("app.projetos");
             }
         });
         
         $rootScope.$on('$stateChangeStart', function (event, toState) {
+            $rootScope.usuarioLogin = usuarioLogin;
             if (!usuarioLogin) {
                 if (toState.name != 'app.login' && toState.name != 'app.conta') {
                     $ionicHistory.nextViewOptions({
@@ -278,5 +278,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
             ;
     $ionicConfigProvider.navBar.alignTitle('center');
-    $urlRouterProvider.otherwise('/app/projetos');
+    //$urlRouterProvider.otherwise('/app/projetos');
+    
+    $urlRouterProvider.otherwise(function ($injector) {
+        var $state = $injector.get("$state");
+        var $ionicHistory = $injector.get("$ionicHistory");
+        //var usuarioAPILocal = $injector.get("usuarioAPILocal");
+        if (usuarioLogin && usuarioLogin.id){
+            if ($state.current.name != 'app.conta' && $state.current.name != 'app.login') {
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go("app.login");
+            }
+        }
+    });
 });
