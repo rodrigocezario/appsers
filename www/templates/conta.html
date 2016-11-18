@@ -1,13 +1,10 @@
 <ion-view view-title="SERS">
-    <!--<ion-content style="background: url('img/background-login.jpg') center; background-size: cover;">-->
-    <ion-content style="background-color: #6B809B;">
+    <ion-content class="background-padrao">
         <div class="im-wrapper">
-            <div class="hero no-header flat">
-                <div class="content">
-                    <div class="app-icon"><img style="width: 210px" src="img/logo_sers_large.png"></div>
-                </div>
+            <div class="col text-center">
+                <img style="width: 210px" src="img/logo_sers_large.png">
             </div>
-            <form class="login" name="contaForm" ng-submit="salvar(contaForm.$valid)" novalidate>
+            <form class="loginForm" name="contaForm" ng-submit="salvar(contaForm.$valid)" novalidate>
                 <div class="list padding-top">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Nome</span>
@@ -26,8 +23,8 @@
                         <input type="password" placeholder="Confirmar Senha" ng-model="conta.confirmar" ng-required="true" ng-minlength="6">
                     </label>
                     <br/>
-                    <label class="item">
-                        <button type="submit" ng-disabled="contaForm.$invalid || (conta.senha != conta.confirmar)" class="button button-block button-balanced" data-ink-color="#9DEAFF" data-ink-opacity="1">Criar</button>
+                    <label class="item no-padding">
+                        <button type="submit" ng-disabled="contaForm.$invalid || (conta.senha != conta.confirmar)" class="button button-block button-balanced" data-ink-color="#9DEAFF" data-ink-opacity="1">Salvar</button>
                     </label>
                 </div>
             </form>

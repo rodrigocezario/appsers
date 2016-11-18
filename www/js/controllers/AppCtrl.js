@@ -8,4 +8,8 @@ app.controller('AppCtrl', function ($scope, $state) {
     $scope.ocultarMenu = function () {
         return ($state.current.name == 'app.login' || $state.current.name == 'app.conta');
     };
+    $scope.conta = function(){
+        $state.go("app.conta").then();
+        
+    };
 });

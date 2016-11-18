@@ -37,7 +37,7 @@ app.factory("usuarioAPILocal", function (dbAPILocal) {
     }
     
     self.edit = function(usuario) {
-        var parameters = [usuario.nome, usuario.email, usuario.senha];
+        var parameters = [usuario.nome, usuario.email, usuario.senha, usuario.id];
         return dbAPILocal.query("UPDATE usuario SET nome = ?, email = ?, senha = ? WHERE id = ?", parameters);
     }
     

@@ -1,14 +1,11 @@
-<ion-view view-title="SERS">
-    <!--<ion-content style="background: url('img/background-login.jpg') center; background-size: cover;">-->
-    <ion-content style="background-color: #6B809B;">
+<ion-view view-title="SERS" hide-nav-bar="true" class="loginView">
+    <ion-content class="background-padrao">
         <div class="im-wrapper">
-            <div class="hero no-header flat">
-                <div class="content">
-                    <img style="width: 210px" src="img/logo_sers_large.png">
-                </div>
+            <div class="col text-center padding-top">
+                <img style="width: 210px" src="img/logo_sers_large.png">
             </div>
-            <form class="login" name="loginForm" ng-submit="entrar(loginForm.$valid)">
-                <div class="list padding-top">
+            <form class="loginForm" name="loginForm" ng-submit="entrar(loginForm.$valid)" novalidate>
+                <div class="list">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Email</span>
                         <input type="email" placeholder="Email" ng-model="login.email" ng-required="true">

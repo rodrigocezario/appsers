@@ -11,11 +11,11 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-        
+
         db = dbAPILocal.openDB();
         dbAPILocal.createTables();
         dbAPILocal.populateTables();
-        
+
         usuarioAPILocal.get().then(function (res) {
             if (!res[0] && $state.current.name != 'app.conta' && $state.current.name != 'app.login') {
                 $ionicHistory.nextViewOptions({
@@ -27,10 +27,16 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
                     disableBack: true
                 });
                 usuarioLogin = res[0];
+                $rootScope.usuarioLogin = usuarioLogin;
                 $state.go("app.projetos");
             }
+            if (navigator && navigator.splashscreen){
+                setTimeout(function () {
+                    navigator.splashscreen.hide();
+                }, 100);
+            }
         });
-        
+
         $rootScope.$on('$stateChangeStart', function (event, toState) {
             $rootScope.usuarioLogin = usuarioLogin;
             if (!usuarioLogin) {
@@ -42,13 +48,13 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
                     $state.go("app.login");
                 }
             } else {
-                if (toState.name == 'app.login') {
+                /*if (toState.name == 'app.login') {
                     $ionicHistory.nextViewOptions({
                         disableBack: false
                     });
                     event.preventDefault();
                     $state.go("app.projetos");
-                }
+                }*/
             }
         });
     });
@@ -76,7 +82,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             .state('app.conta', {
                 url: '/conta',
                 params: {
-                    email: null,
+                    email: null
                 },
                 views: {
                     'menuContent': {
@@ -278,19 +284,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
             ;
     $ionicConfigProvider.navBar.alignTitle('center');
-    //$urlRouterProvider.otherwise('/app/projetos');
-    
-    $urlRouterProvider.otherwise(function ($injector) {
+    $urlRouterProvider.otherwise('/app/projetos');
+
+    /*$urlRouterProvider.otherwise(function ($injector) {
         var $state = $injector.get("$state");
         var $ionicHistory = $injector.get("$ionicHistory");
-        //var usuarioAPILocal = $injector.get("usuarioAPILocal");
-        if (usuarioLogin && usuarioLogin.id){
-            if ($state.current.name != 'app.conta' && $state.current.name != 'app.login') {
-                $ionicHistory.nextViewOptions({
-                    disableBack: true
-                });
-                $state.go("app.login");
-            }
+        if (usuarioLogin && usuarioLogin.id) {
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go("app.projetos");
         }
-    });
+    });*/
 });
