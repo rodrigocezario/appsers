@@ -1,25 +1,29 @@
 <ion-view view-title="SERS">
-    <ion-content style="background: url('img/background-login.jpg') center; background-size: cover;">
+    <!--<ion-content style="background: url('img/background-login.jpg') center; background-size: cover;">-->
+    <ion-content style="background-color: #6B809B;">
         <div class="im-wrapper">
             <div class="hero no-header flat">
                 <div class="content">
-                    <div class="app-icon"><img style="width: 210px" src="img/logo_sers_large.png"></div>
+                    <img style="width: 210px" src="img/logo_sers_large.png">
                 </div>
             </div>
-            <form class="login" name="loginForm">
-                <div class="list">
+            <form class="login" name="loginForm" ng-submit="entrar(loginForm.$valid)">
+                <div class="list padding-top">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Email</span>
-                        <input type="email" placeholder="Email" ng-model="login.email" value="">
+                        <input type="email" placeholder="Email" ng-model="login.email" ng-required="true">
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Senha</span>
-                        <input type="password" placeholder="Senha" ng-model="login.senha" value="">
+                        <input type="password" placeholder="Senha" ng-model="login.senha" ng-required="true" ng-minlength="6">
                     </label>
-                    <div class="padding-top">
-                        <button class="button button-block button-balanced" ng-click="entrar(login)" data-ink-color="#9DEAFF" data-ink-opacity="1">Entrar</button>
+                    <br/>
+                    <label class="item no-padding">
+                        <button type="submit" ng-disabled="loginForm.$invalid" class="button button-block button-balanced" data-ink-color="#9DEAFF" data-ink-opacity="1">Entrar</button>
+                    </label>
+                    <label class="item no-padding">
                         <button class="button button-block button-dark" ng-click="criarConta(login)">Criar Conta</button>
-                    </div>
+                    </label>
                 </div>
             </form>
         </div>

@@ -14,6 +14,13 @@ app.factory("usuarioAPILocal", function (dbAPILocal) {
         });
     }
     
+    self.getByEmailSenha = function (email, senha) {
+        var parameters = [email, senha];
+        return dbAPILocal.query("SELECT * FROM usuario WHERE email = ? AND senha = ?", parameters).then(function (result) {
+            return dbAPILocal.getById(result);
+        });
+    }
+    
     self.getLastInsertId = function(){
         return dbAPILocal.query("SELECT last_insert_rowid() AS id FROM usuario LIMIT 1").then(function(result){
             return dbAPILocal.getById(result);

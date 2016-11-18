@@ -1,53 +1,35 @@
 <ion-view view-title="SERS">
-    <ion-content style="background: url('img/background-login.jpg') center; background-size: cover;">
+    <!--<ion-content style="background: url('img/background-login.jpg') center; background-size: cover;">-->
+    <ion-content style="background-color: #6B809B;">
         <div class="im-wrapper">
             <div class="hero no-header flat">
                 <div class="content">
                     <div class="app-icon"><img style="width: 210px" src="img/logo_sers_large.png"></div>
                 </div>
             </div>
-            <form class="login" name="loginForm">
-                <div class="list">
+            <form class="login" name="contaForm" ng-submit="salvar(contaForm.$valid)" novalidate>
+                <div class="list padding-top">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Nome</span>
-                        <input type="text" placeholder="Nome" ng-model="conta.nome" value="">
+                        <input type="text" placeholder="Nome" ng-model="conta.nome" ng-required="true" ng-minlength="4">
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Email</span>
-                        <input type="text" placeholder="Email" ng-model="conta.email" value="">
+                        <input type="email" placeholder="Email" ng-model="conta.email" ng-required="true" ng-minlength="3">
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Senha</span>
-                        <input type="password" placeholder="Senha" ng-model="conta.senha" value="">
+                        <input type="password" placeholder="Senha" ng-model="conta.senha" ng-required="true" ng-minlength="6">
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Confirmar Senha</span>
-                        <input type="password" placeholder="Confirmar Senha" ng-model="conta.confirmarSenha" value="">
-                    </label>
-                    <div class="padding-top">
-                        <button class="button button-block button-balanced" ng-click="salvar(conta)" data-ink-color="#9DEAFF" data-ink-opacity="1">Salvar</button>
-                    </div>
-                </div>
-<!--                <div class="list">
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Nome</span>
-                        <input type="text" placeholder="Nome" ng-model="conta.nome" value="">
-                    </label>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Email</span>
-                        <input type="text" placeholder="Email" ng-model="conta.email" value="">
-                    </label>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Senha</span>
-                        <input type="password" placeholder="Senha" ng-model="conta.senha" value="">
-                    </label>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Confirmar Senha</span>
-                        <input type="password" placeholder="Confirmar Senha" ng-model="conta.confirmarSenha" value="">
+                        <input type="password" placeholder="Confirmar Senha" ng-model="conta.confirmar" ng-required="true" ng-minlength="6">
                     </label>
                     <br/>
-                    <button class="button button-block button-balanced" ng-click="salvar(conta)" data-ink-color="#9DEAFF" data-ink-opacity="1">Salvar</button>
-                </div>-->
+                    <label class="item">
+                        <button type="submit" ng-disabled="contaForm.$invalid || (conta.senha != conta.confirmar)" class="button button-block button-balanced" data-ink-color="#9DEAFF" data-ink-opacity="1">Criar</button>
+                    </label>
+                </div>
             </form>
         </div>
     </ion-content>
