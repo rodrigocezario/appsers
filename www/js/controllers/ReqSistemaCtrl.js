@@ -1,6 +1,5 @@
 app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projetoAPILocal, reqSistemaAPILocal, reqUsuarioAPILocal, utilAPI) {
 
-
     if (Number($stateParams.requisitoId)) {
         reqSistemaAPILocal.getById($stateParams.requisitoId).then(function (res) {
             angular.merge($scope.requisito, res);
@@ -49,7 +48,15 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
             id_vinculo: null, importancia: 1, urgencia: 1, observacao: null
         };
     }
-
+    
+    $scope.tabSelect = function (tipo) {
+        if(tipo == 2){
+            $state.go("app.projeto-reqsistema-padroes-filtro", {'projetoId': $stateParams.projetoId,'requisitoId': $scope.requisito.id});
+        }else if(tipo == 3){
+            $state.go("app.projeto-reqsistema-sugestoes", {'projetoId': $stateParams.projetoId,'requisitoId': $scope.requisito.id});
+        }
+    };
+    
     reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
         $scope.reqUsuarioOptions = [{id: null, name: "Não definido", id_requisito: null}];
         angular.forEach(res, function (item) {

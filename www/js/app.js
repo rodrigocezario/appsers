@@ -30,7 +30,7 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
                 $rootScope.usuarioLogin = usuarioLogin;
                 $state.go("app.projetos");
             }
-            if (navigator && navigator.splashscreen){
+            if (navigator && navigator.splashscreen) {
                 setTimeout(function () {
                     navigator.splashscreen.hide();
                 }, 100);
@@ -47,14 +47,6 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
                     event.preventDefault();
                     $state.go("app.login");
                 }
-            } else {
-                /*if (toState.name == 'app.login') {
-                    $ionicHistory.nextViewOptions({
-                        disableBack: false
-                    });
-                    event.preventDefault();
-                    $state.go("app.projetos");
-                }*/
             }
         });
     });
@@ -242,6 +234,36 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 }
             })
 
+            .state('app.projeto-reqsistema-padroes', {
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/padroes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-padroes.html',
+                        controller: 'ReqSistemaPadroesCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-reqsistema-padroes-filtro', {
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/padroes-filtro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-padroes-filtro.html',
+                        controller: 'ReqSistemaPadroesFiltroCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-reqsistema-sugestoes', {
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/sugestoes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-sugestoes.html',
+                        controller: 'ReqSistemaSugestoesCtrl'
+                    }
+                }
+            })
+
             .state('app.projeto-rastreabilidade', {
                 url: '/projetos/:projetoId/rastreabilidade',
                 views: {
@@ -285,15 +307,4 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             ;
     $ionicConfigProvider.navBar.alignTitle('center');
     $urlRouterProvider.otherwise('/app/projetos');
-
-    /*$urlRouterProvider.otherwise(function ($injector) {
-        var $state = $injector.get("$state");
-        var $ionicHistory = $injector.get("$ionicHistory");
-        if (usuarioLogin && usuarioLogin.id) {
-            $ionicHistory.nextViewOptions({
-                disableBack: true
-            });
-            $state.go("app.projetos");
-        }
-    });*/
 });

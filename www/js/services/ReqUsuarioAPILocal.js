@@ -26,7 +26,7 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
         return dbAPILocal.query("SELECT *, EXISTS(SELECT ri.id FROM requisito_usuario_interessados ri WHERE ri.id_interessado = i.id AND ri.id_requisito_usuario = ?) AS is_check FROM interessados i WHERE i.id_projeto = ?", parameters).then(function (result) {
             return dbAPILocal.getAll(result);
         });
-    };
+    }
 
     self.insert = function (requisitoUsuario) {
         var parameters = [requisitoUsuario.id_projeto, requisitoUsuario.descricao, usuarioLogin.id];
@@ -53,6 +53,7 @@ app.factory("reqUsuarioAPILocal", function (dbAPILocal) {
     
     self.deleteChilds = function() {
         dbAPILocal.query("DELETE FROM requisito_usuario_interessados WHERE NOT EXISTS(SELECT ru.id FROM requisito_usuario ru WHERE ru.id = id_requisito_usuario) OR NOT EXISTS(SELECT i.id FROM interessados i WHERE i.id = id_interessado)").then();
+        dbAPILocal.query("UPDATE requisito_sistema_projeto SET id_requisito_usuario = NULL WHERE NOT EXISTS(SELECT ru.id FROM requisito_usuario ru WHERE ru.id = id_requisito_usuario)").then();
     }
     
     function inserirInteressados(requisitoUsuario) {
