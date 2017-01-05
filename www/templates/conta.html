@@ -4,27 +4,46 @@
             <div class="col text-center">
                 <img style="width: 210px" src="img/logo_sers_large.png">
             </div>
-            <form class="loginForm" name="contaForm" ng-submit="salvar(contaForm.$valid)" novalidate>
+            <form class="loginForm" name="form" ng-submit="salvar()" novalidate autocomplete="off">
                 <div class="list padding-top">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Nome</span>
-                        <input type="text" placeholder="Nome" ng-model="conta.nome" ng-required="true" ng-minlength="4">
+                        <input type="text" name="nome" placeholder="Nome" ng-model="conta.nome" ng-required="true" ng-minlength="3">
+                        <ul ng-messages="form.nome.$dirty && form.nome.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Email</span>
-                        <input type="email" placeholder="Email" ng-model="conta.email" ng-required="true" ng-minlength="3">
+                        <input type="email" name="email" placeholder="Email" ng-model="conta.email" ng-required="true">
+                        <ul ng-messages="form.email.$dirty && form.email.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="email"><small class="calm-900">Informar endereço de email válido</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Senha</span>
-                        <input type="password" placeholder="Senha" ng-model="conta.senha" ng-required="true" ng-minlength="6">
+                        <input type="password" name="senha" placeholder="Senha" ng-model="conta.senha" ng-required="true" ng-minlength="6">
+                        <ul ng-messages="form.senha.$dirty && form.senha.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 6 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Confirmar Senha</span>
-                        <input type="password" placeholder="Confirmar Senha" ng-model="conta.confirmar" ng-required="true" ng-minlength="6">
+                        <input type="password" name="confirmar" placeholder="Confirmar Senha" ng-model="conta.confirmar" ng-required="true" ng-minlength="6">
+                        <ul ng-messages="form.confirmar.$dirty && form.confirmar.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 6 caracteres</small></li>
+                        </ul>
                     </label>
                     <br/>
+                    <ul ng-if="conta.senha && conta.confirmar && conta.senha != conta.confirmar">
+                        <li><small class="assertive-900">Senhas não coincidem</small></li>
+                    </ul>
                     <label class="item no-padding">
-                        <button type="submit" ng-disabled="contaForm.$invalid || (conta.senha != conta.confirmar)" class="button button-block button-balanced" data-ink-color="#9DEAFF" data-ink-opacity="1">Salvar</button>
+                        <button type="submit" ng-disabled="form.$invalid || (conta.senha != conta.confirmar)" class="button button-block button-balanced" data-ink-color="#9DEAFF" data-ink-opacity="1">Salvar</button>
                     </label>
                 </div>
             </form>
