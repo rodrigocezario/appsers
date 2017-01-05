@@ -5,23 +5,39 @@
         </div>
         <div class="im-wrapper">
             <!-- Forms -->
-            <form name="projetoForm">
+            <form name="form" ng-submit="salvarProjeto(projeto)" novalidate autocomplete="off">
                 <div class="list">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Nome do Projeto</span>
-                        <input type="text" placeholder="Nome do Projeto" ng-model="projeto.nome" value="">
+                        <input type="text" name="nome" placeholder="Nome do Projeto" ng-model="projeto.nome" ng-required="true" ng-minlength="3" ng-maxlength="50">
+                        <ul ng-messages="form.nome.$dirty && form.nome.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                            <li ng-message="maxlength"><small class="assertive-900">Informar no máximo 50 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Descrição do Projeto</span>
-                        <textarea rows="7" placeholder="Descrição do Projeto" ng-model="projeto.descricao" value=""></textarea>
+                        <textarea rows="7" name="descricao" placeholder="Descrição do Projeto" ng-model="projeto.descricao" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.descricao.$dirty && form.descricao.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Empresa</span>
-                        <input type="text" placeholder="Empresa" ng-model="projeto.empresa">
+                        <input type="text" name="empresa" placeholder="Empresa" ng-model="projeto.empresa" ng-minlength="3">
+                        <ul ng-messages="form.empresa.$dirty && form.empresa.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Responsável</span>
-                        <input type="text" placeholder="Responsável" ng-model="projeto.responsavel">
+                        <input type="text" name="responsavel" placeholder="Responsável" ng-model="projeto.responsavel" ng-required="true" ng-minlength="3" ng-maxlength="50">
+                        <ul ng-messages="form.responsavel.$dirty && form.responsavel.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                            <li ng-message="maxlength"><small class="assertive-900">Informar no máximo 50 caracteres</small></li>
+                        </ul>
                     </label>
                     <br/>
                     <div class="item item-checkbox">
@@ -33,7 +49,7 @@
                             <h5>Libera acesso para que todos os usuários possam reutilizar suas especificações</h5>
                         </span>
                     </div>
-                    <button class="button button-block button-balanced ink" ng-click="salvarProjeto(projeto)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    <button class="button button-block button-balanced ink" ng-disabled="form.$invalid" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Salvar
                     </button>
                 </div>

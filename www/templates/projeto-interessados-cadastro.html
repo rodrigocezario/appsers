@@ -5,30 +5,48 @@
         </div>
         <div class="im-wrapper">
             <!-- Forms -->
-            <form name="interessadoForm">
+            <form name="form" ng-submit="salvarInteressado(interessado)" novalidate autocomplete="off">
                 <div class="list">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Nome</span>
-                        <input type="text" placeholder="Nome" ng-model="interessado.nome" value="">
+                        <input type="text" name="nome" placeholder="Nome" ng-model="interessado.nome" ng-required="true" ng-minlength="3">
+                        <ul ng-messages="form.nome.$dirty && form.nome.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Papel</span>
-                        <textarea rows="7" placeholder="Papel" ng-model="interessado.papel" value=""></textarea>
+                        <textarea rows="7" name="papel" placeholder="Papel" ng-model="interessado.papel" ng-required="true" ng-minlength="3"></textarea>
+                        <ul ng-messages="form.papel.$dirty && form.papel.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Função</span>
-                        <input type="text" placeholder="Função" ng-model="interessado.funcao">
+                        <input type="text" name="funcao" placeholder="Função" ng-model="interessado.funcao" ng-required="true" ng-minlength="3">
+                        <ul ng-messages="form.funcao.$dirty && form.funcao.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Email</span>
-                        <input type="email" placeholder="Email" ng-model="interessado.email">
+                        <input type="email" name="email" placeholder="Email" ng-model="interessado.email">
+                        <ul ng-messages="form.email.$dirty && form.email.$error">
+                            <li ng-message="email"><small class="assertive-900">Informar endereço de email válido</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Telefone</span>
-                        <input type="text" placeholder="Telefone" ng-model="interessado.telefone">
+                        <input type="text" name="telefone" placeholder="Telefone" ng-model="interessado.telefone" ng-minlength="10">
+                        <ul ng-messages="form.telefone.$dirty && form.telefone.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <br/>
-                    <button class="button button-block button-balanced ink" ng-click="salvarInteressado(interessado)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    <button class="button button-block button-balanced ink" ng-disabled="form.$invalid" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Salvar
                     </button>
                 </div>

@@ -9,51 +9,71 @@
             <a class="button button-raised ink-dark" ng-click="tabSelect(3)">Sujestões</a>
         </div>
         <div class="im-wrapper">
-            <form name="reqSistemaForm" class="padding-top">
+            <form name="form" class="padding-top" ng-submit="salvar(requisito)" novalidate autocomplete="off">
                 <div class="list">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Resumo</span>
-                        <input type="text" placeholder="Resumo" ng-model="requisito.resumo" value="">
+                        <input type="text" name="resumo" placeholder="Resumo" ng-model="requisito.resumo" ng-required="true" ng-minlength="3">
+                        <ul ng-messages="form.resumo.$dirty && form.resumo.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Descrição do Requisito</span>
-                        <textarea rows="10" placeholder="Descrição do Requisito" ng-model="requisito.descricao" value=""></textarea>
+                        <textarea rows="10" name="descricao" placeholder="Descrição do Requisito" ng-model="requisito.descricao" ng-required="true" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.descricao.$dirty && form.descricao.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Observações</span>
-                        <textarea rows="5" placeholder="Observações" ng-model="requisito.observacao" value=""></textarea>
+                        <textarea rows="5" name="observacao" placeholder="Observações" ng-model="requisito.observacao" ng-minlength="3"></textarea>
+                        <ul ng-messages="form.observacao.$dirty && form.observacao.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
+                        </ul>
                     </label>
                     <br/>
                     <label class="item item-input item-select">
                         <div class="input-label ">
                             Tipo do Requisito
                         </div>
-                        <select required="required" ng-model="requisito.tipo" ng-options="item.id as item.name for item in tipoOptions">
+                        <select name="tipo" ng-model="requisito.tipo" ng-options="item.id as item.name for item in tipoOptions" ng-required="true">
                         </select>
+                        <ul ng-messages="form.tipo.$dirty && form.tipo.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-select">
                         <div class="input-label ">
                             Requisito de Usuário
                         </div>
-                        <select class="item-select-40" ng-model="requisito.id_requisito_usuario" ng-options="item.id as item.name for item in reqUsuarioOptions">
+                        <select name="requsu" class="item-select-40" ng-model="requisito.id_requisito_usuario" ng-options="item.id as item.name for item in reqUsuarioOptions">
                         </select>
                     </label>
                     <label class="item item-input item-select">
                         <div class="input-label ">
                             Importância
                         </div>
-                        <select required="required" ng-model="requisito.importancia" ng-options="item.id as item.name for item in importanciaOptions">
+                        <select name="importancia" ng-model="requisito.importancia" ng-options="item.id as item.name for item in importanciaOptions" ng-required="true">
                         </select>
+                        <ul ng-messages="form.tipo.$dirty && form.tipo.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-select">
                         <div class="input-label ">
                             Urgência
                         </div>
-                        <select required="required" ng-model="requisito.urgencia" ng-options="item.id as item.name for item in urgenciaOptions">
+                        <select name="urgencia" required="required" ng-model="requisito.urgencia" ng-options="item.id as item.name for item in urgenciaOptions" ng-required="true">
                         </select>
+                        <ul ng-messages="form.tipo.$dirty && form.tipo.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                        </ul>
                     </label>
                     <br/>
-                    <button class="button button-block button-balanced ink" ng-click="salvar(requisito)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    <button class="button button-block button-balanced ink" ng-disabled="form.$invalid" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Salvar
                     </button>
                 </div>

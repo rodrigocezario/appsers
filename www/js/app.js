@@ -1,6 +1,6 @@
 var db = null;
 var usuarioLogin = null;
-var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova', 'angular-md5']);
+var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova', 'angular-md5', 'ngMessages']);
 
 app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILocal, $ionicHistory) {
     $ionicPlatform.ready(function () {

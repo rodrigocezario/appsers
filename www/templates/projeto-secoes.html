@@ -5,51 +5,78 @@
         </div>
         <div class="im-wrapper">
             <!-- Forms -->
-            <form name="projetoSecoesForm">
+            <form name="form" ng-submit="salvarSecoes(secoes)" novalidate autocomplete="off">
                 <div class="list">
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Propósito</span>
-                        <textarea rows="7" placeholder="Este campo deve definir a finalidade do documento." ng-model="secoes.proposito"></textarea>
+                        <textarea rows="5" name="proposito" placeholder="Este campo deve definir a finalidade do documento." ng-model="secoes.proposito" ng-required="true" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.proposito.$dirty && form.proposito.$error">
+                            <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Escopo</span>
-                        <textarea rows="7" placeholder="Neste campo deve-se definir o produto que será desenvolvido descrito em alto nível. Devem ser relacionados os objetivos e benefícios a serem alcançados." ng-model="secoes.escopo"></textarea>
+                        <textarea rows="5" name="escopo" placeholder="Neste campo deve-se definir o produto que será desenvolvido descrito em alto nível. Devem ser relacionados os objetivos e benefícios a serem alcançados." ng-model="secoes.escopo" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.escopo.$dirty && form.escopo.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
-
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Definições, acrônimos e abreviaturas</span>
-                        <textarea rows="7" placeholder="Lista de todos os termos necessários para interpretar o documento." ng-model="secoes.def_acron_abrev"></textarea>
+                        <textarea rows="5" name="definicoes" placeholder="Lista de todos os termos necessários para interpretar o documento." ng-model="secoes.def_acron_abrev"></textarea>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Referências</span>
-                        <textarea rows="7" placeholder="Referência dos termos externos citados no DER." ng-model="secoes.referencias"></textarea>
+                        <textarea rows="5" name="referencias" placeholder="Referência dos termos externos citados no DER." ng-model="secoes.referencias" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.referencias.$dirty && form.referencias.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Organização</span>
-                        <textarea rows="7" placeholder="Corresponde a uma descrição da organização de todo o conteúdo restante do DER." ng-model="secoes.organizacao" ></textarea>
+                        <textarea rows="5" name="organizacao" placeholder="Corresponde a uma descrição da organização de todo o conteúdo restante do DER." ng-model="secoes.organizacao" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.organizacao.$dirty && form.organizacao.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Perspectiva do produto</span>
-                        <textarea rows="7" placeholder="Deve ser especificado uma perspectiva do produto a ser desenvolvido. Deve-se também descrever como o software irá operar dentro de várias circunstâncias." ng-model="secoes.perspectiva"></textarea>
+                        <textarea rows="5" name="perspectiva" placeholder="Deve ser especificado uma perspectiva do produto a ser desenvolvido. Deve-se também descrever como o software irá operar dentro de várias circunstâncias." ng-model="secoes.perspectiva" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.perspectiva.$dirty && form.perspectiva.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Funcionalidades</span>
-                        <textarea rows="7" placeholder="Descrever as principais funções promovidas pelo produto." ng-model="secoes.funcionalidades"></textarea>
+                        <textarea rows="5" name="funcionalidades" placeholder="Descrever as principais funções promovidas pelo produto." ng-model="secoes.funcionalidades" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.funcionalidades.$dirty && form.funcionalidades.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Característica do utilizador</span>
-                        <textarea rows="7" placeholder="Deve-se descrever aqui as principais características dos usuários. Ex: experiência, nível educacional e etc." ng-model="secoes.caracteristicas_utilizador"></textarea>
+                        <textarea rows="5" name="utilizador" placeholder="Deve-se descrever aqui as principais características dos usuários. Ex: experiência, nível educacional e etc." ng-model="secoes.caracteristicas_utilizador" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.utilizador.$dirty && form.utilizador.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Restrições</span>
-                        <textarea rows="7" placeholder="Informar as restrições relacionadas ao projeto." ng-model="secoes.restricoes"></textarea>
+                        <textarea rows="5" name="restricoes" placeholder="Informar as restrições relacionadas ao projeto." ng-model="secoes.restricoes" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.restricoes.$dirty && form.restricoes.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Assunções e dependências</span>
-                        <textarea rows="7" placeholder="Informar itens externos relacionados ao projeto bem como suas dependências." ng-model="secoes.assuncoes_dependencias"></textarea>
+                        <textarea rows="5" name="dependencias" placeholder="Informar itens externos relacionados ao projeto bem como suas dependências." ng-model="secoes.assuncoes_dependencias" ng-minlength="10"></textarea>
+                        <ul ng-messages="form.dependencias.$dirty && form.dependencias.$error">
+                            <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
+                        </ul>
                     </label>
                     <br/>
-                    <button class="button button-block button-balanced ink" ng-click="salvarSecoes(secoes)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    <button class="button button-block button-balanced ink" ng-disabled="form.$invalid" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Salvar
                     </button>
                 </div>
