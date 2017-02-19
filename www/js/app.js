@@ -234,22 +234,22 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 }
             })
 
-            .state('app.projeto-reqsistema-padroes', {
-                url: '/projetos/:projetoId/reqsistema/:requisitoId/padroes',
+            .state('app.projeto-reqsistema-padrao-detalhe', {
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/padrao/:padraoId',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/projeto-reqsistema-padroes.html',
-                        controller: 'ReqSistemaPadroesCtrl'
+                        templateUrl: 'templates/projeto-reqsistema-padrao-detalhe.html',
+                        controller: 'ReqSistemaPadraoCtrl'
                     }
                 }
             })
 
-            .state('app.projeto-reqsistema-padroes-filtro', {
-                url: '/projetos/:projetoId/reqsistema/:requisitoId/padroes-filtro',
+            .state('app.projeto-reqsistema-padrao', {
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/padrao',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/projeto-reqsistema-padroes-filtro.html',
-                        controller: 'ReqSistemaPadroesFiltroCtrl'
+                        templateUrl: 'templates/projeto-reqsistema-padrao.html',
+                        controller: 'ReqSistemaPadraoCtrl'
                     }
                 }
             })
