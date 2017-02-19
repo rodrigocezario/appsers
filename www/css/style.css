@@ -53,13 +53,6 @@ p {
     background-position: 0%;
 }
 
-/*.menu .bar.bar-header.expanded {
-    background-image: url('../img/material3.jpg');
-    background-size: 120%;
-    background-position: 0%;
-    transition: all .5s ease-in-out;
-}*/
-
 .menu.menu-left * {
     font-weight: bold;
 }
@@ -116,28 +109,7 @@ p {
     transform: rotate(45deg);
 }
 
-/*#modal {
-    background-color: #ef4e3a;
-    border-radius: 100%;
-    box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    height: 50%;
-    bottom: 0;
-    opacity: 0;
-    width: 700px;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-}*/
-
-/*.expand #modal {
-    background-color: #DBDBDB;
-    border-radius: 0;
-    border-top: solid 4px #ef4e3a;
-    opacity: 1;
-    z-index: 9;
-}*/
 /* CODE */
-
 .code {
     color: #333;
     font-family: monospace;
@@ -280,4 +252,9 @@ ion-list ion-item{
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
+    text-justify: distribute;
 }
