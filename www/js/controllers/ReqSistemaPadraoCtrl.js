@@ -1,4 +1,4 @@
-app.controller('ReqSistemaPadroesFiltroCtrl', function ($scope, $state, $stateParams, utilAPI, projetoAPILocal, padraoAPILocal) {
+app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, utilAPI, projetoAPILocal, padraoAPILocal) {
 
     if (Number($stateParams.projetoId)) {
         projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
@@ -7,6 +7,12 @@ app.controller('ReqSistemaPadroesFiltroCtrl', function ($scope, $state, $statePa
         setInitFiltro();
         padraoAPILocal.get().then(function (res) {
             $scope.padroes = res;
+        });
+    }
+
+    if (Number($stateParams.padraoId)) {
+        padraoAPILocal.getById($stateParams.padraoId).then(function (res) {
+            $scope.padrao = res;
         });
     }
 
@@ -48,8 +54,8 @@ app.controller('ReqSistemaPadroesFiltroCtrl', function ($scope, $state, $statePa
         });
         return retorno;
     };
-}).filter('stripTags', function() {
-	return function(text) {
-		return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
-	};
+}).filter('stripTags', function () {
+    return function (text) {
+        return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+    };
 });

@@ -51,7 +51,7 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
     
     $scope.tabSelect = function (tipo) {
         if(tipo == 2){
-            $state.go("app.projeto-reqsistema-padroes-filtro", {'projetoId': $stateParams.projetoId,'requisitoId': $scope.requisito.id});
+            $state.go("app.projeto-reqsistema-padrao", {'projetoId': $stateParams.projetoId,'requisitoId': $scope.requisito.id});
         }else if(tipo == 3){
             $state.go("app.projeto-reqsistema-sugestoes", {'projetoId': $stateParams.projetoId,'requisitoId': $scope.requisito.id});
         }
