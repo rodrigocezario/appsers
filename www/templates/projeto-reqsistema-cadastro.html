@@ -5,7 +5,6 @@
         </div>
         <div class="button-bar">
             <a class="button button-raised ink-dark button-bar-active">Requisito</a>
-            <a class="button button-raised ink-dark" ng-click="tabSelect(2)">Padrões</a>
             <a class="button button-raised ink-dark" ng-click="tabSelect(3)">Sujestões</a>
         </div>
         <div class="im-wrapper">
@@ -39,8 +38,7 @@
                         <div class="input-label ">
                             Tipo do Requisito
                         </div>
-                        <select name="tipo" ng-model="requisito.tipo" ng-options="item.id as item.name for item in tipoOptions" ng-required="true">
-                        </select>
+                        <select name="tipo" ng-model="requisito.tipo" ng-options="item.id as item.name for item in tipoOptions" ng-required="true"></select>
                         <ul ng-messages="form.tipo.$dirty && form.tipo.$error">
                             <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
                         </ul>
@@ -49,15 +47,13 @@
                         <div class="input-label ">
                             Requisito de Usuário
                         </div>
-                        <select name="requsu" class="item-select-40" ng-model="requisito.id_requisito_usuario" ng-options="item.id as item.name for item in reqUsuarioOptions">
-                        </select>
+                        <select name="requsu" class="item-select-40" ng-model="requisito.id_requisito_usuario" ng-options="item.id as item.name for item in reqUsuarioOptions"></select>
                     </label>
                     <label class="item item-input item-select">
                         <div class="input-label ">
                             Importância
                         </div>
-                        <select name="importancia" ng-model="requisito.importancia" ng-options="item.id as item.name for item in importanciaOptions" ng-required="true">
-                        </select>
+                        <select name="importancia" ng-model="requisito.importancia" ng-options="item.id as item.name for item in importanciaOptions" ng-required="true"></select>
                         <ul ng-messages="form.tipo.$dirty && form.tipo.$error">
                             <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
                         </ul>
@@ -66,12 +62,36 @@
                         <div class="input-label ">
                             Urgência
                         </div>
-                        <select name="urgencia" required="required" ng-model="requisito.urgencia" ng-options="item.id as item.name for item in urgenciaOptions" ng-required="true">
-                        </select>
+                        <select name="urgencia" required="required" ng-model="requisito.urgencia" ng-options="item.id as item.name for item in urgenciaOptions" ng-required="true"></select>
                         <ul ng-messages="form.tipo.$dirty && form.tipo.$error">
                             <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
                         </ul>
                     </label>
+                    <div class="item item-input no-padding-top">
+                        <div class="col col-50 input-label no-padding text-left">
+                            Padrão de Projeto
+                        </div>
+                        <div class="col col-50 text-right">
+                            <a ng-click="tabSelect(2)">
+                                <button class="button button-fab"><i class="icon ion-android-search"> </i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card" ng-show="requisito.id_padrao">
+                        <div class="item item-divider">
+                            <p>{{item.nome}}</p>
+                        </div>
+                        <div class="item item-text-wrap no-padding-top text-justify">
+                            <p>{{item.objetivo| stripTags}}</p>
+                        </div>
+                        <div class="item no-padding-top">
+                            <div class="row no-padding">
+                                <div class="col text-left no-padding">
+                                    <a class="subdued no-padding">Categoria: {{item.categoria}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <br/>
                     <button class="button button-block button-balanced ink" ng-disabled="form.$invalid" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Salvar

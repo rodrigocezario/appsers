@@ -1,0 +1,52 @@
+<ion-view view-title="SERS">
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Consultar Padrões</strong>
+        </div>
+        <div class="im-wrapper">
+            <!-- Forms -->
+            <form name="filtroForm">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Termo de Busca</span>
+                        <textarea rows="1" placeholder="Termo de Busca" ng-model="filtro.termo"></textarea>
+                    </label>
+                    <br/>
+                    <label class="item item-input item-select">
+                        <div class="input-label ">
+                            Categoria
+                        </div>
+                        <select class="item-select-40" ng-model="filtro.id_categoria" ng-change="filtro.tipo_categoria = null" ng-options="item.id as item.name for item in categoriaOptions">
+                        </select>
+                    </label>
+                    <label class="item item-input item-select">
+                        <div class="input-label ">
+                            Tipo de Requisito
+                        </div>
+                        <select class="item-select-40" ng-model="filtro.tipo_categoria" ng-change="filtro.id_categoria = null" ng-options="item.id as item.name for item in tipoCategoriaOptions">
+                        </select>
+                    </label>
+                </div>
+            </form>
+            <br/>
+            <div class="card" ng-show="filtro.termo || filtro.id_categoria || filtro.tipo_categoria" ng-repeat="item in padroes| filtroPadrao: filtro" on-tap="verPadrao(item)">
+                <div class="item item-divider ">
+                    <p>{{item.nome}}</p>
+                </div>
+                <div class="item item-text-wrap no-padding-top text-justify">
+                    <p>{{item.objetivo| stripTags}}</p>
+                </div>
+                <div class="item no-padding-top">
+                    <div class="row no-padding">
+                        <div class="col col-50 text-left no-padding">
+                            <a class="subdued no-padding">Categoria: {{item.categoria}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-stable">
+        <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
+    </ion-footer-bar>
+</ion-view>
