@@ -29,14 +29,14 @@
                 </div>
             </form>
             <br/>
-            <div class="card" ng-show="filtro.termo || filtro.id_categoria || filtro.tipo_categoria" ng-repeat="item in padroes| filtroPadrao: filtro" on-tap="verPadrao(item)">
+            <div class="card" ng-show="filtro.termo || filtro.id_categoria || filtro.tipo_categoria != null" ng-repeat="item in padroes| filtroPadrao: filtro" on-tap="padraoDetalhe(item)">
                 <div class="item item-divider ">
                     <p>{{item.nome}}</p>
                 </div>
                 <div class="item item-text-wrap no-padding-top text-justify">
                     <p>{{item.objetivo| stripTags}}</p>
                 </div>
-                <div class="item no-padding-top">
+                <div class="item item item-divider no-padding-top">
                     <div class="row no-padding">
                         <div class="col col-50 text-left no-padding">
                             <a class="subdued no-padding">Categoria: {{item.categoria}}</a>
