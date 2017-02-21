@@ -4,7 +4,6 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
         reqSistemaAPILocal.getById($stateParams.requisitoId).then(function (res) {
             angular.merge($scope.requisito, res);
         });
-
     }
     if (Number($stateParams.projetoId)) {
         setInitReqSistema();
@@ -32,7 +31,7 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
             });
         }
     };
-    
+
     function goToList($tipo) {
         if ($tipo == 1) {
             $state.go("app.projeto-reqsistema-funcional", {'projetoId': $stateParams.projetoId}).then();
@@ -40,7 +39,7 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
             $state.go("app.projeto-reqsistema-naofuncional", {'projetoId': $stateParams.projetoId}).then();
         }
     }
-    
+
     function setInitReqSistema() {
         $scope.requisito = {
             id: null, id_padrao: null, tipo: 1, resumo: null, descricao: null,
@@ -48,15 +47,15 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
             id_vinculo: null, importancia: 1, urgencia: 1, observacao: null
         };
     }
-    
+
     $scope.tabSelect = function (tipo) {
-        if(tipo == 2){
-            $state.go("app.projeto-reqsistema-padrao", {'projetoId': $stateParams.projetoId,'requisitoId': $scope.requisito.id});
-        }else if(tipo == 3){
-            $state.go("app.projeto-reqsistema-sugestoes", {'projetoId': $stateParams.projetoId,'requisitoId': $scope.requisito.id});
+        if (tipo == 2) {
+            $state.go("app.projeto-reqsistema-padrao", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id});
+        } else if (tipo == 3) {
+            $state.go("app.projeto-reqsistema-sugestoes", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id});
         }
     };
-    
+
     reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
         $scope.reqUsuarioOptions = [{id: null, name: "Não definido", id_requisito: null}];
         angular.forEach(res, function (item) {
