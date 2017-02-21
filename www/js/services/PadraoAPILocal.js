@@ -9,7 +9,7 @@ app.factory("padraoAPILocal", function (dbAPILocal) {
     
     self.getById = function (id) {
         var parameters = [id];
-        return dbAPILocal.query("SELECT p.*, c.descricao AS categoria, c.tipo AS tipo_categoria FROM padrao p LEFT JOIN padrao_categoria c ON (c.id = p.id_categoria) WHERE id = ? ORDER BY c.descricao, p.nome",parameters).then(function (result) {
+        return dbAPILocal.query("SELECT p.*, c.descricao AS categoria, c.tipo AS tipo_categoria FROM padrao p LEFT JOIN padrao_categoria c ON (c.id = p.id_categoria) WHERE p.id = ? ORDER BY c.descricao, p.nome",parameters).then(function (result) {
             return dbAPILocal.getById(result);
         });
     }
