@@ -30,6 +30,10 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
         {id: 1, name: "Funcional"},
         {id: 0, name: "Não Funcional"}
     ];
+    
+    $scope.padraoDetalhe = function (item) {
+        $state.go("app.projeto-reqsistema-padrao-detalhe", {'projetoId': $stateParams.projetoId, 'requisitoId': item.id, 'padraoId': item.id});
+    };
 
     function setInitFiltro() {
         $scope.filtro = {termo: null, id_categoria: null, tipo_categoria: null};
