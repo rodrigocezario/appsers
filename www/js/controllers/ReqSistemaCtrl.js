@@ -1,8 +1,15 @@
-app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projetoAPILocal, reqSistemaAPILocal, reqUsuarioAPILocal, utilAPI) {
+app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projetoAPILocal, reqSistemaAPILocal, padraoAPILocal, reqUsuarioAPILocal, utilAPI) {
 
     if (Number($stateParams.requisitoId)) {
         reqSistemaAPILocal.getById($stateParams.requisitoId).then(function (res) {
             angular.merge($scope.requisito, res);
+            $scope.padrao = null;
+            padraoAPILocal.getById($scope.requisito.id_padrao).then(function(res){
+                if(res){
+                    $scope.padrao = res;
+                }
+            });
+            
         });
     }
     if (Number($stateParams.projetoId)) {
@@ -12,8 +19,23 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
         });
     }
 
-    if ($scope.requisito && Number($stateParams.tipoId)) {
-        $scope.requisito.tipo = Number($stateParams.tipoId);
+    if ($scope.requisito && Number($stateParams.reqTipoId)) {
+        $scope.requisito.tipo = Number($stateParams.reqTipoId);
+    }
+    
+    if (Number($stateParams.padraoId)){
+        $scope.requisito.id_padrao = $stateParams.padraoId;
+        $scope.padrao = null;
+        padraoAPILocal.getById($stateParams.padraoId).then(function(res){
+            if(res){
+                $scope.padrao = res;
+                if(res.tipo_categoria == 1){
+                    $scope.requisito.tipo = 1;
+                }else{
+                    $scope.requisito.tipo = 2;
+                }
+            }
+        });
     }
 
     $scope.salvar = function (requisito) {
@@ -55,6 +77,16 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
             $state.go("app.projeto-reqsistema-sugestoes", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id});
         }
     };
+    
+    $scope.padraoDetalhe = function(){
+        var reqId = null
+        if (Number($stateParams.requisitoId)) {
+            reqId = $stateParams.requisitoId;
+        }
+        if($scope.padrao && $scope.padrao.id && Number($scope.padrao.id)){
+            $state.go("app.projeto-reqsistema-padrao-detalhe", {'projetoId': $stateParams.projetoId, 'requisitoId': reqId, 'padraoId': $scope.padrao.id, 'modo': 'leitura'});
+        }
+    }
 
     reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
         $scope.reqUsuarioOptions = [{id: null, name: "Não definido", id_requisito: null}];
