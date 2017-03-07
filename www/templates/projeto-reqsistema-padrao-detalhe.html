@@ -22,5 +22,10 @@
             <h3>Forças</h3>
             <div ng-bind-html="padrao.forcas"></div>
         </div>
+        <div class="padding" ng-show="modo == 'selecionar'">
+            <button class="button button-block button-balanced ink" ng-click="selecionarPadrao();" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                Selecionar este padrão
+            </button>
+        </div>
     </ion-content>
 </ion-view>

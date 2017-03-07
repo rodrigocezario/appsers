@@ -34,7 +34,7 @@
                         </ul>
                     </label>
                     <br/>
-                    <label class="item item-input item-select">
+                    <label class="item item-input item-select" ng-show="!requisito.id_padrao">
                         <div class="input-label ">
                             Tipo do Requisito
                         </div>
@@ -67,27 +67,22 @@
                             <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
                         </ul>
                     </label>
-                    <div class="item item-input no-padding-top">
+                    <div class="item item-input no-padding-top" ng-show="requisito.id_padrao">
                         <div class="col col-50 input-label no-padding text-left">
                             Padrão de Projeto
                         </div>
-                        <div class="col col-50 text-right">
-                            <a ng-click="tabSelect(2)">
-                                <button class="button button-fab"><i class="icon ion-android-search"> </i></button>
-                            </a>
-                        </div>
                     </div>
-                    <div class="card" ng-show="requisito.id_padrao">
-                        <div class="item item-divider">
-                            <p>{{item.nome}}</p>
+                    <div class="card" ng-show="requisito.id_padrao" ng-click="padraoDetalhe()">
+                        <div class="item item-divider ">
+                            <p>{{padrao.nome}}</p>
                         </div>
                         <div class="item item-text-wrap no-padding-top text-justify">
-                            <p>{{item.objetivo| stripTags}}</p>
+                            <p>{{padrao.objetivo| stripTags}}</p>
                         </div>
-                        <div class="item no-padding-top">
+                        <div class="item item item-divider no-padding-top">
                             <div class="row no-padding">
-                                <div class="col text-left no-padding">
-                                    <a class="subdued no-padding">Categoria: {{item.categoria}}</a>
+                                <div class="col col-50 text-left no-padding">
+                                    <a class="subdued no-padding">Categoria: {{padrao.categoria}}</a>
                                 </div>
                             </div>
                         </div>
