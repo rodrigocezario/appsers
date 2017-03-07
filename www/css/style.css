@@ -255,6 +255,6 @@ ion-list ion-item{
 }
 
 .text-justify {
-    text-align: justify;
-    text-justify: distribute;
+    text-align: justify !important;
+    text-justify: distribute !important;
 }

@@ -9,7 +9,19 @@ app.factory("utilAPI", function ($ionicPopup, $timeout) {
             okType: "button-assertive"
         });
     }
-
+    
+    self.confirmar = function (titulo, subtitulo = null, okText = "Sim", cancelText = "Não", okType = "button-dark", cancelType = null) {
+        return $ionicPopup.confirm({
+            title: titulo,
+            subTitle: subtitulo,
+            cancelText: cancelText,
+            cancelType: cancelType,
+            okText: okText,
+            okType: okType
+            
+        });
+    }
+    
 
     self.avisoTemp = function (titulo, subtitulo = null, segundos = 2000) {
         var popup = $ionicPopup.show({
@@ -22,7 +34,7 @@ app.factory("utilAPI", function ($ionicPopup, $timeout) {
             popup.close();
         }, segundos);
     }
-
+    
     return self;
 });
 

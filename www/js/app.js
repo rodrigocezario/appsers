@@ -213,9 +213,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
-
+            
             .state('app.projeto-reqsistema-add', {
-                url: '/projetos/:projetoId/reqsistema/cadastro/:tipoId',
+                url: '/projetos/:projetoId/reqsistema/cadastro/:reqTipoId',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-cadastro.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-addpadrao', {
+                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-cadastro.html',
@@ -235,7 +245,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             })
 
             .state('app.projeto-reqsistema-padrao-detalhe', {
-                url: '/projetos/:projetoId/reqsistema/:requisitoId/padrao/:padraoId',
+                url: '/projetos/:projetoId/reqsistema/padrao/:padraoId/:modo',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-padrao-detalhe.html',
@@ -245,7 +255,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             })
 
             .state('app.projeto-reqsistema-padrao', {
-                url: '/projetos/:projetoId/reqsistema/:requisitoId/padrao',
+                url: '/projetos/:projetoId/reqsistema/padrao',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-padrao.html',

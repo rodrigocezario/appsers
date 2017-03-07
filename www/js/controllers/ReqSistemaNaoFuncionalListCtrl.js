@@ -29,7 +29,13 @@ app.controller('ReqSistemaNaoFuncionalListCtrl', function ($scope, $stateParams,
     };
 
     $scope.incluir = function () {
-        $state.go("app.projeto-reqsistema-add", {'projetoId': $stateParams.projetoId, 'tipoId': 2});
+        utilAPI.confirmar("Definir a partir de um Padrão de Projeto?").then(function(res){
+            if(res){
+                $state.go("app.projeto-reqsistema-padrao", {'projetoId': $stateParams.projetoId});
+            }else{
+                $state.go("app.projeto-reqsistema-add", {'projetoId': $stateParams.projetoId, 'reqTipoId': 2});
+            }
+        });
     };
 
     $scope.tabSelect = function () {

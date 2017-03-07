@@ -14,8 +14,10 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
         padraoAPILocal.getById($stateParams.padraoId).then(function (res) {
             $scope.padrao = res;
         });
+        $scope.modo = $stateParams.modo;
     }
-
+    
+    
     padraoAPILocal.getCategoria().then(function (res) {
         $scope.categoriaOptions = [{id: null, name: "Não definido"}];
         angular.forEach(res, function (item) {
@@ -30,10 +32,21 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
         {id: 1, name: "Funcional"},
         {id: 0, name: "Não Funcional"}
     ];
-    
+
     $scope.padraoDetalhe = function (item) {
-        $state.go("app.projeto-reqsistema-padrao-detalhe", {'projetoId': $stateParams.projetoId, 'requisitoId': item.id, 'padraoId': item.id});
+        $state.go("app.projeto-reqsistema-padrao-detalhe", {'projetoId': $stateParams.projetoId, 'padraoId': item.id, 'modo': 'selecionar'});
     };
+
+    $scope.selecionarPadrao = function (padraoId) {
+        if (!Number(padraoId) && Number($stateParams.padraoId)) {
+            padraoId = $stateParams.padraoId;
+        }
+        utilAPI.confirmar("Confirmação de Seleção","Definir este padrão de projeto para o requisito a ser cadastrado?").then(function(res){
+            if(res){
+                $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': padraoId});
+            }
+        });
+    }
 
     function setInitFiltro() {
         $scope.filtro = {termo: null, id_categoria: null, tipo_categoria: null};

@@ -1,4 +1,4 @@
-app.controller('ReqSistemaFuncionalListCtrl', function ($scope, $stateParams, $state, ionicMaterialMotion, projetoAPILocal, reqSistemaAPILocal, utilAPI) {
+app.controller('ReqSistemaFuncionalListCtrl', function ($scope, $stateParams, $state, $ionicPopup, ionicMaterialMotion, projetoAPILocal, reqSistemaAPILocal, utilAPI) {
 
     if (Number($stateParams.projetoId)) {
         projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
@@ -29,7 +29,13 @@ app.controller('ReqSistemaFuncionalListCtrl', function ($scope, $stateParams, $s
     };
 
     $scope.incluir = function () {
-        $state.go("app.projeto-reqsistema-add", {'projetoId': $stateParams.projetoId, 'tipoId': 1});
+        utilAPI.confirmar("Definir a partir de um Padrão de Projeto?").then(function(res){
+            if(res){
+                $state.go("app.projeto-reqsistema-padrao", {'projetoId': $stateParams.projetoId});
+            }else{
+                $state.go("app.projeto-reqsistema-add", {'projetoId': $stateParams.projetoId, 'reqTipoId': 1});
+            }
+        });
     };
 
     $scope.tabSelect = function () {

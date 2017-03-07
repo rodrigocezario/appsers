@@ -57,7 +57,8 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
                 "   rsp.id_vinculo, " +
                 "   rsp.importancia, " +
                 "   rsp.urgencia, " +
-                "   rsp.observacao " +
+                "   rsp.observacao, " +
+                "   (SELECT p.nome FROM padrao p WHERE p.id = rs.id_padrao) AS padrao " +
                 "FROM requisito_sistema rs " +
                 "LEFT JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
                 "WHERE rsp.id_projeto = ? ";
