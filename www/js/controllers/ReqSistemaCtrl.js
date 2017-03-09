@@ -37,6 +37,17 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projeto
             }
         });
     }
+    
+    if (Number($stateParams.templateId)) {
+        padraoAPILocal.getTemplateById($stateParams.templateId).then(function (res) {
+            if(res){
+                if($scope.requisito){
+                    $scope.requisito.resumo = angular.element(res.resumo).text();
+                    $scope.requisito.descricao = angular.element(res.definicao).text();
+                }
+            }
+        });
+    }
 
     $scope.salvar = function (requisito) {
         requisito.id_projeto = $stateParams.projetoId;
