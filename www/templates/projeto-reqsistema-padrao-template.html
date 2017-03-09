@@ -1,0 +1,31 @@
+<ion-view view-title="SERS">
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Opções de Template</strong>
+        </div>
+        <div class="im-wrapper">
+            <div class="padding-left padding-right text-justify">
+                <h4>{{padrao.nome}}</h4>
+                <span>Selecione o template mais adequado ao requisito que será especificado</span>
+            </div>
+            <div class="padding">
+                <div class="card" ng-repeat="item in padrao.templates" on-tap="selecionarTemplate(item.id)" on-hold="selecionarTemplate(item.id)">
+                    <div class="item bold item-text-wrap">
+                        <p ng-bind-html="item.resumo | stripTags"/>
+                    </div>
+                    <div class="item item-text-wrap no-padding-top text-justify">
+                        <p ng-bind-html="item.definicao | stripTags"/>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-left padding-right text-center">
+                <span>OU</span>
+            </div>
+            <div class="padding">
+                <button class="button button-block button-dark ink" ng-click="selecionarTemplate();" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    Não utilizar template
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
