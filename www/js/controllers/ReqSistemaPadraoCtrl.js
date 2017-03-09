@@ -13,11 +13,16 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
     if (Number($stateParams.padraoId)) {
         padraoAPILocal.getById($stateParams.padraoId).then(function (res) {
             $scope.padrao = res;
+            if ($scope.padrao) {
+                padraoAPILocal.getTemplateByIdPadrao($stateParams.padraoId).then(function (temp) {
+                    $scope.padrao.templates = temp;
+                });
+            }
         });
         $scope.modo = $stateParams.modo;
     }
-    
-    
+
+
     padraoAPILocal.getCategoria().then(function (res) {
         $scope.categoriaOptions = [{id: null, name: "Não definido"}];
         angular.forEach(res, function (item) {
@@ -36,16 +41,18 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
     $scope.padraoDetalhe = function (item) {
         $state.go("app.projeto-reqsistema-padrao-detalhe", {'projetoId': $stateParams.projetoId, 'padraoId': item.id, 'modo': 'selecionar'});
     };
-
     $scope.selecionarPadrao = function (padraoId) {
-        if (!Number(padraoId) && Number($stateParams.padraoId)) {
-            padraoId = $stateParams.padraoId;
+        if (Number(padraoId) && !Number($stateParams.padraoId)) {
+            $stateParams.padraoId = padraoId;
         }
-        utilAPI.confirmar("Confirmação de Seleção","Definir este padrão de projeto para o requisito a ser cadastrado?").then(function(res){
-            if(res){
-                $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': padraoId});
-            }
-        });
+        utilAPI.avisoTemp("Padrão Selecionado", "Padrão selecionado para o requisito", 1500);
+        $state.go("app.projeto-reqsistema-padrao-template", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId});
+    }
+    
+    $scope.selecionarTemplate = function (templateId = null) {
+        if (Number($stateParams.padraoId)) {
+            $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId, 'templateId': templateId});
+        }
     }
 
     function setInitFiltro() {
