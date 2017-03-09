@@ -3,29 +3,32 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title">Detalhes do Padrão</strong>
         </div>
-        <div class="padding text-justify">
-            <h3>{{padrao.nome}}</h3>
-        </div>
-        <div class="padding text-justify">
-            <h3>Objetivo</h3>
-            <div ng-bind-html="padrao.objetivo"></div>
-        </div>
-        <div class="padding text-justify">
-            <h3>Contexto</h3>
-            <div ng-bind-html="padrao.contexto"></div>
-        </div>
-        <div class="padding text-justify">
-            <h3>Problema</h3>
-            <div ng-bind-html="padrao.problema"></div>
-        </div>
-        <div class="padding text-justify">
-            <h3>Forças</h3>
-            <div ng-bind-html="padrao.forcas"></div>
-        </div>
-        <div class="padding" ng-show="modo == 'selecionar'">
-            <button class="button button-block button-balanced ink" ng-click="selecionarPadrao();" data-ink-color="#9DEAFF" data-ink-opacity="1">
-                Selecionar este padrão
-            </button>
+        <div class="im-wrapper">
+            <div class="padding text-justify">
+                <h4>{{padrao.nome}}</h4>
+            </div>
+            <div class="padding text-justify">
+                <h3>Objetivo</h3>
+                <div ng-bind-html="padrao.objetivo"></div>
+            </div>
+            <div class="padding text-justify">
+                <h3>Contexto</h3>
+                <div ng-bind-html="padrao.contexto"></div>
+            </div>
+            <div class="padding text-justify">
+                <h3>Problema</h3>
+                <div ng-bind-html="padrao.problema"></div>
+            </div>
+            <div class="padding text-justify">
+                <h3>Forças</h3>
+                <div ng-bind-html="padrao.forcas"></div>
+            </div>
+            <div class="padding" ng-show="modo == 'selecionar'">
+                <button class="button button-block button-balanced ink" ng-click="selecionarPadrao();" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    Utilizar este padrão
+                </button>
+            </div>
+
         </div>
     </ion-content>
 </ion-view>

@@ -9,7 +9,7 @@
         </div>
         <div class="im-wrapper">
             <div class="card" ng-repeat="item in requisitos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
-                <div class="item item-divider">
+                <div class="item item-text-wrap bold">
                     <p>RF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</p>
                 </div>
                 <div class="item item-text-wrap no-padding-top">
@@ -17,10 +17,10 @@
                 </div>
                 <div class="item no-padding-top">
                     <div class="row no-padding">
-                        <div class="col text-left no-padding">
+                        <div class="col-66 text-left item-text-wrap no-padding">
                             <p class="bold no-padding">{{item.padrao}}</p>
                         </div>
-                        <div class="col text-right no-padding">
+                        <div class="col-33 text-right no-padding item-text-wrap">
                             <p class="text-right no-padding" ng-if="item.id_requisito_usuario">RU{{('000' + item.id_requisito_usuario).substr(-3, 3)}}</p>
                         </div>
                     </div>
