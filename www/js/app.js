@@ -225,7 +225,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             })
             
             .state('app.projeto-reqsistema-addpadrao', {
-                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId',
+                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId/:templateId',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-cadastro.html',
@@ -240,6 +240,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-cadastro.html',
                         controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-padrao-template', {
+                url: '/projetos/:projetoId/reqsistema/padrao/:padraoId/template',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-padrao-template.html',
+                        controller: 'ReqSistemaPadraoCtrl'
                     }
                 }
             })
