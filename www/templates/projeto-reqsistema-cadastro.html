@@ -26,6 +26,31 @@
                             <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
                         </ul>
                     </label>
+                    <button ng-show="padrao.exemplos" type="button" class="button button-raised button-block button-dark" ng-click="openModal()" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                        Ver exemplos
+                    </button>
+                    <script id="exemplos-modal.html" type="text/ng-template">
+                        <ion-modal-view>
+                            <ion-header-bar class="bar bar-stable static text-center">
+                                <h4 class="title">Exemplos de Preenchimento</h4>
+                                <strong class="title">Exemplos de Preenchimento</strong>
+                            </ion-header-bar>
+                            <ion-content class="padding">
+                                <h3><strong>{{padrao.nome}}</strong></h3>
+                                <div class="card" ng-repeat="item in padrao.exemplos" on-tap="selecionarExemplo(item.id)">
+                                    <div class="item item-text-wrap bold">
+                                        <p ng-bind-html="item.resumo"/>
+                                    </div>
+                                    <div class="item item-text-wrap no-padding-top text-justify">
+                                        <p ng-bind-html="item.definicao"/>
+                                    </div>
+                                </div>
+                                <button type="button" class="button button-raised button-block button-dark" ng-click="closeModal()" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                                    Fechar
+                                </button>
+                            </ion-content>
+                        </ion-modal-view>
+                    </script>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Observações</span>
                         <textarea rows="5" name="observacao" placeholder="Observações" ng-model="requisito.observacao" ng-minlength="3"></textarea>
@@ -73,7 +98,7 @@
                         </div>
                     </div>
                     <div class="card" ng-show="requisito.id_padrao" ng-click="padraoDetalhe()">
-                        <div class="item item-divider ">
+                        <div class="item item-text-wrap bold ">
                             <p>{{padrao.nome}}</p>
                         </div>
                         <div class="item item-text-wrap no-padding-top text-justify">
@@ -88,7 +113,7 @@
                         </div>
                     </div>
                     <br/>
-                    <button class="button button-block button-balanced ink" ng-disabled="form.$invalid" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    <button type="submit" class="button button-block button-balanced ink" ng-disabled="form.$invalid" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Salvar
                     </button>
                 </div>

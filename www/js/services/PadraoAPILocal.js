@@ -40,6 +40,20 @@ app.factory("padraoAPILocal", function (dbAPILocal) {
             return dbAPILocal.getById(result);
         });
     }
+    
+    self.getExemploByIdPadrao = function (id) {
+        var parameters = [id];
+        return dbAPILocal.query("SELECT e.* FROM padrao_exemplo e WHERE e.id_padrao = ? ORDER BY e.resumo, e.definicao",parameters).then(function (result) {
+            return dbAPILocal.getAll(result);
+        });
+    }
+    
+    self.getExemploById = function (id) {
+        var parameters = [id];
+        return dbAPILocal.query("SELECT e.* FROM padrao_exemplo e WHERE e.id = ? ORDER BY e.resumo, e.definicao",parameters).then(function (result) {
+            return dbAPILocal.getById(result);
+        });
+    }
 
     return self;
 

@@ -29,7 +29,7 @@
                 </div>
             </form>
             <br/>
-            <div class="card" ng-show="filtro.termo || filtro.id_categoria || filtro.tipo_categoria != null" ng-repeat="item in padroes| filtroPadrao: filtro" on-tap="padraoDetalhe(item)" on-hold="selecionarPadrao(item.id)">
+            <div class="card" ng-show="filtro.termo || filtro.id_categoria || filtro.tipo_categoria != null" ng-repeat="item in padroes| filtroPadrao: filtro" on-tap="padraoDetalhe(item)" on-swipe-right="selecionarPadrao(item.id)" on-hold="selecionarPadrao(item.id)">
                 <div class="item item-divider ">
                     <p>{{item.nome}}</p>
                 </div>

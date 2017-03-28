@@ -48,11 +48,11 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
         utilAPI.avisoTemp("Padrão Selecionado", "Padrão selecionado para o requisito", 1500);
         $state.go("app.projeto-reqsistema-padrao-template", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId});
     }
-    
+
     $scope.selecionarTemplate = function (templateId = null) {
         if (Number($stateParams.padraoId)) {
             $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId, 'templateId': templateId});
-        }
+    }
     }
 
     function setInitFiltro() {
