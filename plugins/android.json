@@ -27,6 +27,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.appsers779761"
+        },
+        "cordova-plugin-printer": {
+            "PACKAGE_NAME": "com.ionicframework.appsers779761"
         }
     },
     "dependent_plugins": {}

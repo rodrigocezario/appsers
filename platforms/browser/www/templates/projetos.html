@@ -3,20 +3,22 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title">Projetos</strong>
         </div>
-        <ion-item ng-repeat="projeto in projetos" href="#/app/projetos/{{projeto.id}}">
-            <div class="item-icon-left">
-                <i class="icon ion-ios-briefcase"></i>
-                <h2>{{projeto.nome}}</h2>
-                <p>{{projeto.descricao}}</p>
-            </div>
-            <div class="item-icon-right">
-                <i class="icon ion-ios-arrow-right"></i>
-            </div>
-        </ion-item>
+        <ion-list>
+            <ion-item ng-repeat="item in projetos" on-tap="editar(item)" on-swipe-left="excluir(item)" on-hold="excluir(item)">
+                <div class="item-icon-left">
+                    <i class="icon ion-ios-briefcase"></i>
+                    <div class="item-margin-right">
+                        <h2>{{item.nome}}</h2>
+                        <p>{{item.descricao}}</p>
+                    </div>
+                </div>
+                <div class="item-icon-right">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+            </ion-item>
+        </ion-list>
     </ion-content>
-    <a ng-href="#/app/projetos/cadastro">
-        <button id="btn-incluir" class="button button-dark button-fab button-fab-bottom-right">
-            <i class="icon ion-plus"></i>
-        </button>
-    </a>
+    <button id="btn-incluir" ng-click="incluir()" class="button button-dark button-fab button-fab-bottom-right">
+        <i class="icon ion-plus"></i>
+    </button>
 </ion-view>

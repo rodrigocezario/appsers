@@ -1,4 +1,4 @@
-app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicHistory, projetoAPILocal, reqSistemaAPILocal, padraoAPILocal, reqUsuarioAPILocal, utilAPI) {
+app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, projetoAPILocal, reqSistemaAPILocal, padraoAPILocal, reqUsuarioAPILocal, utilAPI) {
     if (Number($stateParams.requisitoId)) {
         reqSistemaAPILocal.getById($stateParams.requisitoId).then(function (res) {
             angular.merge($scope.requisito, res);
@@ -11,7 +11,6 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
                     });
                 }
             });
-
         });
     }
     if (Number($stateParams.projetoId)) {
@@ -40,8 +39,11 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
                 padraoAPILocal.getExemploByIdPadrao($stateParams.padraoId).then(function (res2) {
                     $scope.padrao.exemplos = res2;
                 });
-                //console.log($ionicHistory.backView());
             }
+        });
+        $scope.sugestoes = {};
+        reqSistemaAPILocal.getByIdPadrao($scope.requisito.id_padrao, $stateParams.requisitoId).then(function (res2) {
+            $scope.sugestoes = res2;
         });
     }
 
@@ -86,10 +88,13 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
             id_requisito: null, id_req_sistema_projeto: null, id_requisito_usuario: null, reuso: null, id_projeto: null,
             id_vinculo: null, importancia: 1, urgencia: 1, observacao: null
         };
+        $scope.sugestoes = {};
     }
 
     $scope.tabSelect = function (tipo) {
-        if (tipo == 2) {
+        if (tipo == 1) {
+            $state.go("app.projeto-reqsistema-cadastro", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id});
+        } else if (tipo == 2) {
             $state.go("app.projeto-reqsistema-padrao", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id});
         } else if (tipo == 3) {
             $state.go("app.projeto-reqsistema-sugestoes", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id});

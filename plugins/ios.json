@@ -1,0 +1,15 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-printer": {
+            "PACKAGE_NAME": "com.ionicframework.appsers779761"
+        }
+    },
+    "dependent_plugins": {}
+}

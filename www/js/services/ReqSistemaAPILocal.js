@@ -72,6 +72,34 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
         });
     }
 
+    self.getByIdPadrao = function (idPadrao, idRequisito = null) {
+        var parameters = [idPadrao];
+        var query =
+                "SELECT " +
+                "   rs.*, " +
+                "   (SELECT COUNT(rs2.id) FROM requisito_sistema rs2 LEFT JOIN requisito_sistema_projeto rsp2 ON (rsp2.id_requisito_sistema = rs2.id) WHERE rs2.id <= rs.id AND rsp2.id_projeto = rsp.id_projeto AND rs2.tipo = rs.tipo) AS id_requisito, " +
+                "   rsp.id AS id_req_sistema_projeto, " +
+                "   rsp.id_requisito_usuario, " +
+                "   rsp.reuso, " +
+                "   rsp.id_projeto, " +
+                "   rsp.id_vinculo, " +
+                "   rsp.importancia, " +
+                "   rsp.urgencia, " +
+                "   rsp.observacao, " +
+                "   (SELECT p.nome FROM padrao p WHERE p.id = rs.id_padrao) AS padrao " +
+                "FROM requisito_sistema rs " +
+                "LEFT JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
+                "WHERE rs.id_padrao = ? ";
+        if (idRequisito) {
+            parameters.push(idRequisito);
+            query += "AND rs.id <> ? ";
+        }
+        query += "ORDER BY rs.id";
+        return dbAPILocal.query(query, parameters).then(function (result) {
+            return dbAPILocal.getAll(result);
+        });
+    }
+
     self.insert = function (requisito) {
         var parameters = [requisito.id_padrao, requisito.tipo, requisito.resumo, requisito.descricao, usuarioLogin.id];
         return dbAPILocal.query("INSERT INTO requisito_sistema (id_padrao, tipo, resumo, descricao, id_usuario) VALUES (?, ?, ?, ?, ?) ", parameters).then(function () {
@@ -110,5 +138,6 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
     self.deleteFathers = function () { //excluir requisito de sistema sem uso;
         dbAPILocal.query("DELETE FROM requisito_sistema WHERE NOT EXISTS(SELECT rsp.id FROM requisito_sistema_projeto rsp WHERE rsp.id_requisito_sistema = requisito_sistema.id)").then();
     }
+
     return self;
 });

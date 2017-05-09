@@ -1,8 +1,8 @@
-// Ionic Starter App
-var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova']);
 var db = null;
+var usuarioLogin = null;
+var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova', 'angular-md5', 'ngMessages']);
 
-app.run(function ($ionicPlatform, $cordovaSQLite) {
+app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILocal, $ionicHistory) {
     $ionicPlatform.ready(function () {
 
         if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -11,172 +11,340 @@ app.run(function ($ionicPlatform, $cordovaSQLite) {
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-        if(window.cordova){
-            //document.addEventListener('deviceready', function() {
-                db = window.sqlitePlugin.openDatabase({name: 'db_sers.db', location: 'default'});
-            //});
-        }else{
-            db = window.openDatabase("db_sers.db", '1.0', 'db_sers', 2 * 1024 * 1024);
-        }
-        if(db){
-            db.transaction(function (tx) {
-                //tx.executeSql("DROP TABLE projeto");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS projeto (id INTEGER PRIMARY KEY, nome TEXT, descricao TEXT, empresa TEXT, responsavel TEXT, compartilhado INTEGER DEFAULT 0, dt_criacao TEXT, dt_finalizado TEXT)");
-                //tx.executeSql("DROP TABLE secoes");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS secoes (id INTEGER PRIMARY KEY, id_projeto INTEGER, proposito TEXT, escopo TEXT, def_acron_abrev TEXT, referencias TEXT, organizacao TEXT, perspectiva TEXT, funcionalidades TEXT, caracteristicas_utilizador TEXT, restricoes TEXT, assuncoes_dependencias TEXT)");
-                //tx.executeSql("DROP TABLE interessados");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS interessados (id INTEGER PRIMARY KEY, id_projeto INTEGER, nome TEXT, papel TEXT, funcao TEXT, email TEXT, telefone TEXT)");
-            }, function(error) {
-                console.log('Transaction ERROR: ' + error.message);
-            }, function() {
-                console.log('Populated database OK');
-            });
-        }
+
+        db = dbAPILocal.openDB();
+        dbAPILocal.createTables();
+        dbAPILocal.populateTables();
+
+        usuarioAPILocal.get().then(function (res) {
+            if (!res[0] && $state.current.name != 'app.conta' && $state.current.name != 'app.login') {
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go("app.login");
+            } else if (res[0]) {
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                usuarioLogin = res[0];
+                $rootScope.usuarioLogin = usuarioLogin;
+                $state.go("app.projetos");
+            }
+            if (navigator && navigator.splashscreen) {
+                setTimeout(function () {
+                    navigator.splashscreen.hide();
+                }, 100);
+            }
+        });
+
+        $rootScope.$on('$stateChangeStart', function (event, toState) {
+            $rootScope.usuarioLogin = usuarioLogin;
+            if (!usuarioLogin) {
+                if (toState.name != 'app.login' && toState.name != 'app.conta') {
+                    $ionicHistory.nextViewOptions({
+                        disableBack: true
+                    });
+                    event.preventDefault();
+                    $state.go("app.login");
+                }
+            }
+        });
     });
 })
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $stateProvider
-    
-    .state('app', {
-        url: '/app',
-        abstract: true,
-        templateUrl: 'templates/menu.html',
-        controller: 'AppCtrl'
-    })
+            .state('app.login', {
+                url: '/login',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/login.html',
+                        controller: 'LoginCtrl'
+                    }
+                }
+            })
 
-    .state('app.projetos', {
-        url: '/projetos',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projetos.html',
-                controller: 'ProjetoListCtrl'
-            }
-        }
-    })
+            .state('app', {
+                url: '/app',
+                abstract: true,
+                templateUrl: 'templates/menu.html',
+                controller: 'AppCtrl'
+            })
 
-    .state('app.projeto-add', {
-        url: '/projetos/cadastro',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-cadastro.html',
-                controller: 'ProjetoCtrl'
-          }
-        }
-    })
+            .state('app.conta', {
+                url: '/conta',
+                params: {
+                    email: null
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/conta.html',
+                        controller: 'ContaCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-menu', {
-        url: '/projetos/:projetoId',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-menu.html',
-                controller: 'ProjetoMenuCtrl'
-          }
-        }
-    })
+            .state('app.projetos', {
+                url: '/projetos',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projetos.html',
+                        controller: 'ProjetoListCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-cadastro', {
-        url: '/projetos/:projetoId/cadastro',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-cadastro.html',
-                controller: 'ProjetoCtrl'
-          }
-        }
-    })
+            .state('app.projeto-add', {
+                url: '/projetos/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-cadastro.html',
+                        controller: 'ProjetoCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-interessados', {
-        url: '/projetos/:projetoId/interessados',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-interessados.html',
-                controller: 'InteressadoListCtrl'
-          }
-        }
-    })
+            .state('app.projeto-menu', {
+                url: '/projetos/:projetoId',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-menu.html',
+                        controller: 'ProjetoMenuCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-interessados-add', {
-        url: '/projetos/:projetoId/interessados/cadastro',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-interessados-cadastro.html',
-                controller: 'InteressadoCtrl'
-          }
-        }
-    })
+            .state('app.projeto-cadastro', {
+                url: '/projetos/:projetoId/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-cadastro.html',
+                        controller: 'ProjetoCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-interessados-cadastro', {
-        url: '/projetos/:projetoId/interessados/:interessadoId/cadastro',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-interessados-cadastro.html',
-                controller: 'InteressadoCtrl'
-          }
-        }
-    })
+            .state('app.projeto-interessados', {
+                url: '/projetos/:projetoId/interessados',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-interessados.html',
+                        controller: 'InteressadoListCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-secoes', {
-        url: '/projetos/:projetoId/secoes',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-secoes.html',
-                controller: 'SecoesCtrl'
-          }
-        }
-    })
+            .state('app.projeto-interessados-add', {
+                url: '/projetos/:projetoId/interessados/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-interessados-cadastro.html',
+                        controller: 'InteressadoCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-requsuario', {
-        url: '/projetos/:projetoId/requsuario',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-requsuario.html',
-                controller: 'ProjetoCtrl'
-          }
-        }
-    })
+            .state('app.projeto-interessados-cadastro', {
+                url: '/projetos/:projetoId/interessados/:interessadoId/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-interessados-cadastro.html',
+                        controller: 'InteressadoCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-reqsistema', {
-        url: '/projetos/:projetoId/reqsistema',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-reqsistema.html',
-                controller: 'ProjetoCtrl'
-          }
-        }
-    })
+            .state('app.projeto-secoes', {
+                url: '/projetos/:projetoId/secoes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-secoes.html',
+                        controller: 'SecoesCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-rastreabilidade', {
-        url: '/projetos/:projetoId/rastreabilidade',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-rastreabilidade.html',
-                controller: 'ProjetoCtrl'
-          }
-        }
-    })
+            .state('app.projeto-requsuario', {
+                url: '/projetos/:projetoId/requsuario',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-requsuario.html',
+                        controller: 'ReqUsuarioListCtrl'
+                    }
+                }
+            })
 
-    .state('app.projeto-participantes', {
-        url: '/projetos/:projetoId/participantes',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/projeto-participantes.html',
-                controller: 'ProjetoCtrl'
-          }
-        }
-    })
+            .state('app.projeto-requsuario-add', {
+                url: '/projetos/:projetoId/requsuario/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-requsuario-cadastro.html',
+                        controller: 'ReqUsuarioCtrl'
+                    }
+                }
+            })
 
-    .state('app.config', {
-        url: '/config',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/config.html',
-                controller: 'ConfigCtrl'
-            }
-        }
-    })
+            .state('app.projeto-requsuario-cadastro', {
+                url: '/projetos/:projetoId/requsuario/:reqUsuarioId/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-requsuario-cadastro.html',
+                        controller: 'ReqUsuarioCtrl'
+                    }
+                }
+            })
 
-    ;
+            .state('app.projeto-reqsistema-funcional', {
+                url: '/projetos/:projetoId/reqsistema/funcional',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-funcional.html',
+                        controller: 'ReqSistemaFuncionalListCtrl'
+                    }
+                }
+            })
 
-    // if none of the above states are matched, use this as the fallback
+            .state('app.projeto-reqsistema-naofuncional', {
+                url: '/projetos/:projetoId/reqsistema/naofuncional',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-naofuncional.html',
+                        controller: 'ReqSistemaNaoFuncionalListCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-add', {
+                url: '/projetos/:projetoId/reqsistema/cadastro/:reqTipoId',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-cadastro.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-addpadrao', {
+                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId/:templateId',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-cadastro.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-addpadrao-sugestoes', {
+                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId/:templateId/sugestoes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-sugestoes.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-reqsistema-cadastro', {
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-cadastro.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-reqsistema-padrao-template', {
+                url: '/projetos/:projetoId/reqsistema/padrao/:padraoId/template',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-padrao-template.html',
+                        controller: 'ReqSistemaPadraoCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-reqsistema-padrao-detalhe', {
+                url: '/projetos/:projetoId/reqsistema/padrao/:padraoId/:modo',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-padrao-detalhe.html',
+                        controller: 'ReqSistemaPadraoCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-reqsistema-padrao', {
+                url: '/projetos/:projetoId/reqsistema/padrao',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-padrao.html',
+                        controller: 'ReqSistemaPadraoCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-reqsistema-sugestoes', {
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/sugestoes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-sugestoes.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-rastreabilidade', {
+                url: '/projetos/:projetoId/rastreabilidade',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-rastreabilidade.html',
+                        controller: 'ProjetoCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-participantes', {
+                url: '/projetos/:projetoId/participantes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-participantes.html',
+                        controller: 'ParticipanteListCtrl'
+                    }
+                }
+            })
+
+            .state('app.projeto-participantes-add', {
+                url: '/projetos/:projetoId/participantes/cadastro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-participantes-cadastro.html',
+                        controller: 'InteressadoCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-relatorio', {
+                url: '/projetos/:projetoId/relatorio',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-relatorio.html',
+                        controller: 'RelatorioCtrl'
+                    }
+                }
+            })
+
+            .state('app.config', {
+                url: '/config',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/config.html',
+                        controller: 'ConfigCtrl'
+                    }
+                }
+            })
+
+            ;
+    $ionicConfigProvider.navBar.alignTitle('center');
     $urlRouterProvider.otherwise('/app/projetos');
 });

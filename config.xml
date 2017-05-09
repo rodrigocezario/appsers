@@ -78,4 +78,5 @@
   </platform>
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
   <allow-navigation href="http://192.168.2.103:8100"/>
+  <allow-navigation href="http://192.168.2.105:8100"/>
 </widget>

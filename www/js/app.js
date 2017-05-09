@@ -1,7 +1,6 @@
 var db = null;
 var usuarioLogin = null;
 var app = angular.module('appsers', ['ionic', 'ionic-material', 'ngCordova', 'angular-md5', 'ngMessages']);
-
 app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILocal, $ionicHistory) {
     $ionicPlatform.ready(function () {
 
@@ -233,6 +232,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     }
                 }
             })
+            
+            .state('app.projeto-reqsistema-addpadrao-sugestoes', {
+                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId/:templateId/sugestoes',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-reqsistema-sugestoes.html',
+                        controller: 'ReqSistemaCtrl'
+                    }
+                }
+            })
 
             .state('app.projeto-reqsistema-cadastro', {
                 url: '/projetos/:projetoId/reqsistema/:requisitoId/cadastro',
@@ -279,7 +288,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-sugestoes.html',
-                        controller: 'ReqSistemaSugestoesCtrl'
+                        controller: 'ReqSistemaCtrl'
                     }
                 }
             })
@@ -310,6 +319,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                     'menuContent': {
                         templateUrl: 'templates/projeto-participantes-cadastro.html',
                         controller: 'InteressadoCtrl'
+                    }
+                }
+            })
+            
+            .state('app.projeto-relatorio', {
+                url: '/projetos/:projetoId/relatorio',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/projeto-relatorio.html',
+                        controller: 'RelatorioCtrl'
                     }
                 }
             })

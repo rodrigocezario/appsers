@@ -1,0 +1,68 @@
+<ion-view view-title="SERS">
+    <ion-content class="has-footer">
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title"><i class="icon ion-ios-printer"></i> Relatorio</strong>
+        </div>
+        <div id="conteudo-impressao" class="list im-wrapper">
+            <h4>Dados Cadastrais</h4>
+            <h5>Nome do Projeto</h5>
+            <h5>Descrição do Projeto</h5>
+            <h5>Empresa</h5>
+            <h5>Responsável</h5>
+            <h5>Compartilhado?</h5>
+
+            <h4>Interessados</h4>
+            <div class="list">
+                <h5>Nome</h5>
+                <h5>Papel</h5>
+                <h5>Função</h5>
+                <h5>Email</h5>
+                <h5>Telefone</h5>
+            </div>
+
+            <h4>Seções do Documeto ERS</h4>
+            <h5>Propósito</h5>
+            <h5>Escopo</h5>
+            <h5>Definições, acrônimos e abreviaturas</h5>
+            <h5>Referências</h5>
+            <h5>Organização</h5>
+            <h5>Perspectiva do produto</h5>
+            <h5>Funcionalidades</h5>
+            <h5>Característica do utilizador</h5>
+            <h5>Restrições</h5>
+            <h5>Assunções e dependências</h5>
+
+            <h4>Requisitos de Usuário</h4>
+            <div class="list">
+                <h5>RU001</h5>
+                <h5>Descrição</h5>
+                <h5>Interessados</h5>
+            </div>
+            
+            <h4>Requisitos de Sistema</h4>
+            <div class="list">
+                <h5>Resumo</h5>
+                <h5>Descrição do Requisito</h5>
+                <h5>Observações</h5>
+                <h5>Tipo do Requisito</h5>
+                <h5>Requisito de Usuário</h5>
+                <h5>Importância</h5>
+                <h5>Urgência</h5>
+                <h5>Padrão de Projeto</h5>
+            </div>
+            
+            <h4>Participantes</h4>
+            <div class="list">
+                <h5>Nome</h5>
+                <h5>Email</h5>
+            </div>
+            <br/>
+        </div>
+        <button class="button button-block button-balanced ink" ng-click="imprimir()" data-ink-color="#9DEAFF" data-ink-opacity="1">
+            Imprimir
+        </button>
+    </ion-content>
+    <ion-footer-bar class="bar-stable">
+        <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
+    </ion-footer-bar>
+</ion-view>

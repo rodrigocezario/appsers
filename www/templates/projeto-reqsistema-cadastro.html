@@ -4,8 +4,8 @@
             <strong class="title"><i class="icon ion-ios-paper"></i> Dados do Requisito <span ng-hide="!requisito.id_requisito">RF{{('000' + requisito.id_requisito).substr(-3, 3)}}</span></strong>
         </div>
         <div class="button-bar">
-            <a class="button button-raised ink-dark button-bar-active">Requisito</a>
-            <a class="button button-raised ink-dark" ng-click="tabSelect(3)">Sujestões</a>
+            <a class="button button-raised ink-dark button-bar-active" ng-show="requisito.id_padrao && sugestoes.length > 0">Requisito</a>
+            <a class="button button-raised ink-dark" ng-show="requisito.id_padrao && sugestoes.length > 0" ng-click="tabSelect(3)">Sujestões <small>({{sugestoes.length}})</small></a>
         </div>
         <div class="im-wrapper">
             <form name="form" class="padding-top" ng-submit="salvar(requisito)" novalidate autocomplete="off">
