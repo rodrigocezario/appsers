@@ -32,7 +32,7 @@ app.run(function ($ionicPlatform, dbAPILocal, $state, $rootScope, usuarioAPILoca
             if (navigator && navigator.splashscreen) {
                 setTimeout(function () {
                     navigator.splashscreen.hide();
-                }, 100);
+                }, 50);
             }
         });
 

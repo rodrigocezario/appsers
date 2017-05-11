@@ -3,64 +3,120 @@
         <div class="bar bar-subheader bar-stable static text-center">
             <strong class="title"><i class="icon ion-ios-printer"></i> Relatorio</strong>
         </div>
-        <div id="conteudo-impressao" class="list im-wrapper">
-            <h4>Dados Cadastrais</h4>
-            <h5>Nome do Projeto</h5>
-            <h5>Descrição do Projeto</h5>
-            <h5>Empresa</h5>
-            <h5>Responsável</h5>
-            <h5>Compartilhado?</h5>
+        <div class="im-wrapper">
+            <div id="conteudo-impressao" class="list">
+                <h3>Relatório de Projeto</h3>
+                <br/>
+                <h4>Dados Cadastrais</h4>
+                <h5>Projeto</h5>
+                <p>{{projeto.nome}}</p>
+                <h5>Descrição do Projeto</h5>
+                <p>{{projeto.descricao}}</p>
+                <h5>Empresa</h5>
+                <p>{{projeto.empresa}}</p>
+                <h5>Responsável</h5>
+                <p>{{projeto.responsavel}}</p>
+                <h5>Compartilhado?</h5>
+                <p>{{(projeto.compartilhado == 1)?'Sim':'Não'}}</p>
+                
+                <h4>Interessados</h4>
+                <div class="list" ng-repeat="item in interessados">
+                    <h5>Interessado</h5>
+                    <p>{{item.nome}}</p>
+                    <h5>Papel</h5>
+                    <p>{{item.papel}}</p>
+                    <h5>Função</h5>
+                    <p>{{item.funcao}}</p>
+                    <h5>Email</h5>
+                    <p>{{item.email}}</p>
+                    <h5>Telefone</h5>
+                    <p>{{item.telefone}}</p>
+                    <hr/>
+                </div>
 
-            <h4>Interessados</h4>
-            <div class="list">
-                <h5>Nome</h5>
-                <h5>Papel</h5>
-                <h5>Função</h5>
-                <h5>Email</h5>
-                <h5>Telefone</h5>
-            </div>
+                <h4>Seções do Documeto ERS</h4>
+                <h5>Propósito</h5>
+                <p>{{secoes.proposito}}</p>
+                <h5>Escopo</h5>
+                <p>{{secoes.escopo}}</p>
+                <h5>Definições, acrônimos e abreviaturas</h5>
+                <p>{{secoes.def_acron_abrev}}</p>
+                <h5>Referências</h5>
+                <p>{{secoes.referencias}}</p>
+                <h5>Organização</h5>
+                <p>{{secoes.organizacao}}</p>
+                <h5>Perspectiva do produto</h5>
+                <p>{{secoes.perspectiva}}</p>
+                <h5>Funcionalidades</h5>
+                <p>{{secoes.funcionalidades}}</p>
+                <h5>Característica do utilizador</h5>
+                <p>{{secoes.caracteristicas_utilizador}}</p>
+                <h5>Restrições</h5>
+                <p>{{secoes.restricoes}}</p>
+                <h5>Assunções e dependências</h5>
+                <p>{{secoes.assuncoes_dependencias}}</p>
 
-            <h4>Seções do Documeto ERS</h4>
-            <h5>Propósito</h5>
-            <h5>Escopo</h5>
-            <h5>Definições, acrônimos e abreviaturas</h5>
-            <h5>Referências</h5>
-            <h5>Organização</h5>
-            <h5>Perspectiva do produto</h5>
-            <h5>Funcionalidades</h5>
-            <h5>Característica do utilizador</h5>
-            <h5>Restrições</h5>
-            <h5>Assunções e dependências</h5>
+                <h4>Requisitos de Usuário</h4>
+                <div class="list" ng-repeat="item in requsuario">
+                    <h5 class="no-padding">RU{{('000' + item.id_requisito).substr(-3, 3)}}</h5>
+                    <p>{{item.descricao}}</p>
+                    <h5>Interessados</h5>
+                    <p>{{item.interessados}}</p>
+                    <hr/>
+                </div>
 
-            <h4>Requisitos de Usuário</h4>
-            <div class="list">
-                <h5>RU001</h5>
-                <h5>Descrição</h5>
-                <h5>Interessados</h5>
+                <h4>Requisitos de Sistema - Funcionais</h4>
+                <div class="list" ng-repeat="item in reqfuncionais">
+                    <h5 class="no-padding">RF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</h5>
+                    <h5>Descrição</h5>
+                    <p>{{item.descricao}}</p>
+                    <h5>Observações</h5>
+                    <p>{{item.observacao}}</p>
+                    <h5>Tipo do Requisito</h5>
+                    <p>{{descTipoRequisito(item.tipo)}}</p>
+                    <h5>Requisito de Usuário</h5>
+                    <h5>{{(item.id_requisito_usuario)?'RU'+('000' + item.id_requisito_usuario).substr(-3, 3):''}}</h5>
+                    <p>{{item.requsuario.descricao}}</p>
+                    <h5>Importância</h5>
+                    <p>{{descImportancia(item.importancia)}}</p>
+                    <h5>Urgência</h5>
+                    <p>{{descUrgencia(item.urgencia)}}</p>
+                    <h5>Padrão de Projeto</h5>
+                    <p>{{item.padrao}}</p>
+                    <hr/>
+                </div>
+                <h4>Requisitos de Sistema - Não Funcionais</h4>
+                <div class="list" ng-repeat="item in reqnaofuncionais">
+                    <h5 class="no-padding">RNF{{('000' + item.id_requisito).substr(-3, 3)}} - {{item.resumo}}</h5>
+                    <h5>Descrição</h5>
+                    <p>{{item.descricao}}</p>
+                    <h5>Observações</h5>
+                    <p>{{item.observacao}}</p>
+                    <h5>Tipo do Requisito</h5>
+                    <p>{{descTipoRequisito(item.tipo)}}</p>
+                    <h5>Requisito de Usuário</h5>
+                    <h5>{{(item.id_requisito_usuario)?'RU'+('000' + item.id_requisito_usuario).substr(-3, 3):''}}</h5>
+                    <p>{{item.requsuario.descricao}}</p>
+                    <h5>Importância</h5>
+                    <p>{{descImportancia(item.importancia)}}</p>
+                    <h5>Urgência</h5>
+                    <p>{{descUrgencia(item.urgencia)}}</p>
+                    <h5>Padrão de Projeto</h5>
+                    <p>{{item.padrao}}</p>
+                    <hr/>
+                </div>
+                <h4>Participantes</h4>
+                <div class="list" ng-repeat="item in participantes">
+                    <h5>{{item.nome}}</h5>
+                    <p>{{item.email}}</p>
+                    <hr/>
+                </div>
+                <br/>
             </div>
-            
-            <h4>Requisitos de Sistema</h4>
-            <div class="list">
-                <h5>Resumo</h5>
-                <h5>Descrição do Requisito</h5>
-                <h5>Observações</h5>
-                <h5>Tipo do Requisito</h5>
-                <h5>Requisito de Usuário</h5>
-                <h5>Importância</h5>
-                <h5>Urgência</h5>
-                <h5>Padrão de Projeto</h5>
-            </div>
-            
-            <h4>Participantes</h4>
-            <div class="list">
-                <h5>Nome</h5>
-                <h5>Email</h5>
-            </div>
-            <br/>
+            <button class="button button-block button-balanced ink" ng-click="imprimir()" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                Imprimir
+            </button>
         </div>
-        <button class="button button-block button-balanced ink" ng-click="imprimir()" data-ink-color="#9DEAFF" data-ink-opacity="1">
-            Imprimir
-        </button>
     </ion-content>
     <ion-footer-bar class="bar-stable">
         <h5 class="row"><i class="icon ion-ios-briefcase"> {{projeto.nome}}</i></h5>
