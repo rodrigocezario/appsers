@@ -284,7 +284,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             })
 
             .state('app.projeto-reqsistema-sugestoes', {
-                url: '/projetos/:projetoId/reqsistema/:requisitoId/sugestoes',
+                url: '/projetos/:projetoId/reqsistema/:requisitoId/sugestoes/:padraoId',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-sugestoes.html',

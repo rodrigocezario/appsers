@@ -90,7 +90,7 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
                 "FROM requisito_sistema rs " +
                 "LEFT JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
                 "WHERE rs.id_padrao = ? ";
-        if (idRequisito) {
+        if (idRequisito != null) {
             parameters.push(idRequisito);
             query += "AND rs.id <> ? ";
         }

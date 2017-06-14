@@ -24,9 +24,19 @@
                 <div ng-bind-html="padrao.forcas"></div>
             </div>
             <div class="padding" ng-show="modo == 'selecionar'">
-                <button class="button button-block button-balanced ink" ng-click="selecionarPadrao();" data-ink-color="#9DEAFF" data-ink-opacity="1">
-                    Utilizar este padrão
-                </button>
+                <div class="row no-padding">
+                    <div class="col-50">
+                        <button type="button" class="button button-block button-dark ink" ng-click="goToList(1)" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                            Cancelar
+                        </button>
+                    </div>
+                    <div class="col-50">
+                        <button class="button button-block button-balanced ink" ng-click="selecionarPadrao();" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                            Utilizar este padrão
+                        </button>
+                    </div>
+                </div>
+                
             </div>
 
         </div>

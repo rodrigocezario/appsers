@@ -1,4 +1,4 @@
-app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, utilAPI, projetoAPILocal, padraoAPILocal) {
+app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, $ionicHistory, utilAPI, projetoAPILocal, padraoAPILocal) {
 
     if (Number($stateParams.projetoId)) {
         projetoAPILocal.getById($stateParams.projetoId).then(function (res) {
@@ -41,6 +41,7 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
     $scope.padraoDetalhe = function (item) {
         $state.go("app.projeto-reqsistema-padrao-detalhe", {'projetoId': $stateParams.projetoId, 'padraoId': item.id, 'modo': 'selecionar'});
     };
+    
     $scope.selecionarPadrao = function (padraoId) {
         if (Number(padraoId) && !Number($stateParams.padraoId)) {
             $stateParams.padraoId = padraoId;
@@ -51,10 +52,26 @@ app.controller('ReqSistemaPadraoCtrl', function ($scope, $state, $stateParams, u
 
     $scope.selecionarTemplate = function (templateId = null) {
         if (Number($stateParams.padraoId)) {
-            $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId, 'templateId': templateId});
+                $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId, 'templateId': templateId});
+        }
     }
+    
+    $scope.goToList = function goToList($tipo) {
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+        });
+        $state.go("app.projeto-menu", {'projetoId': $stateParams.projetoId}).then(function(){
+            $ionicHistory.nextViewOptions({
+                disableBack: false
+            });
+            if ($tipo == 1) {
+                $state.go("app.projeto-reqsistema-funcional", {'projetoId': $stateParams.projetoId}).then();
+            } else {
+                $state.go("app.projeto-reqsistema-naofuncional", {'projetoId': $stateParams.projetoId}).then();
+            }
+        });
     }
-
+    
     function setInitFiltro() {
         $scope.filtro = {termo: null, id_categoria: null, tipo_categoria: null};
     }
