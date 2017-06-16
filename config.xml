@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.appsers779761" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.appsers779761" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>SERS</name>
   <description>&#xD;
-        An Ionic Framework and Cordova project.&#xD;
+        Aplicativo de auxilio a especificação de requisitos de software.&#xD;
     </description>
-  <author email="guissos@gmail.com" href="http://example.com.com/">&#xD;
+    <author email="guissos@gmail.com" href="http://example.com.com/">&#xD;
         Guilherme Cancio dos Passos&#xD;
     </author>
   <content src="index.html"/>
