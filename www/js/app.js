@@ -224,7 +224,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             })
             
             .state('app.projeto-reqsistema-addpadrao', {
-                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId/:templateId',
+                url: '/projetos/:projetoId/reqsistema/cadastro-padrao/:padraoId/:templateId/:reqReusoId/:reqReusoTipoVinculo',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/projeto-reqsistema-cadastro.html',

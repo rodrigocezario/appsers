@@ -14,8 +14,8 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
                 "   rsp.importancia, " +
                 "   rsp.urgencia, " +
                 "   rsp.observacao " +
-                "FROM requisito_sistema rs " +
-                "LEFT JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
+                "FROM requisito_sistema_projeto rsp " +
+                "LEFT JOIN requisito_sistema rs ON (rs.id = rsp.id_requisito_sistema) " +
                 "ORDER BY rs.id";
         return dbAPILocal.query(query).then(function (result) {
             return dbAPILocal.getAll(result);
@@ -36,8 +36,8 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
                 "   rsp.importancia, " +
                 "   rsp.urgencia, " +
                 "   rsp.observacao " +
-                "FROM requisito_sistema rs " +
-                "LEFT JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
+                "FROM requisito_sistema_projeto rsp " +
+                "LEFT JOIN requisito_sistema rs ON (rs.id = rsp.id_requisito_sistema) " +
                 "WHERE rs.id = ? ";
         return dbAPILocal.query(query, parameters).then(function (result) {
             return dbAPILocal.getById(result);
@@ -59,8 +59,8 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
                 "   rsp.urgencia, " +
                 "   rsp.observacao, " +
                 "   (SELECT p.nome FROM padrao p WHERE p.id = rs.id_padrao) AS padrao " +
-                "FROM requisito_sistema rs " +
-                "LEFT JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
+                "FROM requisito_sistema_projeto rsp " +
+                "LEFT JOIN requisito_sistema rs ON (rs.id = rsp.id_requisito_sistema) " +
                 "WHERE rsp.id_projeto = ? ";
         if (tipoRequisito) {
             parameters.push(tipoRequisito);
@@ -72,7 +72,7 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
         });
     }
 
-    self.getByIdPadrao = function (idPadrao, idRequisito = null) {
+    self.getSugestao = function (idPadrao, idRequisito = null) {
         var parameters = [idPadrao];
         var query =
                 "SELECT " +
@@ -88,12 +88,14 @@ app.factory("reqSistemaAPILocal", function (dbAPILocal) {
                 "   rsp.observacao, " +
                 "   (SELECT p.nome FROM padrao p WHERE p.id = rs.id_padrao) AS padrao " +
                 "FROM requisito_sistema rs " +
-                "LEFT JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
+                "INNER JOIN requisito_sistema_projeto rsp ON (rsp.id_requisito_sistema = rs.id) " +
                 "WHERE rs.id_padrao = ? ";
+                "AND (rsp.id_vinculo IS NULL OR rsp.id_vinculo = 0) ";
         if (idRequisito != null) {
             parameters.push(idRequisito);
             query += "AND rs.id <> ? ";
         }
+        query += "GROUP BY rs.resumo, rs.descricao ";
         query += "ORDER BY rs.id";
         return dbAPILocal.query(query, parameters).then(function (result) {
             return dbAPILocal.getAll(result);

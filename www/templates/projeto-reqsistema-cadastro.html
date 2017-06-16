@@ -12,7 +12,7 @@
                 <div class="list">
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Resumo</span>
-                        <input type="text" name="resumo" placeholder="Resumo" ng-model="requisito.resumo" ng-required="true" ng-minlength="3">
+                        <input type="text" name="resumo" placeholder="Resumo" ng-model="requisito.resumo" ng-readonly="(requisito.id_vinculo)" ng-required="true" ng-minlength="3">
                         <ul ng-messages="form.resumo.$dirty && form.resumo.$error">
                             <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
                             <li ng-message="minlength"><small class="assertive-900">Informar ao menos 3 caracteres</small></li>
@@ -20,13 +20,20 @@
                     </label>
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Descrição do Requisito</span>
-                        <textarea rows="10" name="descricao" placeholder="Descrição do Requisito" ng-model="requisito.descricao" ng-required="true" ng-minlength="10"></textarea>
+                        <textarea rows="10" name="descricao" placeholder="Descrição do Requisito" ng-model="requisito.descricao" ng-readonly="(requisito.id_vinculo)" ng-required="true" ng-minlength="10"></textarea>
                         <ul ng-messages="form.descricao.$dirty && form.descricao.$error">
                             <li ng-message="required"><small class="assertive-900">Preenchimento obrigatório</small></li>
                             <li ng-message="minlength"><small class="assertive-900">Informar ao menos 10 caracteres</small></li>
                         </ul>
                     </label>
-                    <button ng-show="padrao.exemplos" type="button" class="button button-raised button-block button-dark" ng-click="openModal()" data-ink-color="#9DEAFF" data-ink-opacity="1">
+                    <span ng-show="(requisito.reuso == 1 && !requisito.id_vinculo)">
+                        <h5 class="padding-left padding-right">Este requisito foi obtido atráves do reuso de requisito.</h5>
+                    </span>
+                    <span ng-show="(requisito.id_vinculo)">
+                        <h5 class="padding-left padding-right">Este requisito foi obtido atráves do reuso de requisito, mantendo vínculo com o requisito original e portanto só poderá ter seu texto principal modificado pelo autor.</h5>
+                        <a class="link padding-left padding-right" ng-click="removerVinculo()">Remover Vínculo</a>
+                    </span>
+                    <button ng-show="padrao.exemplos" type="button" class="button button-small button-block button-dark" ng-click="openModal()" data-ink-color="#9DEAFF" data-ink-opacity="1">
                         Ver exemplos
                     </button>
                     <script id="exemplos-modal.html" type="text/ng-template">
@@ -45,9 +52,7 @@
                         <p ng-bind-html="item.definicao"/>
                         </div>
                         </div>
-                        <button type="button" class="button button-raised button-block button-dark" ng-click="closeModal()" data-ink-color="#9DEAFF" data-ink-opacity="1">
-                        Fechar
-                        </button>
+                        <button type="button" class="button button-small button-block button-dark" ng-click="closeModal()" data-ink-color="#9DEAFF" data-ink-opacity="1">Fechar</button>
                         </ion-content>
                         </ion-modal-view>
                     </script>

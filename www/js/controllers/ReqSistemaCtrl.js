@@ -1,5 +1,6 @@
 app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicHistory, projetoAPILocal, reqSistemaAPILocal, padraoAPILocal, reqUsuarioAPILocal, utilAPI) {
     if (Number($stateParams.requisitoId)) {
+        setInitReqSistema();
         reqSistemaAPILocal.getById($stateParams.requisitoId).then(function (res) {
             angular.merge($scope.requisito, res);
             $scope.padrao = null;
@@ -42,7 +43,7 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
             }
         });
         $scope.sugestoes = {};
-        reqSistemaAPILocal.getByIdPadrao($scope.requisito.id_padrao).then(function (res2) {
+        reqSistemaAPILocal.getSugestao($scope.requisito.id_padrao, $scope.requisito.id).then(function (res2) {
             $scope.sugestoes = res2;
         });
     }
@@ -51,8 +52,25 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
         padraoAPILocal.getTemplateById($stateParams.templateId).then(function (res) {
             if (res) {
                 if ($scope.requisito) {
-                    $scope.requisito.resumo = angular.element(res.resumo).text();
-                    $scope.requisito.descricao = angular.element(res.definicao).text();
+                    $scope.requisito.resumo = String(res.resumo);
+                    $scope.requisito.descricao = String(res.definicao);
+                }
+            }
+        });
+    }
+
+    if (Number($stateParams.reqReusoId)) {
+        reqSistemaAPILocal.getById($stateParams.reqReusoId).then(function (res) {
+            if (res) {
+                if ($scope.requisito) {
+                    $scope.requisito.resumo = String(res.resumo);
+                    $scope.requisito.descricao = String(res.descricao);
+                    $scope.requisito.importancia = parseInt(res.importancia);
+                    $scope.requisito.urgencia = parseInt(res.urgencia);
+                    $scope.requisito.reuso = 1;
+                    if ($stateParams.reqReusoTipoVinculo == 2) {
+                        $scope.requisito.id_vinculo = parseInt($stateParams.reqReusoId);
+                    }
                 }
             }
         });
@@ -73,12 +91,12 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
             });
         }
     };
-    
-    $scope.goToList = function goToList($tipo) {
+
+    $scope.goToList = function ($tipo) {
         $ionicHistory.nextViewOptions({
             disableBack: true
         });
-        $state.go("app.projeto-menu", {'projetoId': $stateParams.projetoId}).then(function(){
+        $state.go("app.projeto-menu", {'projetoId': $stateParams.projetoId}).then(function () {
             $ionicHistory.nextViewOptions({
                 disableBack: false
             });
@@ -101,13 +119,21 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
 
     $scope.tabSelect = function (tipo) {
         if (tipo == 1) {
-            if($scope.requisito.id != null){
+            if ($scope.requisito.id != null) {
                 $state.go("app.projeto-reqsistema-cadastro", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id});
-            }else if($stateParams.padraoId != null){
-                $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId});
+            } else if ($stateParams.padraoId != null) {
+                $state.go(
+                        "app.projeto-reqsistema-addpadrao",
+                        {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId},
+                        {location: true, inherit: true, inherit: true, relative: $state.$current}
+                );
             }
         } else if (tipo == 3) {
-            $state.go("app.projeto-reqsistema-sugestoes", {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id, 'padraoId': $scope.requisito.id_padrao});
+            $state.go(
+                    "app.projeto-reqsistema-sugestoes",
+                    {'projetoId': $stateParams.projetoId, 'requisitoId': $scope.requisito.id, 'padraoId': $scope.requisito.id_padrao},
+                    {location: true, inherit: true, relative: $state.$current}
+            );
         }
     };
 
@@ -123,34 +149,49 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
 
     utilAPI.modal('exemplos-modal.html', $scope);
     $scope.selecionarExemplo = function (idExemplo) {
-        utilAPI.confirmar("Utilizar este exemplo para especificação?", "ATENÇÃO: resumo e descrição do requisito (não salvos) serão substituídos").then(function (res) {
-            if (res) {
-                padraoAPILocal.getExemploById(idExemplo).then(function (res2) {
-                    if (res2) {
-                        if ($scope.requisito) {
-                            $scope.requisito.resumo = angular.element("<span>" + res2.resumo + "</span>").text();
-                            $scope.requisito.descricao = angular.element("<p>" + res2.definicao + "</p>").text();
-                            $scope.closeModal();
+        if (!$scope.requisito.id_vinculo) {
+            utilAPI.confirmar("Utilizar este exemplo para especificação?", "ATENÇÃO: resumo e descrição do requisito (não salvos) serão substituídos").then(function (res) {
+                if (res) {
+                    padraoAPILocal.getExemploById(idExemplo).then(function (res2) {
+                        if (res2) {
+                            if ($scope.requisito) {
+                                $scope.requisito.resumo = angular.element("<span>" + res2.resumo + "</span>").text();
+                                $scope.requisito.descricao = angular.element("<p>" + res2.definicao + "</p>").text();
+                                $scope.requisito.reuso = null;
+                                $scope.closeModal();
+                            }
                         }
-                    }
-                });
-            }
-        });
-    }
-    
-    $scope.selecionarSugestao = function (itemReq) {
-        //console.log(itemReq);
-        utilAPI.confirmar("Utilizar esta sugestão de requisito para especificação?", "ATENÇÃO: resumo e descrição do requisito (não salvos) serão substituídos").then(function (res) {
-            if (res) {
-                if ($scope.requisito) {
-                    $scope.requisito.resumo = angular.element("<span>" + itemReq.resumo + "</span>").text();
-                    $scope.requisito.descricao = angular.element("<p>" + itemReq.definicao + "</p>").text();
-                    //$scope.closeModal();
+                    });
                 }
+            });
+        }
+    }
+
+    $scope.selecionarSugestao = function (itemReq, tipoVinculo) {
+        var msgTitulo = '';
+        var msgDescricao = '';
+        if (tipoVinculo == 1) {
+            msgTitulo = "Utilizar dados do requisito?";
+            msgDescricao = "ATENÇÃO: resumo e descrição do requisito (não salvos) serão substituídos";
+        } else if (tipoVinculo == 2) {
+            msgTitulo = "Utilizar dados do requisito e manter ligação?";
+            msgDescricao = "ATENÇÃO: resumo e descrição do requisito (não salvos) serão substituídos. Além disso, sempre que o autor original do requisito fizer modificações nos campos principais o seu requisito também será modificado automaticamente.";
+        }
+        utilAPI.confirmar(msgTitulo, msgDescricao).then(function (res) {
+            if (res) {
+                $state.go("app.projeto-reqsistema-addpadrao", {'projetoId': $stateParams.projetoId, 'padraoId': $stateParams.padraoId, 'reqReusoId': itemReq.id, 'reqReusoTipoVinculo': tipoVinculo});
             }
         });
     }
-    
+
+    $scope.removerVinculo = function () {
+        utilAPI.confirmar("Deseja remover vínculo com o autor?", "Ao confirmar você poderá editar o requisito porém não receberá mais alterações que eventualmente serão feitas pelo autor.").then(function (res) {
+            if (res) {
+                $scope.requisito.id_vinculo = null;
+            }
+        });
+    }
+
     reqUsuarioAPILocal.getByIdProjeto($stateParams.projetoId).then(function (res) {
         $scope.reqUsuarioOptions = [{id: null, name: "Não definido", id_requisito: null}];
         angular.forEach(res, function (item) {
@@ -159,7 +200,7 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
             }
         });
     });
-    
+
     $scope.descImportancia = function (id) {
         if (id == 1) {
             return "Essencial";
@@ -183,7 +224,7 @@ app.controller('ReqSistemaCtrl', function ($scope, $stateParams, $state, $ionicH
             return null;
         }
     }
-    
+
     $scope.tipoOptions = [
         {id: 1, name: "Funcional"},
         {id: 2, name: "Não Funcional"}

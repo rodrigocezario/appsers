@@ -18,7 +18,6 @@ app.factory("utilAPI", function ($ionicPopup, $ionicModal, $timeout) {
             cancelType: cancelType,
             okText: okText,
             okType: okType
-
         });
     }
 
